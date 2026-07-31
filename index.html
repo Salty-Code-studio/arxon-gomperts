@@ -34,7 +34,7 @@
     color: var(--white);
     font-family: var(--font-body);
     font-weight: 300;
-    overflow-x: hidden;
+    overflow-x: clip;
     cursor: none;
   }
   /* PAGE LOADER */
@@ -714,6 +714,233 @@
     transition: background 0.3s;
   }
   .gallery-expand:hover { background: rgba(255,255,255,0.15); }
+  /* ============ STORY (pinned scrollytelling) ============ */
+  #gallery { padding: 0; }
+  .story-intro {
+    padding: 120px 48px 80px;
+    max-width: 900px;
+    position: relative; z-index: 2;
+  }
+  .story-intro-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.92;
+    margin: 8px 0 24px;
+  }
+  .story-intro-sub {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-style: italic;
+    max-width: 480px;
+  }
+  .story-scrollcue {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .story-scrollcue-line {
+    width: 44px; height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+    animation: scrollPulse 2s infinite;
+  }
+  /* Sticky-stack: each chapter pins, the next slides up and covers it */
+  .story { position: relative; }
+  .chapter {
+    position: sticky; top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    padding: 12vh 6vw;
+    background: var(--black);
+    border: none;
+  }
+  section.chapter + section.chapter { border-top: none; }
+  @supports (height: 100svh) { .chapter { height: 100svh; } }
+  .pos-bl { justify-content: flex-start; align-items: flex-end; text-align: left; }
+  .pos-br { justify-content: flex-end;   align-items: flex-end; text-align: right; }
+  .pos-center { justify-content: center; align-items: center;   text-align: center; }
+  .chapter-media {
+    position: absolute; inset: 0; z-index: 0;
+    will-change: transform;
+  }
+  .chapter-media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scale(1.14);
+    filter: brightness(0.6) saturate(1.08);
+    transition: transform 1.6s cubic-bezier(0.16,1,0.3,1), filter 1.6s ease;
+  }
+  .chapter.active .chapter-media img { transform: scale(1.06); filter: brightness(0.68) saturate(1.12); }
+  .chapter-veil {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 60%, transparent 0%, rgba(0,0,0,0.35) 100%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.55) 100%);
+  }
+  .chapter-bignum {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: var(--font-display);
+    font-size: clamp(240px, 46vw, 680px);
+    line-height: 0.7;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.045);
+    z-index: 1; pointer-events: none;
+    user-select: none;
+  }
+  .chapter-inner {
+    position: relative; z-index: 2;
+    max-width: 640px;
+    display: inline-flex; flex-direction: column;
+  }
+  .pos-br .chapter-inner { align-items: flex-end; }
+  .pos-center .chapter-inner { align-items: center; max-width: 760px; }
+  .chapter-index {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 11vw, 168px);
+    line-height: 0.86;
+    letter-spacing: -0.005em;
+  }
+  .chapter-rule {
+    width: 0; height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+    margin: 28px 0 26px;
+    transition: width 1s cubic-bezier(0.16,1,0.3,1) 0.35s;
+  }
+  .chapter.active .chapter-rule { width: 88px; }
+  .chapter-line {
+    font-size: clamp(17px, 2.1vw, 24px);
+    line-height: 1.5;
+    color: var(--white);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 30ch;
+  }
+  .chapter-accent { color: var(--accent); font-style: normal; }
+  .chapter-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 24px;
+  }
+  .chapter-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 32px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 15px 32px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .chapter-cta:hover { background: var(--white); box-shadow: 0 0 40px var(--accent-glow); transform: translateY(-2px); }
+  /* Entrance animation — children hidden until chapter is active */
+  .chapter-inner > * {
+    opacity: 0;
+    transform: var(--enter, translateY(44px));
+    transition: opacity 0.9s ease, transform 1s cubic-bezier(0.16,1,0.3,1);
+  }
+  .chapter[data-enter="left"]  .chapter-inner { --enter: translateX(-70px); }
+  .chapter[data-enter="right"] .chapter-inner { --enter: translateX(70px); }
+  .chapter[data-enter="up"]    .chapter-inner { --enter: translateY(52px); }
+  .chapter[data-enter="scale"] .chapter-inner { --enter: scale(0.86); }
+  .chapter.active .chapter-inner > * { opacity: 1; transform: none; }
+  .chapter-inner > *:nth-child(1) { transition-delay: 0.10s; }
+  .chapter-inner > *:nth-child(2) { transition-delay: 0.20s; }
+  .chapter-inner > *:nth-child(3) { transition-delay: 0.30s; }
+  .chapter-inner > *:nth-child(4) { transition-delay: 0.40s; }
+  .chapter-inner > *:nth-child(5) { transition-delay: 0.50s; }
+  .chapter-rule { opacity: 1 !important; } /* rule animates via width, keep visible */
+  /* Progress rail */
+  .story-rail {
+    position: fixed; right: 30px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex; flex-direction: column; gap: 16px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  .story-rail.visible { opacity: 1; visibility: visible; }
+  .story-rail button {
+    width: 11px; height: 11px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.23,1,0.32,1);
+    position: relative;
+  }
+  .story-rail button::after {
+    content: attr(data-label);
+    position: absolute; right: 22px; top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 0.15em;
+    color: var(--muted); text-transform: uppercase;
+    white-space: nowrap; opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+  .story-rail button:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+  .story-rail button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 14px var(--accent-glow);
+    transform: scale(1.25);
+  }
+  /* MORE FROM THE WATER — horizontal strip */
+  .gallery-strip-wrap { padding: 120px 48px; border-top: 1px solid var(--border); }
+  .strip-hint {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 0.15em;
+    color: var(--muted); text-transform: uppercase;
+    margin: -32px 0 36px;
+  }
+  #gallery .gallery-strip {
+    display: flex; gap: 2px;
+    overflow-x: auto; overflow-y: hidden;
+    cursor: grab;
+    scrollbar-width: none; -ms-overflow-style: none;
+    scroll-snap-type: x proximity;
+    margin: 0 -48px; padding: 0 48px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  }
+  #gallery .gallery-strip::-webkit-scrollbar { display: none; }
+  #gallery .gallery-strip.dragging { cursor: grabbing; }
+  #gallery .gallery-strip .gallery-item { flex: 0 0 auto; scroll-snap-align: start; }
+  #gallery .gallery-strip .gallery-item-inner {
+    width: 320px; height: 220px; min-height: 220px;
+  }
+  #gallery .gallery-strip .gallery-item img { -webkit-user-drag: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-media img { transform: none !important; transition: filter 0.4s ease; }
+    .chapter-inner > * { transform: none !important; transition: opacity 0.6s ease; }
+    .chapter-rule { transition: width 0.6s ease; }
+    .story-scrollcue-line { animation: none; }
+  }
   /* LIGHTBOX */
   .lightbox {
     position: fixed; inset: 0;
@@ -1431,6 +1658,17 @@
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .stats-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
     .stats-banner-meta { text-align: left; }
+    .story-intro { padding: 80px 24px 56px; }
+    .chapter { padding: 14vh 24px; }
+    .chapter-inner { max-width: 100%; }
+    /* on mobile, anchor every chapter bottom-left for readability */
+    .chapter.pos-br, .chapter.pos-center { justify-content: flex-start; align-items: flex-end; text-align: left; }
+    .pos-br .chapter-inner, .pos-center .chapter-inner { align-items: flex-start; }
+    .story-rail { display: none; }
+    .gallery-strip-wrap { padding: 80px 24px; }
+    #gallery .gallery-strip { margin: 0 -24px; padding: 0 24px; }
+    #gallery .gallery-strip .gallery-item-inner { width: 260px; height: 180px; min-height: 180px; }
+    .strip-hint { margin: -20px 0 28px; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .gallery-grid { grid-template-columns: 1fr 1fr !important; }
     .gallery-item:first-child { grid-column: span 2; }
@@ -1473,7 +1711,7 @@
 <a href="#hero" class="nav-logo">ARXON<span>.</span></a>
 <ul class="nav-links">
 <li><a href="#stats">Stats</a></li>
-<li><a href="#gallery">Gallery</a></li>
+<li><a href="#gallery">Story</a></li>
 <li><a href="#results">Results</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="#sponsors">Sponsors</a></li>
@@ -1486,7 +1724,7 @@
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
 <a href="#stats" onclick="closeMobileNav()">Stats</a>
-<a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+<a href="#gallery" onclick="closeMobileNav()">Story</a>
 <a href="#results" onclick="closeMobileNav()">Results</a>
 <a href="#about" onclick="closeMobileNav()">About</a>
 <a href="#sponsors" onclick="closeMobileNav()">Sponsors</a>
@@ -1580,138 +1818,147 @@
 <div class="stats-banner-meta">SAIL <b>NB-2011</b> &nbsp;·&nbsp; BONAIRE, CARIBBEAN<br>PWA YOUTH WORLD TOUR</div>
 </div>
 </section>
-<!-- GALLERY -->
+<!-- STORY -->
 <section id="gallery">
-<div class="section-label reveal">GALLERY</div>
-<div class="gallery-grid">
-<!-- Item 1: HERO (2x2) -->
-<div class="gallery-item reveal" data-caption="Big Air — Mid-Flight Jump">
-<div class="gallery-item-inner">
-<img src="arxon-jump-airborne.jpg" alt="Airborne windsurf jump" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Big Air</span>
-<span class="gallery-expand">⤢</span>
+<div class="story-intro">
+<div class="section-label reveal">THE STORY</div>
+<h2 class="story-intro-title reveal reveal-delay-1">SIX CHAPTERS,<br>ONE OBSESSION.</h2>
+<p class="story-intro-sub reveal reveal-delay-2">Scroll through the journey — from a Bonaire kid on Lac Bay to a two-time world champion.</p>
+<div class="story-scrollcue reveal reveal-delay-3"><span class="story-scrollcue-line"></span> SCROLL TO BEGIN</div>
 </div>
+
+<div class="story" id="story">
+<!-- 01 -->
+<section class="chapter pos-bl" data-enter="up">
+<div class="chapter-media"><img src="arxon-sunset-02.jpg" alt="Young windsurfer at sunset on Bonaire" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">01</div>
+<div class="chapter-inner">
+<div class="chapter-index">01 / THE ORIGIN</div>
+<h2 class="chapter-title">BORN ON<br>THE WIND</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line">Born on Bonaire — raised by the trade winds.</p>
+<div class="chapter-meta">LAC BAY · BONAIRE</div>
 </div>
+</section>
+<!-- 02 -->
+<section class="chapter pos-br" data-enter="left">
+<div class="chapter-media"><img src="arxon-action-carve.jpg" alt="Carving across turquoise flatwater" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">02</div>
+<div class="chapter-inner">
+<div class="chapter-index">02 / THE PLAYGROUND</div>
+<h2 class="chapter-title">THE<br>PLAYGROUND</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line">Lac Bay raised him. Taty Frans sharpened him.</p>
+<div class="chapter-meta">FLATWATER · LAC BAY</div>
 </div>
-<!-- Item 2 -->
-<div class="gallery-item reveal reveal-delay-1" data-caption="Sunset Session — Aruba">
-<div class="gallery-item-inner">
-<img src="arxon-sunset-02.jpg" alt="Sunset windsurfing session" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Sunset</span>
-<span class="gallery-expand">⤢</span>
+</section>
+<!-- 03 -->
+<section class="chapter pos-center" data-enter="scale">
+<div class="chapter-media"><img src="arxon-jump-airborne.jpg" alt="Windsurfer airborne mid-jump" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">03</div>
+<div class="chapter-inner">
+<div class="chapter-index">03 / THE LEAP</div>
+<h2 class="chapter-title">FIRST<br>SEND</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line">Every wipeout was a lesson. Every jump, a promise.</p>
+<div class="chapter-meta">SEND IT</div>
 </div>
+</section>
+<!-- 04 -->
+<section class="chapter pos-bl" data-enter="right">
+<div class="chapter-media"><img src="arxon-action-duo.jpg" alt="Fin slalom racing action" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">04</div>
+<div class="chapter-inner">
+<div class="chapter-index">04 / THE RISE</div>
+<h2 class="chapter-title">RISING<br>FAST</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line">Two PWA wins by twelve — the circuit noticed.</p>
+<div class="chapter-meta">PWA YOUTH WORLD TOUR</div>
 </div>
+</section>
+<!-- 05 -->
+<section class="chapter pos-br" data-enter="up">
+<div class="chapter-media"><img src="arxon-portrait-celebrate.jpg" alt="Celebrating on the podium" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">05</div>
+<div class="chapter-inner">
+<div class="chapter-index">05 / THE SUMMIT</div>
+<h2 class="chapter-title">WORLD<br>STAGE</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line"><span class="chapter-accent">Two-time</span> U15 fin slalom world champion.</p>
+<div class="chapter-meta">2× WORLD CHAMPION</div>
 </div>
-<!-- Item 3 -->
-<div class="gallery-item reveal reveal-delay-2" data-caption="Golden Hour Glide">
-<div class="gallery-item-inner">
-<img src="arxon-sunset-03-vertical.jpg" alt="Golden hour windsurfing" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Sunset</span>
-<span class="gallery-expand">⤢</span>
+</section>
+<!-- 06 -->
+<section class="chapter pos-center" data-enter="scale">
+<div class="chapter-media"><img src="arxon-sunset-04.jpg" alt="Windsurfer sailing toward the sunset" loading="lazy"></div>
+<div class="chapter-veil"></div>
+<div class="chapter-bignum" aria-hidden="true">06</div>
+<div class="chapter-inner">
+<div class="chapter-index">06 / WHAT'S NEXT</div>
+<h2 class="chapter-title">CHASING THE<br>HORIZON</h2>
+<span class="chapter-rule"></span>
+<p class="chapter-line">The titles are just the start. The wind's still calling.</p>
+<a href="#contact" class="chapter-cta">Back this journey →</a>
 </div>
+</section>
 </div>
+
+<!-- PROGRESS RAIL -->
+<div class="story-rail" id="storyRail" aria-hidden="true"></div>
+
+<!-- MORE FROM THE WATER -->
+<div class="gallery-strip-wrap">
+<div class="section-label reveal">MORE FROM THE WATER</div>
+<p class="strip-hint reveal">Drag, scroll or tap to explore the full archive.</p>
+<div class="gallery-strip" id="galleryStrip">
+<div class="gallery-item" data-caption="First Light — Bonaire">
+<div class="gallery-item-inner"><img src="arxon-sunset-01.jpg" alt="Windsurfing at first light" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
 </div>
-<!-- Item 4: WIDE (2-col) -->
-<div class="gallery-item reveal reveal-delay-1" data-caption="Aerial — Aruba Reef Crossing">
-<div class="gallery-item-inner">
-<img src="arxon-aerial-reef-02.jpg" alt="Aerial view over the reef" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Aerial</span>
-<span class="gallery-expand">⤢</span>
+<div class="gallery-item" data-caption="Golden Hour Glide">
+<div class="gallery-item-inner"><img src="arxon-sunset-03-vertical.jpg" alt="Golden hour windsurfing" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Full Power — Solo Run">
+<div class="gallery-item-inner"><img src="arxon-action-solo.jpg" alt="Windsurfer at full power" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Action</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Splash Down — Big Send">
+<div class="gallery-item-inner"><img src="arxon-jump-splash.jpg" alt="Big jump splash landing" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Big Air</span><span class="gallery-expand">⤢</span></div></div>
 </div>
-<!-- Item 5 -->
-<div class="gallery-item reveal reveal-delay-2" data-caption="Turquoise Carve">
-<div class="gallery-item-inner">
-<img src="arxon-action-carve.jpg" alt="Carving in turquoise water" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Action</span>
-<span class="gallery-expand">⤢</span>
+<div class="gallery-item" data-caption="Reef Crossing — Bonaire">
+<div class="gallery-item-inner"><img src="arxon-aerial-reef-02.jpg" alt="Aerial view crossing the reef" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Reef View — Top Down">
+<div class="gallery-item-inner"><img src="arxon-aerial-reef-01.jpg" alt="Top-down aerial reef view" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Shallow Water Speed">
+<div class="gallery-item-inner"><img src="arxon-aerial-shallow.jpg" alt="Aerial windsurfer in shallow water" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
 </div>
-<!-- Item 6 -->
-<div class="gallery-item reveal reveal-delay-3" data-caption="Hi-Winds 2026 — Competitor">
-<div class="gallery-item-inner">
-<img src="arxon-portrait-armscrossed.jpg" alt="Athlete portrait on stage" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Athlete</span>
-<span class="gallery-expand">⤢</span>
+<div class="gallery-item" data-caption="Hi-Winds 2026 — Aruba">
+<div class="gallery-item-inner"><img src="arxon-portrait-armscrossed.jpg" alt="Athlete portrait at Hi-Winds" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Athlete</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Last Light Run">
+<div class="gallery-item-inner"><img src="arxon-sunset-05.jpg" alt="Windsurfing at last light" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
 </div>
+<div class="gallery-item" data-caption="Focused">
+<div class="gallery-item-inner"><img src="arxon-portrait-closeup.jpg" alt="Close-up athlete portrait" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Portrait</span><span class="gallery-expand">⤢</span></div></div>
 </div>
-<!-- Item 7 -->
-<div class="gallery-item reveal" data-caption="Sailing Into the Sun">
-<div class="gallery-item-inner">
-<img src="arxon-sunset-04.jpg" alt="Windsurfer at sunset" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Sunset</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 8 -->
-<div class="gallery-item reveal reveal-delay-1" data-caption="Last Light Run">
-<div class="gallery-item-inner">
-<img src="arxon-sunset-05.jpg" alt="Sunset windsurfing" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Sunset</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 9: WIDE (2-col) -->
-<div class="gallery-item reveal reveal-delay-2" data-caption="Aerial Reef View — Top Down">
-<div class="gallery-item-inner">
-<img src="arxon-aerial-reef-01.jpg" alt="Top-down aerial reef view" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Aerial</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 10 -->
-<div class="gallery-item reveal reveal-delay-3" data-caption="Aerial — Shallow Water Speed">
-<div class="gallery-item-inner">
-<img src="arxon-aerial-shallow.jpg" alt="Aerial windsurfer in shallow water" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Aerial</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 11 -->
-<div class="gallery-item reveal" data-caption="Session Done — Hi-Winds 2026">
-<div class="gallery-item-inner">
-<img src="arxon-water-thumbsup.jpg" alt="Athlete coming out of water" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Hi-Winds</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 12 -->
-<div class="gallery-item reveal reveal-delay-1" data-caption="Splash Down — Big Send">
-<div class="gallery-item-inner">
-<img src="arxon-jump-splash.jpg" alt="Big jump splash" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Big Air</span>
-<span class="gallery-expand">⤢</span>
-</div>
-</div>
-</div>
-<!-- Item 13 -->
-<div class="gallery-item reveal reveal-delay-2" data-caption="On the Podium — Hi-Winds 2026">
-<div class="gallery-item-inner">
-<img src="arxon-portrait-celebrate.jpg" alt="Celebrating on podium" loading="lazy">
-<div class="gallery-item-overlay">
-<span class="gallery-tag">Portrait</span>
-<span class="gallery-expand">⤢</span>
-</div>
+<div class="gallery-item" data-caption="Session Done — Hi-Winds">
+<div class="gallery-item-inner"><img src="arxon-water-thumbsup.jpg" alt="Athlete leaving the water" loading="lazy">
+<div class="gallery-item-overlay"><span class="gallery-tag">Hi-Winds</span><span class="gallery-expand">⤢</span></div></div>
 </div>
 </div>
 </div>
@@ -2019,6 +2266,99 @@
       });
     });
   });
+  // ============ STORY — pinned scrollytelling ============
+  (function () {
+    const story = document.getElementById('story');
+    const rail = document.getElementById('storyRail');
+    if (!story) return;
+    const chapters = Array.from(story.querySelectorAll('.chapter'));
+    const labels = ['Origin', 'Playground', 'First Send', 'Rising', 'World Stage', 'Horizon'];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Build the side progress rail
+    if (rail) {
+      chapters.forEach((ch, i) => {
+        const b = document.createElement('button');
+        b.setAttribute('data-label', labels[i] || ('0' + (i + 1)));
+        b.setAttribute('aria-label', 'Go to chapter ' + (i + 1));
+        b.addEventListener('click', () => {
+          window.scrollTo({ top: story.offsetTop + i * window.innerHeight, behavior: 'smooth' });
+        });
+        rail.appendChild(b);
+      });
+    }
+    const dots = rail ? Array.from(rail.children) : [];
+
+    // Activate a chapter the first time it arrives (fires its entrance, stays revealed)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio >= 0.55) e.target.classList.add('active');
+      });
+    }, { threshold: [0.55] });
+    chapters.forEach(ch => io.observe(ch));
+
+    // Rail visible only while the story is on screen
+    if (rail) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => rail.classList.toggle('visible', e.isIntersecting));
+      }, { threshold: 0.05 }).observe(story);
+    }
+
+    // Single scroll handler: track current chapter (rail) + parallax the arriving photo.
+    // Sticky chapters all stay "intersecting", so the current one must come from scroll position.
+    let ticking = false, lastIdx = -1;
+    const onScroll = () => {
+      const vh = window.innerHeight;
+      // Current chapter = the topmost one covering the viewport midline (later chapters cover earlier)
+      let idx = 0;
+      chapters.forEach((ch, i) => {
+        const top = ch.getBoundingClientRect().top;
+        if (top <= vh * 0.5) idx = i;
+        if (!reduce) {
+          const t = Math.max(0, Math.min(1, top / vh));
+          const media = ch.querySelector('.chapter-media');
+          if (media) media.style.transform = 'translateY(' + (t * 2).toFixed(2) + 'vh)';
+        }
+      });
+      if (idx !== lastIdx) {
+        dots.forEach((d, di) => d.classList.toggle('active', di === idx));
+        lastIdx = idx;
+      }
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  })();
+
+  // ============ GALLERY STRIP — drag to scroll ============
+  (function () {
+    const strip = document.getElementById('galleryStrip');
+    if (!strip) return;
+    let isDown = false, startX = 0, startScroll = 0, moved = 0;
+    strip.addEventListener('pointerdown', (e) => {
+      isDown = true; moved = 0;
+      startX = e.clientX; startScroll = strip.scrollLeft;
+      strip.classList.add('dragging');
+      strip.setPointerCapture(e.pointerId);
+    });
+    strip.addEventListener('pointermove', (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      strip.scrollLeft = startScroll - dx;
+    });
+    const end = () => { isDown = false; strip.classList.remove('dragging'); };
+    strip.addEventListener('pointerup', end);
+    strip.addEventListener('pointercancel', end);
+    // Swallow the click that follows a real drag so it doesn't open the lightbox
+    strip.addEventListener('click', (e) => {
+      if (moved > 6) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
+  })();
+
   // ============ LIGHTBOX ============
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
