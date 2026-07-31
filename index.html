@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARXON GOMPERTS — WINDSURFER</title>
+<meta name="description" content="Arxon Gomperts — Professional windsurfer competing in foiling, fin slalom & wing foiling disciplines on the international circuit.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --panel: #161616;
+    --border: rgba(255,255,255,0.08);
+    --accent: #00e5ff;
+    --accent-glow: rgba(0,229,255,0.35);
+    --accent2: #ff6b00;
+    --accent2-glow: rgba(255,107,0,0.35);
+    --accent3: #00ff96;
+    --accent3-glow: rgba(0,255,150,0.35);
+    --white: #f5f5f5;
+    --muted: rgba(245,245,245,0.45);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  /* PAGE LOADER */
+  .page-loader {
+    position: fixed; inset: 0; z-index: 10000;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  .page-loader.loaded {
+    opacity: 0; visibility: hidden;
+    pointer-events: none;
+  }
+  .loader-text {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 0.1em;
+    color: var(--white);
+    overflow: hidden;
+  }
+  .loader-text span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: loaderReveal 0.6s ease forwards;
+  }
+  .loader-text span:nth-child(2) { animation-delay: 0.05s; }
+  .loader-text span:nth-child(3) { animation-delay: 0.1s; }
+  .loader-text span:nth-child(4) { animation-delay: 0.15s; }
+  .loader-text span:nth-child(5) { animation-delay: 0.2s; }
+  .loader-bar {
+    width: 200px; height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .loader-bar::after {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 0; height: 100%;
+    background: var(--accent);
+    animation: loaderBar 1.8s ease forwards;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  @keyframes loaderReveal {
+    to { transform: translateY(0); }
+  }
+  @keyframes loaderBar {
+    to { width: 100%; }
+  }
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s cubic-bezier(0.23,1,0.32,1), height 0.25s cubic-bezier(0.23,1,0.32,1), background 0.25s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(0.23,1,0.32,1), height 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s, border-color 0.3s;
+    opacity: 0.5;
+  }
+  .cursor.hover-active {
+    width: 50px; height: 50px;
+    background: rgba(0,229,255,0.15);
+    border: 1px solid var(--accent);
+  }
+  .cursor-ring.hover-active {
+    width: 60px; height: 60px;
+    opacity: 0;
+  }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 48px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+    transition: transform 0.3s;
+  }
+  .nav-logo:hover { transform: scale(1.05); }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 10px 22px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .nav-cta:hover::before { transform: translateX(100%); }
+  .nav-cta:hover { background: var(--white); box-shadow: 0 0 30px var(--accent-glow); }
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 200;
+    padding: 8px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    width: 24px; height: 2px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    display: block;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(5px) translateX(5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-5px) translateX(5px); }
+  /* MOBILE NAV OVERLAY */
+  .mobile-nav {
+    position: fixed; inset: 0;
+    background: rgba(10,10,10,0.98);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: 150;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 32px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  .mobile-nav.open { opacity: 1; visibility: visible; }
+  .mobile-nav a {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.3s, transform 0.3s;
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  .mobile-nav.open a {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+  .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
+  .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
+  .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
+  .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
+  .mobile-nav a:nth-child(6) { transition-delay: 0.35s; }
+  .mobile-nav a:hover { color: var(--accent); }
+  /* SECTION LABEL */
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .section-label::before {
+    content: '//';
+    color: var(--accent);
+    font-size: 13px;
+  }
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(0,229,255,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,107,0,0.05) 0%, transparent 70%),
+      linear-gradient(175deg, #0a0a0a 0%, #0d1a1e 50%, #0a0a0a 100%);
+    z-index: 0;
+  }
+  .hero-bg-image {
+    position: absolute; inset: 0;
+    z-index: 0;
+    opacity: 0.32;
+  }
+  .hero-bg-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) contrast(1.05);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 0;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, transparent 100%);
+  }
+  /* Floating particles */
+  .hero-particles {
+    position: absolute; inset: 0; z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(100vh) translateX(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-10vh) translateX(40px); }
+  }
+  .hero-status {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .hero-status-dot {
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 12px var(--accent-glow); }
+    50% { opacity: 0.5; transform: scale(0.7); box-shadow: 0 0 4px var(--accent-glow); }
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(80px, 13vw, 200px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .hero-name .line2 {
+    color: var(--accent);
+    display: block;
+    text-shadow: 0 0 80px var(--accent-glow);
+  }
+  .hero-sub {
+    margin-top: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 360px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    line-height: 1;
+    color: var(--white);
+  }
+  .hero-stat-num span { color: var(--accent); }
+  .hero-stat-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 32px; right: 48px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    z-index: 1;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--accent);
+    animation: scrollPulse 2s infinite;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  @keyframes scrollPulse {
+    0%, 100% { width: 40px; }
+    50% { width: 20px; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    background: var(--panel);
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    display: flex; align-items: center; gap: 24px;
+    padding: 0 40px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .marquee-item .dot { color: var(--accent); font-size: 16px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  /* SECTIONS */
+  section {
+    padding: 120px 48px;
+    position: relative;
+  }
+  section + section { border-top: 1px solid var(--border); }
+  /* DISCIPLINES */
+  #disciplines .disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 0;
+  }
+  .discipline-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--panel);
+    cursor: pointer;
+  }
+  .discipline-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    z-index: 1;
+    transition: opacity 0.5s;
+  }
+  .discipline-card:hover::before {
+    background: linear-gradient(to top, rgba(0,229,255,0.12) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  .disc-fin .discipline-card:hover::before,
+  .discipline-card.disc-fin:hover::before {
+    background: linear-gradient(to top, rgba(255,107,0,0.12) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  .disc-wing .discipline-card:hover::before,
+  .discipline-card.disc-wing:hover::before {
+    background: linear-gradient(to top, rgba(0,255,150,0.12) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  .discipline-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  }
+  .discipline-card:hover .discipline-bg { transform: scale(1.08); }
+  .discipline-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) saturate(1.2);
+    transition: filter 0.6s;
+  }
+  .discipline-card:hover .discipline-bg img {
+    filter: brightness(0.5) saturate(1.4);
+  }
+  .discipline-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px 28px;
+    z-index: 2;
+  }
+  .discipline-number {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    transform: translateY(8px);
+    opacity: 0.7;
+    transition: all 0.4s;
+  }
+  .discipline-card:hover .discipline-number { transform: translateY(0); opacity: 1; }
+  .disc-fin .discipline-number { color: var(--accent2); }
+  .disc-wing .discipline-number { color: var(--accent3); }
+  .discipline-title {
+    font-family: var(--font-display);
+    font-size: 42px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+    transition: transform 0.4s;
+  }
+  .discipline-card:hover .discipline-title { transform: translateY(-4px); }
+  .discipline-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+    max-width: 260px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s 0.1s;
+  }
+  .discipline-card:hover .discipline-desc { opacity: 1; transform: translateY(0); }
+  .discipline-arrow {
+    position: absolute; top: 28px; right: 28px;
+    z-index: 2;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transform: translateY(6px) rotate(-45deg);
+    transition: opacity 0.4s, transform 0.4s;
+    color: var(--accent);
+    font-size: 18px;
+  }
+  .discipline-card:hover .discipline-arrow { opacity: 1; transform: translateY(0) rotate(0); }
+  /* GALLERY */
+  #gallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 2px;
+  }
+  .gallery-item {
+    background: var(--panel);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+  .gallery-item:nth-child(9) { grid-column: span 2; }
+  .gallery-item-inner {
+    width: 100%; height: 100%; min-height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .gallery-item:first-child .gallery-item-inner { min-height: 500px; }
+  .gallery-item-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1), filter 0.6s;
+  }
+  .gallery-item:hover .gallery-item-inner img {
+    transform: scale(1.06);
+    filter: brightness(0.7);
+  }
+  .gallery-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex; align-items: flex-end;
+    justify-content: space-between;
+    padding: 20px;
+    z-index: 2;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.2);
+    padding: 4px 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .gallery-expand {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    font-size: 16px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.3s;
+  }
+  .gallery-expand:hover { background: rgba(255,255,255,0.15); }
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed; inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+    cursor: zoom-out;
+  }
+  .lightbox.active { opacity: 1; visibility: visible; }
+  .lightbox img {
+    max-width: 90vw; max-height: 85vh;
+    object-fit: contain;
+    border-radius: 2px;
+    transform: scale(0.9);
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  }
+  .lightbox.active img { transform: scale(1); }
+  .lightbox-close {
+    position: absolute; top: 32px; right: 32px;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: none;
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .lightbox-close:hover { border-color: var(--accent); background: rgba(0,229,255,0.1); }
+  .lightbox-caption {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .lightbox-nav:hover { border-color: var(--accent); background: rgba(0,229,255,0.1); }
+  .lightbox-prev { left: 24px; }
+  .lightbox-next { right: 24px; }
+  /* ABOUT */
+  #about { background: var(--panel); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-heading {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 96px);
+    line-height: 0.9;
+    margin-bottom: 32px;
+  }
+  .about-heading em {
+    color: var(--accent);
+    font-style: normal;
+    display: block;
+    text-shadow: 0 0 60px var(--accent-glow);
+  }
+  .about-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 40px;
+  }
+  .about-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,255,0.25);
+    padding: 6px 14px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .about-tag:hover {
+    background: rgba(0,229,255,0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.1);
+  }
+  .about-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 14px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .about-cta:hover::before { transform: translateX(100%); }
+  .about-cta:hover { background: var(--white); box-shadow: 0 0 30px var(--accent-glow); }
+  .about-photo {
+    border: 1px solid var(--border);
+    height: 340px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  }
+  .about-photo:hover img { transform: scale(1.05); }
+  .about-photo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .about-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 32px;
+  }
+  .about-stat-box {
+    background: var(--black);
+    padding: 32px 24px;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .about-stat-box:hover {
+    border-color: rgba(0,229,255,0.2);
+    background: rgba(0,229,255,0.02);
+  }
+  .about-stat-num {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1;
+    color: var(--white);
+  }
+  .about-stat-num sup { font-size: 24px; color: var(--accent); vertical-align: super; }
+  .about-stat-desc {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  /* RESULTS */
+  .results-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .results-filter {
+    display: flex; gap: 2px;
+  }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.15);
+  }
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .results-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table th {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 0 0 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+  .results-table th:last-child { text-align: right; }
+  .results-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .results-table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+  }
+  .results-table td {
+    padding: 20px 0;
+    font-size: 14px;
+    color: var(--white);
+  }
+  .results-table td:last-child { text-align: right; }
+  .result-rank {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--muted);
+    width: 60px;
+  }
+  .result-rank.gold { color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  .result-rank.silver { color: #c0c0c0; text-shadow: 0 0 20px rgba(192,192,192,0.3); }
+  .result-rank.bronze { color: #cd7f32; text-shadow: 0 0 20px rgba(205,127,50,0.3); }
+  .result-event { font-weight: 400; }
+  .result-event-sub {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .result-discipline {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    transition: box-shadow 0.3s;
+  }
+  .result-discipline.foiling { color: var(--accent); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
+  .result-discipline.foiling:hover { box-shadow: 0 0 15px rgba(0,229,255,0.15); }
+  .result-discipline.fin { color: var(--accent2); border-color: rgba(255,107,0,0.3); background: rgba(255,107,0,0.05); }
+  .result-discipline.fin:hover { box-shadow: 0 0 15px rgba(255,107,0,0.15); }
+  .result-discipline.wing { color: var(--accent3); border-color: rgba(0,255,150,0.3); background: rgba(0,255,150,0.05); }
+  .result-discipline.wing:hover { box-shadow: 0 0 15px rgba(0,255,150,0.15); }
+  .result-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .results-note {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .results-note span { color: var(--accent); }
+  /* SPONSORS */
+  .sponsors-intro {
+    max-width: 480px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 64px;
+    font-style: italic;
+  }
+  .sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+  .sponsor-slot {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    height: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.15);
+    text-transform: uppercase;
+    transition: border-color 0.4s, background 0.4s, box-shadow 0.4s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .sponsor-slot::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,229,255,0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .sponsor-slot:hover::before { opacity: 1; }
+  .sponsor-slot.current {
+    border-color: rgba(0,229,255,0.25);
+    background: rgba(0,229,255,0.04);
+    color: var(--accent);
+  }
+  .sponsor-slot.open {
+    border-style: dashed;
+    cursor: pointer;
+  }
+  .sponsor-slot.open:hover {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.04);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,229,255,0.1);
+  }
+  .sponsor-slot img {
+    max-width: 78%;
+    max-height: 68%;
+    object-fit: contain;
+    opacity: 0.78;
+    transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .sponsor-slot.has-logo {
+    border-color: rgba(255,255,255,0.06);
+    background: var(--panel);
+    cursor: pointer;
+  }
+  .sponsor-slot.has-logo:hover {
+    border-color: rgba(0,229,255,0.25);
+    background: rgba(0,229,255,0.03);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,229,255,0.08);
+  }
+  .sponsor-slot.has-logo:hover img {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  /* SPONSORS MARQUEE (logo ticker) */
+  .sponsors-marquee {
+    position: relative;
+    margin: 0 -48px 64px;
+    padding: 64px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.025) 50%, transparent 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  }
+  .sponsors-marquee::before,
+  .sponsors-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--accent), transparent);
+    opacity: 0.25;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .sponsors-marquee::before { left: 9%; }
+  .sponsors-marquee::after { right: 9%; }
+  .sponsors-track {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    width: max-content;
+    animation: sponsorScroll 75s linear infinite;
+  }
+  .sponsors-marquee:hover .sponsors-track {
+    animation-play-state: paused;
+  }
+  .sponsor-logo {
+    flex: 0 0 auto;
+    width: 480px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 28px;
+    padding: 22px 32px;
+    transition: border-color 0.45s cubic-bezier(0.23,1,0.32,1),
+                background 0.45s ease,
+                box-shadow 0.45s ease,
+                transform 0.45s cubic-bezier(0.23,1,0.32,1);
+    overflow: hidden;
+  }
+  .sponsor-logo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.1), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+  }
+  .sponsor-logo:hover {
+    border-color: rgba(0,229,255,0.4);
+    background: linear-gradient(180deg, rgba(0,229,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    box-shadow: 0 16px 48px rgba(0,229,255,0.16),
+                inset 0 0 0 1px rgba(0,229,255,0.18);
+    transform: translateY(-5px);
+  }
+  .sponsor-logo:hover::before { opacity: 1; }
+  .sponsor-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0.92;
+    filter: grayscale(0.1);
+    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .sponsor-logo:hover img {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.04);
+  }
+  /* Light-background bubbles — for color logos that lose brand identity when inverted.
+     Gives them a white "card" matching what they were designed against. */
+  .sponsor-logo.light-bg {
+    background: linear-gradient(180deg, #ffffff 0%, #f1f3f5 100%);
+    border-color: rgba(255,255,255,0.35);
+  }
+  .sponsor-logo.light-bg::before {
+    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.18), transparent 65%);
+  }
+  .sponsor-logo.light-bg:hover {
+    background: linear-gradient(180deg, #ffffff 0%, #e7faff 100%);
+    border-color: rgba(0,229,255,0.55);
+    box-shadow: 0 16px 48px rgba(0,229,255,0.2),
+                inset 0 0 0 1px rgba(0,229,255,0.25);
+  }
+  .sponsor-logo.light-bg img {
+    filter: none;
+    opacity: 1;
+  }
+  .sponsor-logo.light-bg:hover img {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  /* Pure inversion option — for monochrome dark text logos where light-bg isn't needed */
+  .sponsor-logo.invert img {
+    filter: invert(1) brightness(1.05);
+    opacity: 0.92;
+  }
+  .sponsor-logo.invert:hover img {
+    filter: invert(1) brightness(1.1);
+    opacity: 1;
+  }
+  @keyframes sponsorScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (max-width: 1200px) {
+    .sponsor-logo { width: 380px; height: 210px; padding: 18px 26px; border-radius: 24px; }
+    .sponsors-track { gap: 36px; }
+  }
+  @media (max-width: 900px) {
+    .sponsors-marquee { margin: 0 -24px 48px; padding: 40px 0; }
+    .sponsors-track { gap: 26px; animation-duration: 55s; }
+    .sponsor-logo { width: 280px; height: 160px; padding: 14px 20px; border-radius: 20px; }
+  }
+  @media (max-width: 480px) {
+    .sponsor-logo { width: 220px; height: 130px; padding: 12px 16px; }
+  }
+  .sponsors-cta-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px;
+    transition: border-color 0.3s;
+  }
+  .sponsors-cta-block:hover { border-color: rgba(0,229,255,0.15); }
+  .sponsors-cta-title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+  .sponsors-cta-sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .btn-outline {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 14px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-outline::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    z-index: -1;
+  }
+  .btn-outline:hover::before { transform: scaleX(1); }
+  .btn-outline:hover { color: var(--black); }
+  /* CONTACT / CTA */
+  #contact {
+    background: var(--panel);
+    text-align: center;
+    padding: 140px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,229,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-orb {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    pointer-events: none;
+    animation: orbFloat 12s ease-in-out infinite;
+  }
+  .contact-orb-1 {
+    background: var(--accent);
+    top: 10%; left: 20%;
+  }
+  .contact-orb-2 {
+    background: var(--accent2);
+    bottom: 10%; right: 20%;
+    animation-delay: -6s;
+  }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.1); }
+    66% { transform: translate(-20px, 15px) scale(0.95); }
+  }
+  .contact-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 120px);
+    line-height: 0.9;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .contact-heading span {
+    color: var(--accent);
+    text-shadow: 0 0 80px var(--accent-glow);
+  }
+  .contact-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+    font-style: italic;
+    position: relative; z-index: 1;
+  }
+  .contact-actions {
+    display: flex; gap: 16px;
+    align-items: center; justify-content: center;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 16px 36px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .btn-primary:hover::before { transform: translateX(100%); }
+  .btn-primary:hover { background: var(--white); box-shadow: 0 0 40px var(--accent-glow); }
+  .contact-email {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .contact-email:hover { color: var(--accent); border-color: var(--accent); }
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .footer-socials {
+    display: flex; gap: 24px; list-style: none;
+  }
+  .footer-socials a {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s, transform 0.3s;
+  }
+  .footer-socials a:hover { color: var(--accent); transform: translateY(-2px); }
+  .footer-top {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-top:hover { color: var(--accent); }
+  /* SMOOTH SCROLL PROGRESS BAR */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    z-index: 101;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 80px 24px; }
+    #hero { padding: 0 24px 48px; }
+    .disciplines-grid { grid-template-columns: 1fr !important; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr !important; }
+    .gallery-item:first-child { grid-column: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item:nth-child(9) { grid-column: span 2; }
+    .sponsors-grid { grid-template-columns: repeat(3, 1fr); }
+    .sponsors-cta-block { flex-direction: column; text-align: center; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .hero-stats { gap: 24px; }
+    .hero-sub { flex-direction: column; gap: 32px; align-items: flex-start; }
+    .results-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+    .lightbox-nav { display: none; }
+  }
+  @media (max-width: 480px) {
+    .sponsors-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr !important; }
+    .gallery-item:first-child,
+    .gallery-item:nth-child(4),
+    .gallery-item:nth-child(9) { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+<div class="loader-text">
+<span>A</span><span>R</span><span>X</span><span>O</span><span>N</span>
+</div>
+<div class="loader-bar"></div>
+</div>
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<!-- NAV -->
+<nav id="navbar">
+<a href="#hero" class="nav-logo">ARXON<span>.</span></a>
+<ul class="nav-links">
+<li><a href="#disciplines">Disciplines</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#sponsors">Sponsors</a></li>
+</ul>
+<a href="#contact" class="nav-cta">Get In Touch</a>
+<button class="hamburger" id="hamburger" aria-label="Toggle menu">
+<span></span><span></span><span></span>
+</button>
+</nav>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+<a href="#disciplines" onclick="closeMobileNav()">Disciplines</a>
+<a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+<a href="#results" onclick="closeMobileNav()">Results</a>
+<a href="#about" onclick="closeMobileNav()">About</a>
+<a href="#sponsors" onclick="closeMobileNav()">Sponsors</a>
+<a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+<button class="lightbox-close" id="lightboxClose">✕</button>
+<button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+<button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+<img id="lightboxImg" src="" alt="Gallery image">
+<div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+<!-- HERO -->
+<section id="hero">
+<div class="hero-bg"></div>
+<div class="hero-bg-image">
+<img src="arxon-sunset-01.jpg" alt="Sunset windsurfing session" loading="eager">
+</div>
+<div class="hero-grid"></div>
+<div class="hero-particles" id="heroParticles"></div>
+<div class="hero-status">
+<div class="hero-status-dot"></div>
+    Available for sponsorship — 2025 season
+</div>
+<h1 class="hero-name">
+    ARXON
+<span class="line2">GOMPERTS</span>
+</h1>
+<div class="hero-sub">
+<p class="hero-tagline">Professional windsurfer pushing the limits across foiling, fin & wing disciplines. Competing internationally — chasing the wind.</p>
+<div class="hero-stats">
+<div>
+<div class="hero-stat-num"><span class="counter" data-target="3">0</span><span>×</span></div>
+<div class="hero-stat-label">Disciplines</div>
+</div>
+<div>
+<div class="hero-stat-num"><span class="counter" data-target="12">0</span><span>+</span></div>
+<div class="hero-stat-label">Competitions</div>
+</div>
+<div>
+<div class="hero-stat-num">TOP<span> <span class="counter" data-target="5">0</span></span></div>
+<div class="hero-stat-label">Podium finishes</div>
+</div>
+</div>
+</div>
+<div class="scroll-indicator">
+<div class="scroll-line"></div>
+    Scroll to explore
+</div>
+</section>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+<div class="marquee-track">
+<div class="marquee-item"><span class="dot">◆</span> FOILING <span class="dot">◆</span> FIN RACING <span class="dot">◆</span> WING FOILING <span class="dot">◆</span> SPEED <span class="dot">◆</span> FREESTYLE <span class="dot">◆</span> SLALOM <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
+<div class="marquee-item"><span class="dot">◆</span> FOILING <span class="dot">◆</span> FIN RACING <span class="dot">◆</span> WING FOILING <span class="dot">◆</span> SPEED <span class="dot">◆</span> FREESTYLE <span class="dot">◆</span> SLALOM <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
+</div>
+</div>
+<!-- DISCIPLINES -->
+<section id="disciplines">
+<div class="section-label reveal">DISCIPLINES</div>
+<div class="disciplines-grid">
+<div class="discipline-card disc-foiling reveal reveal-delay-1">
+<div class="discipline-bg">
+<img src="arxon-action-solo.jpg" alt="Foil racing action" loading="lazy">
+</div>
+<div class="discipline-arrow">↗</div>
+<div class="discipline-content">
+<div class="discipline-number">01 / FOILING</div>
+<div class="discipline-title">FOIL<br>RACING</div>
+<div class="discipline-desc">Hydrofoil windsurfing — gliding above the water surface at full speed. Pure technicality meets raw power.</div>
+</div>
+</div>
+<div class="discipline-card disc-fin reveal reveal-delay-2">
+<div class="discipline-bg">
+<img src="arxon-action-duo.jpg" alt="Fin slalom racing" loading="lazy">
+</div>
+<div class="discipline-arrow">↗</div>
+<div class="discipline-content">
+<div class="discipline-number">02 / FIN</div>
+<div class="discipline-title">FIN<br>SLALOM</div>
+<div class="discipline-desc">Classic fin windsurfing — maximal sail power, tactical buoy racing and blazing downwind slalom runs.</div>
+</div>
+</div>
+<div class="discipline-card disc-wing reveal reveal-delay-3">
+<div class="discipline-bg">
+<img src="arxon-jump-airborne.jpg" alt="Wing foiling action" loading="lazy">
+</div>
+<div class="discipline-arrow">↗</div>
+<div class="discipline-content">
+<div class="discipline-number">03 / WING</div>
+<div class="discipline-title">WING<br>FOILING</div>
+<div class="discipline-desc">Handheld wing meets hydrofoil — the newest frontier of wind sports demanding athleticism and balance.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- GALLERY -->
+<section id="gallery">
+<div class="section-label reveal">GALLERY</div>
+<div class="gallery-grid">
+<!-- Item 1: HERO (2x2) -->
+<div class="gallery-item reveal" data-caption="Big Air — Mid-Flight Foil Jump">
+<div class="gallery-item-inner">
+<img src="arxon-jump-airborne.jpg" alt="Airborne foil jump" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Big Air</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="gallery-item reveal reveal-delay-1" data-caption="Sunset Session — Aruba">
+<div class="gallery-item-inner">
+<img src="arxon-sunset-02.jpg" alt="Sunset windsurfing session" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Sunset</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="gallery-item reveal reveal-delay-2" data-caption="Golden Hour Glide">
+<div class="gallery-item-inner">
+<img src="arxon-sunset-03-vertical.jpg" alt="Golden hour windsurfing" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Sunset</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 4: WIDE (2-col) -->
+<div class="gallery-item reveal reveal-delay-1" data-caption="Aerial — Aruba Reef Crossing">
+<div class="gallery-item-inner">
+<img src="arxon-aerial-reef-02.jpg" alt="Aerial view over the reef" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Aerial</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="gallery-item reveal reveal-delay-2" data-caption="Turquoise Carve">
+<div class="gallery-item-inner">
+<img src="arxon-action-carve.jpg" alt="Carving in turquoise water" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Action</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="gallery-item reveal reveal-delay-3" data-caption="Hi-Winds 2026 — Competitor">
+<div class="gallery-item-inner">
+<img src="arxon-portrait-armscrossed.jpg" alt="Athlete portrait on stage" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Athlete</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 7 -->
+<div class="gallery-item reveal" data-caption="Sailing Into the Sun">
+<div class="gallery-item-inner">
+<img src="arxon-sunset-04.jpg" alt="Windsurfer at sunset" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Sunset</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 8 -->
+<div class="gallery-item reveal reveal-delay-1" data-caption="Last Light Run">
+<div class="gallery-item-inner">
+<img src="arxon-sunset-05.jpg" alt="Sunset windsurfing" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Sunset</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 9: WIDE (2-col) -->
+<div class="gallery-item reveal reveal-delay-2" data-caption="Aerial Reef View — Top Down">
+<div class="gallery-item-inner">
+<img src="arxon-aerial-reef-01.jpg" alt="Top-down aerial reef view" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Aerial</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 10 -->
+<div class="gallery-item reveal reveal-delay-3" data-caption="Aerial — Shallow Water Speed">
+<div class="gallery-item-inner">
+<img src="arxon-aerial-shallow.jpg" alt="Aerial windsurfer in shallow water" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Aerial</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 11 -->
+<div class="gallery-item reveal" data-caption="Session Done — Hi-Winds 2026">
+<div class="gallery-item-inner">
+<img src="arxon-water-thumbsup.jpg" alt="Athlete coming out of water" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Hi-Winds</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 12 -->
+<div class="gallery-item reveal reveal-delay-1" data-caption="Splash Down — Big Send">
+<div class="gallery-item-inner">
+<img src="arxon-jump-splash.jpg" alt="Big jump splash" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Big Air</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+<!-- Item 13 -->
+<div class="gallery-item reveal reveal-delay-2" data-caption="On the Podium — Hi-Winds 2026">
+<div class="gallery-item-inner">
+<img src="arxon-portrait-celebrate.jpg" alt="Celebrating on podium" loading="lazy">
+<div class="gallery-item-overlay">
+<span class="gallery-tag">Portrait</span>
+<span class="gallery-expand">⤢</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ABOUT -->
+<section id="about">
+<div class="about-grid">
+<div class="about-left">
+<div class="section-label reveal">WHO I AM</div>
+<h2 class="about-heading reveal reveal-delay-1">
+        BUILT BY<br>
+<em>THE WIND</em>
+</h2>
+<p class="about-body reveal reveal-delay-2">
+        Arxon Gomperts is a professional windsurfer competing across three disciplines — foiling, fin, and wing foiling. Driven by a relentless passion for speed and technical mastery, Arxon has been pushing his limits on international waters since a young age.
+</p>
+<p class="about-body reveal reveal-delay-3">
+        Equally at home on a hydrofoil racing downwind as in a classic fin slalom or on a wing, Arxon brings versatility, commitment, and a hunger to reach the top of the sport.
+</p>
+<div class="about-tags reveal reveal-delay-3">
+<span class="about-tag">Foil Racing</span>
+<span class="about-tag">Fin Slalom</span>
+<span class="about-tag">Wing Foiling</span>
+<span class="about-tag">Speed</span>
+<span class="about-tag">Open Water</span>
+</div>
+<a href="#contact" class="about-cta reveal reveal-delay-4">Contact for Sponsorship →</a>
+</div>
+<div class="about-right">
+<div class="about-photo reveal">
+<img src="arxon-portrait-closeup.jpg" alt="Arxon Gomperts portrait" loading="lazy">
+</div>
+<div class="about-stats-grid" style="margin-top: 2px;">
+<div class="about-stat-box reveal">
+<div class="about-stat-num"><span class="counter" data-target="3">0</span><sup>+</sup></div>
+<div class="about-stat-desc">Disciplines mastered</div>
+</div>
+<div class="about-stat-box reveal reveal-delay-1">
+<div class="about-stat-num"><span class="counter" data-target="10">0</span><sup>+</sup></div>
+<div class="about-stat-desc">Countries competed</div>
+</div>
+<div class="about-stat-box reveal reveal-delay-2">
+<div class="about-stat-num"><span class="counter" data-target="5">0</span><sup>+</sup></div>
+<div class="about-stat-desc">Podium finishes</div>
+</div>
+<div class="about-stat-box reveal reveal-delay-3">
+<div class="about-stat-num">∞</div>
+<div class="about-stat-desc">Passion for the sport</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESULTS -->
+<section id="results">
+<div class="results-header">
+<div>
+<div class="section-label reveal">COMPETITION RESULTS</div>
+</div>
+<div class="results-filter reveal">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="foiling">Foiling</button>
+<button class="filter-btn" data-filter="fin">Fin</button>
+<button class="filter-btn" data-filter="wing">Wing</button>
+</div>
+</div>
+<table class="results-table reveal" id="resultsTable">
+<thead>
+<tr>
+<th style="width:60px">Rank</th>
+<th>Event</th>
+<th>Discipline</th>
+<th>Year</th>
+</tr>
+</thead>
+<tbody>
+<tr data-discipline="foiling">
+<td class="result-rank gold">1</td>
+<td class="result-event">National Foil Championship<span class="result-event-sub">Add location — e.g. Zandvoort, NL</span></td>
+<td><span class="result-discipline foiling">Foiling</span></td>
+<td class="result-year">2024</td>
+</tr>
+<tr data-discipline="fin">
+<td class="result-rank silver">2</td>
+<td class="result-event">Regional Slalom Open<span class="result-event-sub">Add location — e.g. Tarifa, ES</span></td>
+<td><span class="result-discipline fin">Fin</span></td>
+<td class="result-year">2024</td>
+</tr>
+<tr data-discipline="wing">
+<td class="result-rank bronze">3</td>
+<td class="result-event">Wing Foil Cup<span class="result-event-sub">Add location</span></td>
+<td><span class="result-discipline wing">Wing</span></td>
+<td class="result-year">2023</td>
+</tr>
+<tr data-discipline="foiling">
+<td class="result-rank" style="color:var(--muted)">5</td>
+<td class="result-event">International Foil Series — Round 2<span class="result-event-sub">Add location</span></td>
+<td><span class="result-discipline foiling">Foiling</span></td>
+<td class="result-year">2023</td>
+</tr>
+<tr data-discipline="fin">
+<td class="result-rank gold">1</td>
+<td class="result-event">Youth Fin Nationals<span class="result-event-sub">Add location</span></td>
+<td><span class="result-discipline fin">Fin</span></td>
+<td class="result-year">2023</td>
+</tr>
+<tr data-discipline="wing">
+<td class="result-rank" style="color:var(--muted)">4</td>
+<td class="result-event">Wing Open Series Finale<span class="result-event-sub">Add location</span></td>
+<td><span class="result-discipline wing">Wing</span></td>
+<td class="result-year">2022</td>
+</tr>
+</tbody>
+</table>
+<div class="results-note reveal">* Update results with <span>real competition data</span></div>
+</section>
+<!-- SPONSORS -->
+<section id="sponsors">
+<div class="section-label reveal">SPONSORS & PARTNERS</div>
+<p class="sponsors-intro reveal">Proudly supported by brands who believe in the next generation of windsurfing talent. Sponsor slots are available for the 2025–2026 season.</p>
+<div class="sponsors-marquee reveal" aria-label="Sponsors carousel">
+<div class="sponsors-track">
+<!-- First set — alternating dark / light-bg as evenly as 9 dark + 6 light allows.
+     Pattern: D L D L D D L D L D L D D L D (then duplicates below) -->
+<div class="sponsor-logo" title="North Sails"><img src="sponsors/north-sails.png" alt="North Sails" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="MySharxon"><img src="sponsors/mysharxon.png" alt="MySharxon" loading="lazy"></div>
+<div class="sponsor-logo" title="Heroms"><img src="sponsors/heroms.png" alt="Heroms" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="IBO"><img src="sponsors/ibo.png" alt="IBO" loading="lazy"></div>
+<div class="sponsor-logo" title="Frans Paradise"><img src="sponsors/frans-paradise.png" alt="Frans Paradise" loading="lazy"></div>
+<div class="sponsor-logo" title="Paradise Rentals"><img src="sponsors/paradise-rentals.png" alt="Paradise Rentals" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="INEBON"><img src="sponsors/inebon.png" alt="INEBON" loading="lazy"></div>
+<div class="sponsor-logo" title="Concilium"><img src="sponsors/concilium.png" alt="Concilium" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="Rocargo"><img src="sponsors/rocargo.png" alt="Rocargo" loading="lazy"></div>
+<div class="sponsor-logo" title="EAD"><img src="sponsors/ead.png" alt="EAD" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="DSG"><img src="sponsors/dsg.png" alt="DSG" loading="lazy"></div>
+<div class="sponsor-logo" title="BBX"><img src="sponsors/bbx.png" alt="BBX" loading="lazy"></div>
+<div class="sponsor-logo" title="Manno"><img src="sponsors/manno.png" alt="Manno" loading="lazy"></div>
+<div class="sponsor-logo light-bg" title="Play, Learn, Grow Together"><img src="sponsors/play-learn-grow.png" alt="Play, Learn, Grow Together" loading="lazy"></div>
+<div class="sponsor-logo" title="OnTrack"><img src="sponsors/ontrack.png" alt="OnTrack" loading="lazy"></div>
+<!-- Duplicate set for seamless infinite loop (aria-hidden so screen readers skip it) -->
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/north-sails.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/mysharxon.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/heroms.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/ibo.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/frans-paradise.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/paradise-rentals.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/inebon.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/concilium.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/rocargo.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/ead.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/dsg.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/bbx.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/manno.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/play-learn-grow.png" alt="" loading="lazy"></div>
+<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/ontrack.png" alt="" loading="lazy"></div>
+</div>
+</div>
+<div class="sponsors-cta-block reveal">
+<div class="sponsors-cta-text">
+<div class="sponsors-cta-title">BECOME A SPONSOR</div>
+<div class="sponsors-cta-sub">Support a rising international windsurfer. Get your brand on the water.</div>
+</div>
+<a href="#contact" class="btn-outline">Sponsorship Enquiry →</a>
+</div>
+</section>
+<!-- CONTACT -->
+<section id="contact">
+<div class="contact-bg"></div>
+<div class="contact-orb contact-orb-1"></div>
+<div class="contact-orb contact-orb-2"></div>
+<div class="contact-label reveal">// GET IN TOUCH</div>
+<h2 class="contact-heading reveal reveal-delay-1">READY TO<br><span>COLLABORATE?</span></h2>
+<p class="contact-sub reveal reveal-delay-2">Sponsorship enquiries, media requests, or just want to talk windsurfing — Arxon's ready to connect.</p>
+<div class="contact-actions reveal reveal-delay-3">
+<a href="mailto:arxon@email.com" class="btn-primary">Send a Message</a>
+<a href="mailto:arxon@email.com" class="contact-email">arxon@email.com</a>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="footer-copy">© 2025 ARXON GOMPERTS — ALL RIGHTS RESERVED</div>
+<ul class="footer-socials">
+<li><a href="#">IG</a></li>
+<li><a href="#">TT</a></li>
+<li><a href="#">YT</a></li>
+<li><a href="#">IN</a></li>
+</ul>
+<a href="#hero" class="footer-top">↑ Back to top</a>
+</footer>
+<script>
+  // ============ PAGE LOADER ============
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('pageLoader').classList.add('loaded');
+    }, 2200);
+  });
+  // ============ CUSTOM CURSOR ============
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  let ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  // Smooth cursor follow with lerp
+  function animateCursor() {
+    const speed = 0.2;
+    const ringSpeed = 0.1;
+    cursorX += (mouseX - cursorX) * speed;
+    cursorY += (mouseY - cursorY) * speed;
+    ringX += (mouseX - ringX) * ringSpeed;
+    ringY += (mouseY - ringY) * ringSpeed;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .discipline-card, .sponsor-slot, .gallery-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hover-active');
+      cursorRing.classList.add('hover-active');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hover-active');
+      cursorRing.classList.remove('hover-active');
+    });
+  });
+  // ============ NAV SCROLL ============
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  // ============ SCROLL PROGRESS ============
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+  });
+  // ============ HAMBURGER MENU ============
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // ============ REVEAL ON SCROLL ============
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+  // ============ COUNTER ANIMATION ============
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = 'true';
+        const target = parseInt(entry.target.dataset.target);
+        const duration = 1500;
+        const start = performance.now();
+        function updateCount(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          const current = Math.round(eased * target);
+          entry.target.textContent = current;
+          if (progress < 1) requestAnimationFrame(updateCount);
+        }
+        requestAnimationFrame(updateCount);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => {
+    counterObserver.observe(el);
+  });
+  // ============ RESULTS FILTER ============
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const discipline = btn.dataset.filter;
+      document.querySelectorAll('#resultsTable tbody tr').forEach(row => {
+        if (discipline === 'all' || row.dataset.discipline === discipline) {
+          row.style.display = '';
+          row.style.animation = 'fadeUp 0.4s ease both';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+  // ============ LIGHTBOX ============
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  let currentLightbox = 0;
+  const galleryImages = [];
+  galleryItems.forEach((item, i) => {
+    const img = item.querySelector('img');
+    const caption = item.dataset.caption || '';
+    if (img) {
+      galleryImages.push({ src: img.src, caption: caption });
+      item.addEventListener('click', () => {
+        currentLightbox = i;
+        openLightbox(i);
+      });
+    }
+  });
+  function openLightbox(index) {
+    lightboxImg.src = galleryImages[index].src;
+    lightboxCaption.textContent = galleryImages[index].caption;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.getElementById('lightboxPrev').addEventListener('click', e => {
+    e.stopPropagation();
+    currentLightbox = (currentLightbox - 1 + galleryImages.length) % galleryImages.length;
+    lightboxImg.src = galleryImages[currentLightbox].src;
+    lightboxCaption.textContent = galleryImages[currentLightbox].caption;
+  });
+  document.getElementById('lightboxNext').addEventListener('click', e => {
+    e.stopPropagation();
+    currentLightbox = (currentLightbox + 1) % galleryImages.length;
+    lightboxImg.src = galleryImages[currentLightbox].src;
+    lightboxCaption.textContent = galleryImages[currentLightbox].caption;
+  });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+  });
+  // ============ HERO PARTICLES ============
+  const particlesContainer = document.getElementById('heroParticles');
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (8 + Math.random() * 12) + 's';
+    particle.style.animationDelay = (Math.random() * 10) + 's';
+    particle.style.width = (2 + Math.random() * 3) + 'px';
+    particle.style.height = particle.style.width;
+    particle.style.opacity = 0.2 + Math.random() * 0.4;
+    particlesContainer.appendChild(particle);
+  }
+  // ============ PARALLAX on Hero BG ============
+  const heroBgImage = document.querySelector('.hero-bg-image');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight) {
+      const offset = window.scrollY * 0.4;
+      heroBgImage.style.transform = `translateY(${offset}px)`;
+      heroBgImage.style.opacity = 0.32 - (window.scrollY / window.innerHeight) * 0.32;
+    }
+  });
+  // ============ SMOOTH ANCHOR LINKS ============
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

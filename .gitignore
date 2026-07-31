@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+Icon?
+
+# Dev / source artifacts (not part of the live site)
+Scherm*afbeelding*.png
+NB11_BRANDING 101/
