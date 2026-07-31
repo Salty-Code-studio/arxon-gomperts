@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARXON GOMPERTS — WINDSURFER</title>
-<meta name="description" content="Arxon Gomperts — Professional windsurfer competing in foiling, fin slalom & wing foiling disciplines on the international circuit.">
+<meta name="description" content="Arxon Gomperts — Professional windsurfer competing in fin slalom racing on the international circuit.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -547,6 +547,106 @@
     font-size: 18px;
   }
   .discipline-card:hover .discipline-arrow { opacity: 1; transform: translateY(0) rotate(0); }
+  /* STATS */
+  #stats .stats-lead {
+    max-width: 520px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 56px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .stat-card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 44px 32px 36px;
+    overflow: hidden;
+    transition: border-color 0.4s, background 0.4s, transform 0.4s;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.08), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .stat-card:hover {
+    border-color: rgba(0,229,255,0.28);
+    background: rgba(0,229,255,0.03);
+    transform: translateY(-4px);
+  }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-index {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 28px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(58px, 7vw, 92px);
+    line-height: 0.9;
+    color: var(--white);
+    display: flex;
+    align-items: baseline;
+  }
+  .stat-value .stat-suffix {
+    color: var(--accent);
+    font-size: 0.5em;
+    margin-left: 4px;
+    text-shadow: 0 0 30px var(--accent-glow);
+  }
+  .stat-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--white);
+    margin-top: 18px;
+  }
+  .stat-sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .stats-banner {
+    margin-top: 2px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    justify-content: space-between;
+    transition: border-color 0.4s;
+  }
+  .stats-banner:hover { border-color: rgba(0,229,255,0.18); }
+  .stats-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .stats-banner-title span { color: var(--accent); text-shadow: 0 0 40px var(--accent-glow); }
+  .stats-banner-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.9;
+  }
+  .stats-banner-meta b { color: var(--accent); font-weight: 400; }
   /* GALLERY */
   #gallery .gallery-grid {
     display: grid;
@@ -999,16 +1099,26 @@
   }
   .sponsors-marquee::before { left: 9%; }
   .sponsors-marquee::after { right: 9%; }
+  /* Scroll container — auto-scrolls via JS, but is also grab/drag/wheel/touch scrollable */
+  .sponsors-marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    scrollbar-width: none;             /* Firefox */
+    -ms-overflow-style: none;          /* IE/Edge */
+    scroll-behavior: auto;
+    overscroll-behavior-x: contain;
+  }
+  .sponsors-marquee::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+  .sponsors-marquee.dragging { cursor: grabbing; }
   .sponsors-track {
     display: flex;
     align-items: center;
     gap: 44px;
     width: max-content;
-    animation: sponsorScroll 75s linear infinite;
+    user-select: none;
   }
-  .sponsors-marquee:hover .sponsors-track {
-    animation-play-state: paused;
-  }
+  .sponsors-track img { pointer-events: none; -webkit-user-drag: none; }
   .sponsor-logo {
     flex: 0 0 auto;
     width: 480px;
@@ -1318,6 +1428,9 @@
     section { padding: 80px 24px; }
     #hero { padding: 0 24px 48px; }
     .disciplines-grid { grid-template-columns: 1fr !important; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stats-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .stats-banner-meta { text-align: left; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .gallery-grid { grid-template-columns: 1fr 1fr !important; }
     .gallery-item:first-child { grid-column: span 2; }
@@ -1359,7 +1472,7 @@
 <nav id="navbar">
 <a href="#hero" class="nav-logo">ARXON<span>.</span></a>
 <ul class="nav-links">
-<li><a href="#disciplines">Disciplines</a></li>
+<li><a href="#stats">Stats</a></li>
 <li><a href="#gallery">Gallery</a></li>
 <li><a href="#results">Results</a></li>
 <li><a href="#about">About</a></li>
@@ -1372,7 +1485,7 @@
 </nav>
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
-<a href="#disciplines" onclick="closeMobileNav()">Disciplines</a>
+<a href="#stats" onclick="closeMobileNav()">Stats</a>
 <a href="#gallery" onclick="closeMobileNav()">Gallery</a>
 <a href="#results" onclick="closeMobileNav()">Results</a>
 <a href="#about" onclick="closeMobileNav()">About</a>
@@ -1404,18 +1517,18 @@
 <span class="line2">GOMPERTS</span>
 </h1>
 <div class="hero-sub">
-<p class="hero-tagline">Professional windsurfer pushing the limits across foiling, fin & wing disciplines. Competing internationally — chasing the wind.</p>
+<p class="hero-tagline">Professional windsurfer pushing the limits in fin slalom racing. Competing internationally — chasing the wind.</p>
 <div class="hero-stats">
 <div>
-<div class="hero-stat-num"><span class="counter" data-target="3">0</span><span>×</span></div>
-<div class="hero-stat-label">Disciplines</div>
+<div class="hero-stat-num"><span class="counter" data-target="2">0</span><span>×</span></div>
+<div class="hero-stat-label">World Titles</div>
 </div>
 <div>
-<div class="hero-stat-num"><span class="counter" data-target="12">0</span><span>+</span></div>
-<div class="hero-stat-label">Competitions</div>
+<div class="hero-stat-num"><span class="counter" data-target="4">0</span></div>
+<div class="hero-stat-label">World Cup Wins</div>
 </div>
 <div>
-<div class="hero-stat-num">TOP<span> <span class="counter" data-target="5">0</span></span></div>
+<div class="hero-stat-num"><span class="counter" data-target="5">0</span><span>+</span></div>
 <div class="hero-stat-label">Podium finishes</div>
 </div>
 </div>
@@ -1428,47 +1541,43 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
 <div class="marquee-track">
-<div class="marquee-item"><span class="dot">◆</span> FOILING <span class="dot">◆</span> FIN RACING <span class="dot">◆</span> WING FOILING <span class="dot">◆</span> SPEED <span class="dot">◆</span> FREESTYLE <span class="dot">◆</span> SLALOM <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
-<div class="marquee-item"><span class="dot">◆</span> FOILING <span class="dot">◆</span> FIN RACING <span class="dot">◆</span> WING FOILING <span class="dot">◆</span> SPEED <span class="dot">◆</span> FREESTYLE <span class="dot">◆</span> SLALOM <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
+<div class="marquee-item"><span class="dot">◆</span> FIN RACING <span class="dot">◆</span> SLALOM <span class="dot">◆</span> SPEED <span class="dot">◆</span> BUOY RACING <span class="dot">◆</span> DOWNWIND <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
+<div class="marquee-item"><span class="dot">◆</span> FIN RACING <span class="dot">◆</span> SLALOM <span class="dot">◆</span> SPEED <span class="dot">◆</span> BUOY RACING <span class="dot">◆</span> DOWNWIND <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
 </div>
 </div>
-<!-- DISCIPLINES -->
-<section id="disciplines">
-<div class="section-label reveal">DISCIPLINES</div>
-<div class="disciplines-grid">
-<div class="discipline-card disc-foiling reveal reveal-delay-1">
-<div class="discipline-bg">
-<img src="arxon-action-solo.jpg" alt="Foil racing action" loading="lazy">
+<!-- STATS -->
+<section id="stats">
+<div class="section-label reveal">CAREER STATS</div>
+<p class="stats-lead reveal">A fast-rising force in international fin slalom — collecting PWA Youth World Cup titles across the Caribbean and Europe.</p>
+<div class="stats-grid">
+<div class="stat-card reveal reveal-delay-1">
+<div class="stat-index">01</div>
+<div class="stat-value"><span class="counter" data-target="2">0</span><span class="stat-suffix">×</span></div>
+<div class="stat-label">World Titles</div>
+<div class="stat-sub">U15 Fin Slalom</div>
 </div>
-<div class="discipline-arrow">↗</div>
-<div class="discipline-content">
-<div class="discipline-number">01 / FOILING</div>
-<div class="discipline-title">FOIL<br>RACING</div>
-<div class="discipline-desc">Hydrofoil windsurfing — gliding above the water surface at full speed. Pure technicality meets raw power.</div>
+<div class="stat-card reveal reveal-delay-2">
+<div class="stat-index">02</div>
+<div class="stat-value"><span class="counter" data-target="4">0</span></div>
+<div class="stat-label">World Cup Wins</div>
+<div class="stat-sub">2025 – 2026</div>
 </div>
+<div class="stat-card reveal reveal-delay-3">
+<div class="stat-index">03</div>
+<div class="stat-value"><span class="counter" data-target="5">0</span><span class="stat-suffix">+</span></div>
+<div class="stat-label">Podium Finishes</div>
+<div class="stat-sub">International</div>
 </div>
-<div class="discipline-card disc-fin reveal reveal-delay-2">
-<div class="discipline-bg">
-<img src="arxon-action-duo.jpg" alt="Fin slalom racing" loading="lazy">
-</div>
-<div class="discipline-arrow">↗</div>
-<div class="discipline-content">
-<div class="discipline-number">02 / FIN</div>
-<div class="discipline-title">FIN<br>SLALOM</div>
-<div class="discipline-desc">Classic fin windsurfing — maximal sail power, tactical buoy racing and blazing downwind slalom runs.</div>
-</div>
-</div>
-<div class="discipline-card disc-wing reveal reveal-delay-3">
-<div class="discipline-bg">
-<img src="arxon-jump-airborne.jpg" alt="Wing foiling action" loading="lazy">
-</div>
-<div class="discipline-arrow">↗</div>
-<div class="discipline-content">
-<div class="discipline-number">03 / WING</div>
-<div class="discipline-title">WING<br>FOILING</div>
-<div class="discipline-desc">Handheld wing meets hydrofoil — the newest frontier of wind sports demanding athleticism and balance.</div>
+<div class="stat-card reveal reveal-delay-4">
+<div class="stat-index">04</div>
+<div class="stat-value"><span class="counter" data-target="13">0</span></div>
+<div class="stat-label">Race-Win Streak</div>
+<div class="stat-sub">2025 Season</div>
 </div>
 </div>
+<div class="stats-banner reveal">
+<div class="stats-banner-title"><span>2×</span> U15 FIN SLALOM WORLD CHAMPION</div>
+<div class="stats-banner-meta">SAIL <b>NB-2011</b> &nbsp;·&nbsp; BONAIRE, CARIBBEAN<br>PWA YOUTH WORLD TOUR</div>
 </div>
 </section>
 <!-- GALLERY -->
@@ -1476,9 +1585,9 @@
 <div class="section-label reveal">GALLERY</div>
 <div class="gallery-grid">
 <!-- Item 1: HERO (2x2) -->
-<div class="gallery-item reveal" data-caption="Big Air — Mid-Flight Foil Jump">
+<div class="gallery-item reveal" data-caption="Big Air — Mid-Flight Jump">
 <div class="gallery-item-inner">
-<img src="arxon-jump-airborne.jpg" alt="Airborne foil jump" loading="lazy">
+<img src="arxon-jump-airborne.jpg" alt="Airborne windsurf jump" loading="lazy">
 <div class="gallery-item-overlay">
 <span class="gallery-tag">Big Air</span>
 <span class="gallery-expand">⤢</span>
@@ -1617,15 +1726,15 @@
 <em>THE WIND</em>
 </h2>
 <p class="about-body reveal reveal-delay-2">
-        Arxon Gomperts is a professional windsurfer competing across three disciplines — foiling, fin, and wing foiling. Driven by a relentless passion for speed and technical mastery, Arxon has been pushing his limits on international waters since a young age.
+        Arxon Gomperts is a professional windsurfer specializing in fin slalom racing. Driven by a relentless passion for speed and technical mastery, Arxon has been pushing his limits on international waters since a young age.
 </p>
 <p class="about-body reveal reveal-delay-3">
-        Equally at home on a hydrofoil racing downwind as in a classic fin slalom or on a wing, Arxon brings versatility, commitment, and a hunger to reach the top of the sport.
+        Powering a fully loaded slalom sail through tactical buoy racing and blazing downwind runs, Arxon brings raw commitment, precision, and a hunger to reach the top of the sport.
 </p>
 <div class="about-tags reveal reveal-delay-3">
-<span class="about-tag">Foil Racing</span>
 <span class="about-tag">Fin Slalom</span>
-<span class="about-tag">Wing Foiling</span>
+<span class="about-tag">Buoy Racing</span>
+<span class="about-tag">Downwind</span>
 <span class="about-tag">Speed</span>
 <span class="about-tag">Open Water</span>
 </div>
@@ -1637,12 +1746,12 @@
 </div>
 <div class="about-stats-grid" style="margin-top: 2px;">
 <div class="about-stat-box reveal">
-<div class="about-stat-num"><span class="counter" data-target="3">0</span><sup>+</sup></div>
-<div class="about-stat-desc">Disciplines mastered</div>
+<div class="about-stat-num"><span class="counter" data-target="2">0</span><sup>×</sup></div>
+<div class="about-stat-desc">U15 World titles</div>
 </div>
 <div class="about-stat-box reveal reveal-delay-1">
-<div class="about-stat-num"><span class="counter" data-target="10">0</span><sup>+</sup></div>
-<div class="about-stat-desc">Countries competed</div>
+<div class="about-stat-num"><span class="counter" data-target="4">0</span><sup>+</sup></div>
+<div class="about-stat-desc">Countries raced</div>
 </div>
 <div class="about-stat-box reveal reveal-delay-2">
 <div class="about-stat-num"><span class="counter" data-target="5">0</span><sup>+</sup></div>
@@ -1664,9 +1773,9 @@
 </div>
 <div class="results-filter reveal">
 <button class="filter-btn active" data-filter="all">All</button>
-<button class="filter-btn" data-filter="foiling">Foiling</button>
-<button class="filter-btn" data-filter="fin">Fin</button>
-<button class="filter-btn" data-filter="wing">Wing</button>
+<button class="filter-btn" data-filter="2026">2026</button>
+<button class="filter-btn" data-filter="2025">2025</button>
+<button class="filter-btn" data-filter="2024">2024</button>
 </div>
 </div>
 <table class="results-table reveal" id="resultsTable">
@@ -1674,50 +1783,50 @@
 <tr>
 <th style="width:60px">Rank</th>
 <th>Event</th>
-<th>Discipline</th>
+<th>Class</th>
 <th>Year</th>
 </tr>
 </thead>
 <tbody>
-<tr data-discipline="foiling">
+<tr data-year="2026">
 <td class="result-rank gold">1</td>
-<td class="result-event">National Foil Championship<span class="result-event-sub">Add location — e.g. Zandvoort, NL</span></td>
-<td><span class="result-discipline foiling">Foiling</span></td>
-<td class="result-year">2024</td>
+<td class="result-event">Aruba Hi-Winds — PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U17 Fin</span></td>
+<td class="result-year">2026</td>
 </tr>
-<tr data-discipline="fin">
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">Cold Hawaii — Youth Slalom World Cup<span class="result-event-sub">Thisted, Denmark</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">Aruba Hi-Winds — PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">PWA Youth World Cup Bonaire<span class="result-event-sub">Lac Bay, Bonaire</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
 <td class="result-rank silver">2</td>
-<td class="result-event">Regional Slalom Open<span class="result-event-sub">Add location — e.g. Tarifa, ES</span></td>
-<td><span class="result-discipline fin">Fin</span></td>
-<td class="result-year">2024</td>
+<td class="result-event">Alaçatı Windfest — Youth Slalom World Cup<span class="result-event-sub">Alaçatı, Turkey</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
 </tr>
-<tr data-discipline="wing">
-<td class="result-rank bronze">3</td>
-<td class="result-event">Wing Foil Cup<span class="result-event-sub">Add location</span></td>
-<td><span class="result-discipline wing">Wing</span></td>
-<td class="result-year">2023</td>
-</tr>
-<tr data-discipline="foiling">
-<td class="result-rank" style="color:var(--muted)">5</td>
-<td class="result-event">International Foil Series — Round 2<span class="result-event-sub">Add location</span></td>
-<td><span class="result-discipline foiling">Foiling</span></td>
-<td class="result-year">2023</td>
-</tr>
-<tr data-discipline="fin">
-<td class="result-rank gold">1</td>
-<td class="result-event">Youth Fin Nationals<span class="result-event-sub">Add location</span></td>
-<td><span class="result-discipline fin">Fin</span></td>
-<td class="result-year">2023</td>
-</tr>
-<tr data-discipline="wing">
+<tr data-year="2024">
 <td class="result-rank" style="color:var(--muted)">4</td>
-<td class="result-event">Wing Open Series Finale<span class="result-event-sub">Add location</span></td>
-<td><span class="result-discipline wing">Wing</span></td>
-<td class="result-year">2022</td>
+<td class="result-event">Aruba Hi-Winds — Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2024</td>
 </tr>
 </tbody>
 </table>
-<div class="results-note reveal">* Update results with <span>real competition data</span></div>
+<div class="results-note reveal">Results verified via <span>PWA World Tour</span> & event reports</div>
 </section>
 <!-- SPONSORS -->
 <section id="sponsors">
@@ -1899,9 +2008,9 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const discipline = btn.dataset.filter;
+      const year = btn.dataset.filter;
       document.querySelectorAll('#resultsTable tbody tr').forEach(row => {
-        if (discipline === 'all' || row.dataset.discipline === discipline) {
+        if (year === 'all' || row.dataset.year === year) {
           row.style.display = '';
           row.style.animation = 'fadeUp 0.4s ease both';
         } else {
@@ -1980,6 +2089,82 @@
       heroBgImage.style.opacity = 0.32 - (window.scrollY / window.innerHeight) * 0.32;
     }
   });
+  // ============ SPONSORS — AUTO-SCROLL + MANUAL DRAG ============
+  (function () {
+    const marquee = document.querySelector('.sponsors-marquee');
+    const track = document.querySelector('.sponsors-track');
+    if (!marquee || !track) return;
+
+    // The track holds two identical sets of logos back-to-back.
+    // Looping half the scrollWidth gives a seamless infinite scroll.
+    let half = 0;
+    const measure = () => { half = track.scrollWidth / 2; };
+    measure();
+    window.addEventListener('resize', measure);
+
+    let auto = true;                 // auto-scroll enabled
+    let resumeTimer = null;
+    const SPEED = 0.5;               // px per frame (~30px/s at 60fps)
+
+    function pauseAuto(delay = 2500) {
+      auto = false;
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { auto = true; }, delay);
+    }
+
+    function tick() {
+      if (auto) {
+        marquee.scrollLeft += SPEED;
+        if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
+      } else if (half > 0) {
+        // keep manual scroll position within the seamless loop range
+        if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
+        else if (marquee.scrollLeft < 0) marquee.scrollLeft += half;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Pause while hovering (desktop nicety)
+    marquee.addEventListener('mouseenter', () => { auto = false; clearTimeout(resumeTimer); });
+    marquee.addEventListener('mouseleave', () => { if (!isDown) pauseAuto(600); });
+
+    // Wheel / trackpad horizontal scroll
+    marquee.addEventListener('wheel', (e) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (delta !== 0) {
+        marquee.scrollLeft += delta;
+        pauseAuto();
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Pointer drag (mouse + touch via Pointer Events)
+    let isDown = false, startX = 0, startScroll = 0;
+    marquee.addEventListener('pointerdown', (e) => {
+      isDown = true;
+      auto = false;
+      clearTimeout(resumeTimer);
+      startX = e.clientX;
+      startScroll = marquee.scrollLeft;
+      marquee.classList.add('dragging');
+      marquee.setPointerCapture(e.pointerId);
+    });
+    marquee.addEventListener('pointermove', (e) => {
+      if (!isDown) return;
+      marquee.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    const endDrag = () => {
+      if (!isDown) return;
+      isDown = false;
+      marquee.classList.remove('dragging');
+      pauseAuto();
+    };
+    marquee.addEventListener('pointerup', endDrag);
+    marquee.addEventListener('pointercancel', endDrag);
+    marquee.addEventListener('pointerleave', endDrag);
+  })();
+
   // ============ SMOOTH ANCHOR LINKS ============
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
