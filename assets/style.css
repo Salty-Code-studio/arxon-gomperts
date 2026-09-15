@@ -322,76 +322,12 @@
   .btn-primary:hover::before { transform: translateX(100%); }
   .btn-primary:hover { background: var(--white); box-shadow: 0 0 40px var(--accent-glow); }
 
-  /* LIGHTBOX */
-  .lightbox {
-    position: fixed; inset: 0;
-    z-index: 10000;
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.4s, visibility 0.4s;
-    cursor: zoom-out;
-  }
-  .lightbox.active { opacity: 1; visibility: visible; }
-  .lightbox img {
-    max-width: 90vw; max-height: 85vh;
-    object-fit: contain;
-    border-radius: 2px;
-    transform: scale(0.9);
-    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
-  }
-  .lightbox.active img { transform: scale(1); }
-  .lightbox-close {
-    position: absolute; top: 32px; right: 32px;
-    width: 44px; height: 44px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: none;
-    color: var(--white);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .lightbox-close:hover { border-color: var(--accent); background: rgba(0,229,255,0.1); }
-  .lightbox-caption {
-    position: absolute; bottom: 32px; left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  .lightbox-nav {
-    position: absolute;
-    top: 50%; transform: translateY(-50%);
-    width: 48px; height: 48px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.05);
-    color: var(--white);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s;
-  }
-  .lightbox-nav:hover { border-color: var(--accent); background: rgba(0,229,255,0.1); }
-  .lightbox-prev { left: 24px; }
-  .lightbox-next { right: 24px; }
 
   /* FOOTER */
   footer {
     padding: 32px 48px;
     border-top: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-copy {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-transform: uppercase;
   }
   .footer-socials {
     display: flex; gap: 24px; list-style: none;
@@ -406,16 +342,6 @@
     transition: color 0.3s, transform 0.3s;
   }
   .footer-socials a:hover { color: var(--accent); transform: translateY(-2px); }
-  .footer-top {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .footer-top:hover { color: var(--accent); }
   /* SMOOTH SCROLL PROGRESS BAR */
   .scroll-progress {
     position: fixed; top: 0; left: 0;
@@ -477,7 +403,6 @@
   footer { flex-direction: column; gap: 24px; text-align: center; }
   .cursor, .cursor-ring { display: none; }
   body { cursor: auto; }
-  .lightbox-nav { display: none; }
 }
 
 /* Used by the results filter on races.html. */
