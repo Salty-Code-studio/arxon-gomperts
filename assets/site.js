@@ -116,3 +116,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// ============ WHATSAPP CONTACT ============
+// TODO(client): real WhatsApp number required. Digits only, country code first,
+// no plus sign and no spaces. Example for a Dutch mobile: '31612345678'.
+// While this is empty, the form warns instead of opening a dead wa.me link.
+window.ARXON_WHATSAPP = '';
+
+function initWhatsAppForm(form) {
+  if (!form) return;
+  const note = form.querySelector('.wa-note');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!window.ARXON_WHATSAPP) {
+      if (note) note.textContent = 'WhatsApp is not configured yet.';
+      return;
+    }
+    const name = form.querySelector('[name="name"]').value.trim();
+    const msg = form.querySelector('[name="message"]').value.trim();
+    const text = 'Hi Arxon, this is ' + (name || 'someone') +
+      ' reaching out via arxongomperts.com.' + (msg ? '\n\n' + msg : '');
+    window.open('https://wa.me/' + window.ARXON_WHATSAPP + '?text=' + encodeURIComponent(text),
+      '_blank', 'noopener');
+  });
+}
+window.initWhatsAppForm = initWhatsAppForm;

@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARXON GOMPERTS — WINDSURFER</title>
-<meta name="description" content="Arxon Gomperts — Professional windsurfer competing in fin slalom racing on the international circuit.">
+<title>ARXON GOMPERTS | Windsurfer, Competitor, Ambassador</title>
+<meta name="description" content="Put your brand on the world stage. High-performance fin slalom windsurfing, global reach, real impact. Partner with Arxon Gomperts.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arxongomperts.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://arxongomperts.com/">
-<meta property="og:title" content="Arxon Gomperts — Professional Windsurfer">
-<meta property="og:description" content="Fin slalom racing on the international circuit. Based in Bonaire.">
+<meta property="og:title" content="Arxon Gomperts | Professional Windsurfer">
+<meta property="og:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit. Based in Bonaire.">
 <meta property="og:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Arxon Gomperts — Professional Windsurfer">
-<meta name="twitter:description" content="Fin slalom racing on the international circuit. Based in Bonaire.">
+<meta name="twitter:title" content="Arxon Gomperts | Professional Windsurfer">
+<meta name="twitter:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit.">
 <meta name="twitter:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2300e5ff'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,1269 +23,176 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* Homepage-only sections. */
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 48px 64px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(0,229,255,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,107,0,0.05) 0%, transparent 70%),
-      linear-gradient(175deg, #0a0a0a 0%, #0d1a1e 50%, #0a0a0a 100%);
-    z-index: 0;
-  }
-  .hero-bg-image {
-    position: absolute; inset: 0;
-    z-index: 0;
-    opacity: 0.32;
-  }
-  .hero-bg-image img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(0.2) contrast(1.05);
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-    z-index: 0;
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, transparent 100%);
-  }
-  /* Floating particles */
-  .hero-particles {
-    position: absolute; inset: 0; z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .particle {
-    position: absolute;
-    width: 3px; height: 3px;
-    background: var(--accent);
-    border-radius: 50%;
-    opacity: 0;
-    animation: particleFloat linear infinite;
-  }
-  @keyframes particleFloat {
-    0% { opacity: 0; transform: translateY(100vh) translateX(0); }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
-    100% { opacity: 0; transform: translateY(-10vh) translateX(40px); }
-  }
-  .hero-status {
-    display: flex; align-items: center; gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    position: relative; z-index: 1;
-    animation: fadeUp 0.8s ease 0.3s both;
-  }
-  .hero-status-dot {
-    width: 7px; height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    box-shadow: 0 0 12px var(--accent-glow);
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 12px var(--accent-glow); }
-    50% { opacity: 0.5; transform: scale(0.7); box-shadow: 0 0 4px var(--accent-glow); }
-  }
-  .hero-name {
-    font-family: var(--font-display);
-    font-size: clamp(80px, 13vw, 200px);
-    line-height: 0.88;
-    letter-spacing: -0.01em;
-    position: relative; z-index: 1;
-    animation: fadeUp 0.8s ease 0.4s both;
-  }
-  .hero-name .line2 {
-    color: var(--accent);
-    display: block;
-    text-shadow: 0 0 80px var(--accent-glow);
-  }
-  .hero-sub {
-    margin-top: 32px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: relative; z-index: 1;
-    animation: fadeUp 0.8s ease 0.5s both;
-  }
-  .hero-tagline {
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 360px;
-    line-height: 1.7;
-    font-style: italic;
-  }
-  .hero-stats {
-    display: flex; gap: 48px;
-  }
-  .hero-stat-num {
-    font-family: var(--font-display);
-    font-size: 42px;
-    line-height: 1;
-    color: var(--white);
-  }
-  .hero-stat-num span { color: var(--accent); }
-  .hero-stat-label {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-  .scroll-indicator {
-    position: absolute; bottom: 32px; right: 48px;
-    display: flex; align-items: center; gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    z-index: 1;
-    animation: fadeUp 1s ease 0.8s both;
-  }
-  .scroll-line {
-    width: 40px; height: 1px;
-    background: var(--accent);
-    animation: scrollPulse 2s infinite;
-    box-shadow: 0 0 8px var(--accent-glow);
-  }
-  @keyframes scrollPulse {
-    0%, 100% { width: 40px; }
-    50% { width: 20px; }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  /* MARQUEE */
-  .marquee-wrap {
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 0;
-    background: var(--panel);
-  }
-  .marquee-track {
-    display: flex; gap: 0;
-    animation: marquee 22s linear infinite;
-    width: max-content;
-  }
-  .marquee-item {
-    display: flex; align-items: center; gap: 24px;
-    padding: 0 40px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .marquee-item .dot { color: var(--accent); font-size: 16px; }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  /* DISCIPLINES */
-  #disciplines .disciplines-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin-top: 0;
-  }
-  .discipline-card {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/5;
-    background: var(--panel);
-    cursor: pointer;
-  }
-  .discipline-card::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
-    z-index: 1;
-    transition: opacity 0.5s;
-  }
-  .discipline-card:hover::before {
-    background: linear-gradient(to top, rgba(0,229,255,0.12) 0%, rgba(0,0,0,0.6) 100%);
-  }
-  .disc-fin .discipline-card:hover::before,
-  .discipline-card.disc-fin:hover::before {
-    background: linear-gradient(to top, rgba(255,107,0,0.12) 0%, rgba(0,0,0,0.6) 100%);
-  }
-  .disc-wing .discipline-card:hover::before,
-  .discipline-card.disc-wing:hover::before {
-    background: linear-gradient(to top, rgba(0,255,150,0.12) 0%, rgba(0,0,0,0.6) 100%);
-  }
-  .discipline-bg {
-    position: absolute; inset: 0;
-    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
-  }
-  .discipline-card:hover .discipline-bg { transform: scale(1.08); }
-  .discipline-bg img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.7) saturate(1.2);
-    transition: filter 0.6s;
-  }
-  .discipline-card:hover .discipline-bg img {
-    filter: brightness(0.5) saturate(1.4);
-  }
-  .discipline-content {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 32px 28px;
-    z-index: 2;
-  }
-  .discipline-number {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    margin-bottom: 12px;
-    transform: translateY(8px);
-    opacity: 0.7;
-    transition: all 0.4s;
-  }
-  .discipline-card:hover .discipline-number { transform: translateY(0); opacity: 1; }
-  .disc-fin .discipline-number { color: var(--accent2); }
-  .disc-wing .discipline-number { color: var(--accent3); }
-  .discipline-title {
-    font-family: var(--font-display);
-    font-size: 42px;
-    line-height: 1;
-    letter-spacing: 0.02em;
-    margin-bottom: 12px;
-    transition: transform 0.4s;
-  }
-  .discipline-card:hover .discipline-title { transform: translateY(-4px); }
-  .discipline-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-    max-width: 260px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.4s 0.1s;
-  }
-  .discipline-card:hover .discipline-desc { opacity: 1; transform: translateY(0); }
-  .discipline-arrow {
-    position: absolute; top: 28px; right: 28px;
-    z-index: 2;
-    width: 36px; height: 36px;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0;
-    transform: translateY(6px) rotate(-45deg);
-    transition: opacity 0.4s, transform 0.4s;
-    color: var(--accent);
-    font-size: 18px;
-  }
-  .discipline-card:hover .discipline-arrow { opacity: 1; transform: translateY(0) rotate(0); }
-  /* STATS */
-  #stats .stats-lead {
-    max-width: 520px;
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    font-style: italic;
-    margin-bottom: 56px;
-  }
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  .stat-card {
-    position: relative;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    padding: 44px 32px 36px;
-    overflow: hidden;
-    transition: border-color 0.4s, background 0.4s, transform 0.4s;
-  }
-  .stat-card::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.08), transparent 65%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
-  }
-  .stat-card:hover {
-    border-color: rgba(0,229,255,0.28);
-    background: rgba(0,229,255,0.03);
-    transform: translateY(-4px);
-  }
-  .stat-card:hover::before { opacity: 1; }
-  .stat-index {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    opacity: 0.7;
-    margin-bottom: 28px;
-  }
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: clamp(58px, 7vw, 92px);
-    line-height: 0.9;
-    color: var(--white);
-    display: flex;
-    align-items: baseline;
-  }
-  .stat-value .stat-suffix {
-    color: var(--accent);
-    font-size: 0.5em;
-    margin-left: 4px;
-    text-shadow: 0 0 30px var(--accent-glow);
-  }
-  .stat-label {
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 15px;
-    color: var(--white);
-    margin-top: 18px;
-  }
-  .stat-sub {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-  .stats-banner {
-    margin-top: 2px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    padding: 36px 40px;
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-    justify-content: space-between;
-    transition: border-color 0.4s;
-  }
-  .stats-banner:hover { border-color: rgba(0,229,255,0.18); }
-  .stats-banner-title {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 3.4vw, 42px);
-    line-height: 1;
-    letter-spacing: 0.01em;
-  }
-  .stats-banner-title span { color: var(--accent); text-shadow: 0 0 40px var(--accent-glow); }
-  .stats-banner-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    text-align: right;
-    line-height: 1.9;
-  }
-  .stats-banner-meta b { color: var(--accent); font-weight: 400; }
-  /* GALLERY */
-  #gallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    gap: 2px;
-  }
-  .gallery-item {
-    background: var(--panel);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
-  .gallery-item:nth-child(4) { grid-column: span 2; }
-  .gallery-item:nth-child(9) { grid-column: span 2; }
-  .gallery-item-inner {
-    width: 100%; height: 100%; min-height: 200px;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .gallery-item:first-child .gallery-item-inner { min-height: 500px; }
-  .gallery-item-inner img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1), filter 0.6s;
-  }
-  .gallery-item:hover .gallery-item-inner img {
-    transform: scale(1.06);
-    filter: brightness(0.7);
-  }
-  .gallery-item-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex; align-items: flex-end;
-    justify-content: space-between;
-    padding: 20px;
-    z-index: 2;
-  }
-  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-  .gallery-tag {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    background: rgba(0,229,255,0.1);
-    border: 1px solid rgba(0,229,255,0.2);
-    padding: 4px 10px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .gallery-expand {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: var(--white);
-    font-size: 16px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: background 0.3s;
-  }
-  .gallery-expand:hover { background: rgba(255,255,255,0.15); }
-  /* ============ STORY (pinned scrollytelling) ============ */
-  #gallery { padding: 0; }
-  .story-intro {
-    padding: 120px 48px 80px;
-    max-width: 900px;
-    position: relative; z-index: 2;
-  }
-  .story-intro-title {
-    font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 110px);
-    line-height: 0.92;
-    margin: 8px 0 24px;
-  }
-  .story-intro-sub {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    font-style: italic;
-    max-width: 480px;
-  }
-  .story-scrollcue {
-    display: flex; align-items: center; gap: 14px;
-    margin-top: 40px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-  .story-scrollcue-line {
-    width: 44px; height: 1px;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent-glow);
-    animation: scrollPulse 2s infinite;
-  }
-  /* Sticky-stack: each chapter pins, the next slides up and covers it */
-  .story { position: relative; }
-  .chapter {
-    position: sticky; top: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    padding: 12vh 6vw;
-    background: var(--black);
-    border: none;
-  }
-  section.chapter + section.chapter { border-top: none; }
-  @supports (height: 100svh) { .chapter { height: 100svh; } }
-  .pos-bl { justify-content: flex-start; align-items: flex-end; text-align: left; }
-  .pos-br { justify-content: flex-end;   align-items: flex-end; text-align: right; }
-  .pos-center { justify-content: center; align-items: center;   text-align: center; }
-  .chapter-media {
-    position: absolute; inset: 0; z-index: 0;
-    will-change: transform;
-  }
-  .chapter-media img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transform: scale(1.14);
-    filter: brightness(0.6) saturate(1.08);
-    transition: transform 1.6s cubic-bezier(0.16,1,0.3,1), filter 1.6s ease;
-  }
-  .chapter.active .chapter-media img { transform: scale(1.06); filter: brightness(0.68) saturate(1.12); }
-  .chapter-veil {
-    position: absolute; inset: 0; z-index: 1;
-    background:
-      radial-gradient(ellipse 90% 70% at 50% 60%, transparent 0%, rgba(0,0,0,0.35) 100%),
-      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.55) 100%);
-  }
-  .chapter-bignum {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    font-family: var(--font-display);
-    font-size: clamp(240px, 46vw, 680px);
-    line-height: 0.7;
-    letter-spacing: -0.04em;
-    color: rgba(255,255,255,0.045);
-    z-index: 1; pointer-events: none;
-    user-select: none;
-  }
-  .chapter-inner {
-    position: relative; z-index: 2;
-    max-width: 640px;
-    display: inline-flex; flex-direction: column;
-  }
-  .pos-br .chapter-inner { align-items: flex-end; }
-  .pos-center .chapter-inner { align-items: center; max-width: 760px; }
-  .chapter-index {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 22px;
-  }
-  .chapter-title {
-    font-family: var(--font-display);
-    font-size: clamp(60px, 11vw, 168px);
-    line-height: 0.86;
-    letter-spacing: -0.005em;
-  }
-  .chapter-rule {
-    width: 0; height: 2px;
-    background: var(--accent);
-    box-shadow: 0 0 12px var(--accent-glow);
-    margin: 28px 0 26px;
-    transition: width 1s cubic-bezier(0.16,1,0.3,1) 0.35s;
-  }
-  .chapter.active .chapter-rule { width: 88px; }
-  .chapter-line {
-    font-size: clamp(17px, 2.1vw, 24px);
-    line-height: 1.5;
-    color: var(--white);
-    font-style: italic;
-    font-weight: 300;
-    max-width: 30ch;
-  }
-  .chapter-accent { color: var(--accent); font-style: normal; }
-  .chapter-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 24px;
-  }
-  .chapter-cta {
-    display: inline-flex; align-items: center; gap: 10px;
-    margin-top: 32px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    color: var(--black);
-    background: var(--accent);
-    padding: 15px 32px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-  }
-  .chapter-cta:hover { background: var(--white); box-shadow: 0 0 40px var(--accent-glow); transform: translateY(-2px); }
-  /* Entrance animation — children hidden until chapter is active */
-  .chapter-inner > * {
-    opacity: 0;
-    transform: var(--enter, translateY(44px));
-    transition: opacity 0.9s ease, transform 1s cubic-bezier(0.16,1,0.3,1);
-  }
-  .chapter[data-enter="left"]  .chapter-inner { --enter: translateX(-70px); }
-  .chapter[data-enter="right"] .chapter-inner { --enter: translateX(70px); }
-  .chapter[data-enter="up"]    .chapter-inner { --enter: translateY(52px); }
-  .chapter[data-enter="scale"] .chapter-inner { --enter: scale(0.86); }
-  .chapter.active .chapter-inner > * { opacity: 1; transform: none; }
-  .chapter-inner > *:nth-child(1) { transition-delay: 0.10s; }
-  .chapter-inner > *:nth-child(2) { transition-delay: 0.20s; }
-  .chapter-inner > *:nth-child(3) { transition-delay: 0.30s; }
-  .chapter-inner > *:nth-child(4) { transition-delay: 0.40s; }
-  .chapter-inner > *:nth-child(5) { transition-delay: 0.50s; }
-  .chapter-rule { opacity: 1 !important; } /* rule animates via width, keep visible */
-  /* Progress rail */
-  .story-rail {
-    position: fixed; right: 30px; top: 50%;
-    transform: translateY(-50%);
-    z-index: 60;
-    display: flex; flex-direction: column; gap: 16px;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.4s, visibility 0.4s;
-  }
-  .story-rail.visible { opacity: 1; visibility: visible; }
-  .story-rail button {
-    width: 11px; height: 11px;
-    padding: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.35);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.23,1,0.32,1);
-    position: relative;
-  }
-  .story-rail button::after {
-    content: attr(data-label);
-    position: absolute; right: 22px; top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    font-family: var(--font-mono);
-    font-size: 9px; letter-spacing: 0.15em;
-    color: var(--muted); text-transform: uppercase;
-    white-space: nowrap; opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-  }
-  .story-rail button:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
-  .story-rail button.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 14px var(--accent-glow);
-    transform: scale(1.25);
-  }
-  /* MORE FROM THE WATER — horizontal strip */
-  .gallery-strip-wrap { padding: 120px 48px; border-top: 1px solid var(--border); }
-  .strip-hint {
-    font-family: var(--font-mono);
-    font-size: 10px; letter-spacing: 0.15em;
-    color: var(--muted); text-transform: uppercase;
-    margin: -32px 0 36px;
-  }
-  #gallery .gallery-strip {
-    display: flex; gap: 2px;
-    overflow-x: auto; overflow-y: hidden;
-    cursor: grab;
-    scrollbar-width: none; -ms-overflow-style: none;
-    scroll-snap-type: x proximity;
-    margin: 0 -48px; padding: 0 48px;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
-  }
-  #gallery .gallery-strip::-webkit-scrollbar { display: none; }
-  #gallery .gallery-strip.dragging { cursor: grabbing; }
-  #gallery .gallery-strip .gallery-item { flex: 0 0 auto; scroll-snap-align: start; }
-  #gallery .gallery-strip .gallery-item-inner {
-    width: 320px; height: 220px; min-height: 220px;
-  }
-  #gallery .gallery-strip .gallery-item img { -webkit-user-drag: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .chapter-media img { transform: none !important; transition: filter 0.4s ease; }
-    .chapter-inner > * { transform: none !important; transition: opacity 0.6s ease; }
-    .chapter-rule { transition: width 0.6s ease; }
-    .story-scrollcue-line { animation: none; }
-  }
-  /* ABOUT */
-  #about { background: var(--panel); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-  .about-heading {
-    font-family: var(--font-display);
-    font-size: clamp(48px, 6vw, 96px);
-    line-height: 0.9;
-    margin-bottom: 32px;
-  }
-  .about-heading em {
-    color: var(--accent);
-    font-style: normal;
-    display: block;
-    text-shadow: 0 0 60px var(--accent-glow);
-  }
-  .about-body {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--muted);
-    margin-bottom: 32px;
-    font-weight: 300;
-  }
-  .about-tags {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    margin-bottom: 40px;
-  }
-  .about-tag {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    border: 1px solid rgba(0,229,255,0.25);
-    padding: 6px 14px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-  }
-  .about-tag:hover {
-    background: rgba(0,229,255,0.08);
-    border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(0,229,255,0.1);
-  }
-  .about-cta {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--black);
-    background: var(--accent);
-    padding: 14px 28px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    transition: background 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .about-cta::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
-  }
-  .about-cta:hover::before { transform: translateX(100%); }
-  .about-cta:hover { background: var(--white); box-shadow: 0 0 30px var(--accent-glow); }
-  .about-photo {
-    border: 1px solid var(--border);
-    height: 340px;
-    overflow: hidden;
-    position: relative;
-  }
-  .about-photo img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
-  }
-  .about-photo:hover img { transform: scale(1.05); }
-  .about-photo::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .about-stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-bottom: 32px;
-  }
-  .about-stat-box {
-    background: var(--black);
-    padding: 32px 24px;
-    border: 1px solid var(--border);
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .about-stat-box:hover {
-    border-color: rgba(0,229,255,0.2);
-    background: rgba(0,229,255,0.02);
-  }
-  .about-stat-num {
-    font-family: var(--font-display);
-    font-size: 56px;
-    line-height: 1;
-    color: var(--white);
-  }
-  .about-stat-num sup { font-size: 24px; color: var(--accent); vertical-align: super; }
-  .about-stat-desc {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-  /* RESULTS */
-  .results-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 48px;
-  }
-  .results-filter {
-    display: flex; gap: 2px;
-  }
-  .filter-btn {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 8px 20px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--accent);
-    color: var(--black);
-    border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(0,229,255,0.15);
-  }
-  .results-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .results-table thead tr {
-    border-bottom: 1px solid var(--border);
-  }
-  .results-table th {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-    padding: 0 0 16px;
-    text-align: left;
-    font-weight: 400;
-  }
-  .results-table th:last-child { text-align: right; }
-  .results-table tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .results-table tbody tr:hover {
-    background: rgba(255,255,255,0.02);
-  }
-  .results-table td {
-    padding: 20px 0;
-    font-size: 14px;
-    color: var(--white);
-  }
-  .results-table td:last-child { text-align: right; }
-  .result-rank {
-    font-family: var(--font-display);
-    font-size: 28px;
-    color: var(--muted);
-    width: 60px;
-  }
-  .result-rank.gold { color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.3); }
-  .result-rank.silver { color: #c0c0c0; text-shadow: 0 0 20px rgba(192,192,192,0.3); }
-  .result-rank.bronze { color: #cd7f32; text-shadow: 0 0 20px rgba(205,127,50,0.3); }
-  .result-event { font-weight: 400; }
-  .result-event-sub {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-top: 4px;
-    text-transform: uppercase;
-  }
-  .result-discipline {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border: 1px solid;
-    transition: box-shadow 0.3s;
-  }
-  .result-discipline.foiling { color: var(--accent); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
-  .result-discipline.foiling:hover { box-shadow: 0 0 15px rgba(0,229,255,0.15); }
-  .result-discipline.fin { color: var(--accent2); border-color: rgba(255,107,0,0.3); background: rgba(255,107,0,0.05); }
-  .result-discipline.fin:hover { box-shadow: 0 0 15px rgba(255,107,0,0.15); }
-  .result-discipline.wing { color: var(--accent3); border-color: rgba(0,255,150,0.3); background: rgba(0,255,150,0.05); }
-  .result-discipline.wing:hover { box-shadow: 0 0 15px rgba(0,255,150,0.15); }
-  .result-year {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-  .results-note {
-    margin-top: 16px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-align: right;
-    text-transform: uppercase;
-  }
-  .results-note span { color: var(--accent); }
-  /* SPONSORS */
-  .sponsors-intro {
-    max-width: 480px;
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 64px;
-    font-style: italic;
-  }
-  .sponsors-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
-    margin-bottom: 48px;
-  }
-  .sponsor-slot {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    height: 100px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.15);
-    text-transform: uppercase;
-    transition: border-color 0.4s, background 0.4s, box-shadow 0.4s, transform 0.3s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-  }
-  .sponsor-slot::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(0,229,255,0.08) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .sponsor-slot:hover::before { opacity: 1; }
-  .sponsor-slot.current {
-    border-color: rgba(0,229,255,0.25);
-    background: rgba(0,229,255,0.04);
-    color: var(--accent);
-  }
-  .sponsor-slot.open {
-    border-style: dashed;
-    cursor: pointer;
-  }
-  .sponsor-slot.open:hover {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.04);
-    color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,229,255,0.1);
-  }
-  .sponsor-slot img {
-    max-width: 78%;
-    max-height: 68%;
-    object-fit: contain;
-    opacity: 0.78;
-    transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
-    position: relative;
-    z-index: 1;
-  }
-  .sponsor-slot.has-logo {
-    border-color: rgba(255,255,255,0.06);
-    background: var(--panel);
-    cursor: pointer;
-  }
-  .sponsor-slot.has-logo:hover {
-    border-color: rgba(0,229,255,0.25);
-    background: rgba(0,229,255,0.03);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,229,255,0.08);
-  }
-  .sponsor-slot.has-logo:hover img {
-    opacity: 1;
-    transform: scale(1.06);
-  }
-  /* SPONSORS MARQUEE (logo ticker) */
-  .sponsors-marquee {
-    position: relative;
-    margin: 0 -48px 64px;
-    padding: 64px 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.025) 50%, transparent 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-  }
-  .sponsors-marquee::before,
-  .sponsors-marquee::after {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--accent), transparent);
-    opacity: 0.25;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .sponsors-marquee::before { left: 9%; }
-  .sponsors-marquee::after { right: 9%; }
-  /* Scroll container — auto-scrolls via JS, but is also grab/drag/wheel/touch scrollable */
-  .sponsors-marquee {
-    overflow-x: auto;
-    overflow-y: hidden;
-    cursor: grab;
-    scrollbar-width: none;             /* Firefox */
-    -ms-overflow-style: none;          /* IE/Edge */
-    scroll-behavior: auto;
-    overscroll-behavior-x: contain;
-  }
-  .sponsors-marquee::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
-  .sponsors-marquee.dragging { cursor: grabbing; }
-  .sponsors-track {
-    display: flex;
-    align-items: center;
-    gap: 44px;
-    width: max-content;
-    user-select: none;
-  }
-  .sponsors-track img { pointer-events: none; -webkit-user-drag: none; }
-  .sponsor-logo {
-    flex: 0 0 auto;
-    width: 480px;
-    height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 28px;
-    padding: 22px 32px;
-    transition: border-color 0.45s cubic-bezier(0.23,1,0.32,1),
-                background 0.45s ease,
-                box-shadow 0.45s ease,
-                transform 0.45s cubic-bezier(0.23,1,0.32,1);
-    overflow: hidden;
-  }
-  .sponsor-logo::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 28px;
-    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.1), transparent 65%);
-    opacity: 0;
-    transition: opacity 0.45s ease;
-    pointer-events: none;
-  }
-  .sponsor-logo:hover {
-    border-color: rgba(0,229,255,0.4);
-    background: linear-gradient(180deg, rgba(0,229,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-    box-shadow: 0 16px 48px rgba(0,229,255,0.16),
-                inset 0 0 0 1px rgba(0,229,255,0.18);
-    transform: translateY(-5px);
-  }
-  .sponsor-logo:hover::before { opacity: 1; }
-  .sponsor-logo img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    opacity: 0.92;
-    filter: grayscale(0.1);
-    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
-    position: relative;
-    z-index: 1;
-  }
-  .sponsor-logo:hover img {
-    opacity: 1;
-    filter: grayscale(0);
-    transform: scale(1.04);
-  }
-  /* Light-background bubbles — for color logos that lose brand identity when inverted.
-     Gives them a white "card" matching what they were designed against. */
-  .sponsor-logo.light-bg {
-    background: linear-gradient(180deg, #ffffff 0%, #f1f3f5 100%);
-    border-color: rgba(255,255,255,0.35);
-  }
-  .sponsor-logo.light-bg::before {
-    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.18), transparent 65%);
-  }
-  .sponsor-logo.light-bg:hover {
-    background: linear-gradient(180deg, #ffffff 0%, #e7faff 100%);
-    border-color: rgba(0,229,255,0.55);
-    box-shadow: 0 16px 48px rgba(0,229,255,0.2),
-                inset 0 0 0 1px rgba(0,229,255,0.25);
-  }
-  .sponsor-logo.light-bg img {
-    filter: none;
-    opacity: 1;
-  }
-  .sponsor-logo.light-bg:hover img {
-    filter: none;
-    opacity: 1;
-    transform: scale(1.04);
-  }
-  /* Pure inversion option — for monochrome dark text logos where light-bg isn't needed */
-  .sponsor-logo.invert img {
-    filter: invert(1) brightness(1.05);
-    opacity: 0.92;
-  }
-  .sponsor-logo.invert:hover img {
-    filter: invert(1) brightness(1.1);
-    opacity: 1;
-  }
-  @keyframes sponsorScroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @media (max-width: 1200px) {
-    .sponsor-logo { width: 380px; height: 210px; padding: 18px 26px; border-radius: 24px; }
-    .sponsors-track { gap: 36px; }
-  }
-  @media (max-width: 900px) {
-    .sponsors-marquee { margin: 0 -24px 48px; padding: 40px 0; }
-    .sponsors-track { gap: 26px; animation-duration: 55s; }
-    .sponsor-logo { width: 280px; height: 160px; padding: 14px 20px; border-radius: 20px; }
-  }
-  @media (max-width: 480px) {
-    .sponsor-logo { width: 220px; height: 130px; padding: 12px 16px; }
-  }
-  .sponsors-cta-block {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    padding: 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 40px;
-    transition: border-color 0.3s;
-  }
-  .sponsors-cta-block:hover { border-color: rgba(0,229,255,0.15); }
-  .sponsors-cta-title {
-    font-family: var(--font-display);
-    font-size: 36px;
-    margin-bottom: 8px;
-  }
-  .sponsors-cta-sub {
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-  }
-  /* CONTACT / CTA */
-  #contact {
-    background: var(--panel);
-    text-align: center;
-    padding: 140px 48px;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,229,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .contact-orb {
-    position: absolute;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.08;
-    pointer-events: none;
-    animation: orbFloat 12s ease-in-out infinite;
-  }
-  .contact-orb-1 {
-    background: var(--accent);
-    top: 10%; left: 20%;
-  }
-  .contact-orb-2 {
-    background: var(--accent2);
-    bottom: 10%; right: 20%;
-    animation-delay: -6s;
-  }
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -20px) scale(1.1); }
-    66% { transform: translate(-20px, 15px) scale(0.95); }
-  }
-  .contact-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    position: relative; z-index: 1;
-  }
-  .contact-heading {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 8vw, 120px);
-    line-height: 0.9;
-    margin-bottom: 24px;
-    position: relative; z-index: 1;
-  }
-  .contact-heading span {
-    color: var(--accent);
-    text-shadow: 0 0 80px var(--accent-glow);
-  }
-  .contact-sub {
-    font-size: 15px;
-    color: var(--muted);
-    max-width: 440px;
-    margin: 0 auto 48px;
-    line-height: 1.7;
-    font-style: italic;
-    position: relative; z-index: 1;
-  }
-  .contact-actions {
-    display: flex; gap: 16px;
-    align-items: center; justify-content: center;
-    flex-wrap: wrap;
-    position: relative; z-index: 1;
-  }
-  .contact-email {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 2px;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .contact-email:hover { color: var(--accent); border-color: var(--accent); }
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    nav.scrolled { padding: 14px 24px; }
-    .nav-links { display: none; }
-    .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    section { padding: 80px 24px; }
-    #hero { padding: 0 24px 48px; }
-    .disciplines-grid { grid-template-columns: 1fr !important; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .stats-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .stats-banner-meta { text-align: left; }
-    .story-intro { padding: 80px 24px 56px; }
-    .chapter { padding: 14vh 24px; }
-    .chapter-inner { max-width: 100%; }
-    /* on mobile, anchor every chapter bottom-left for readability */
-    .chapter.pos-br, .chapter.pos-center { justify-content: flex-start; align-items: flex-end; text-align: left; }
-    .pos-br .chapter-inner, .pos-center .chapter-inner { align-items: flex-start; }
-    .story-rail { display: none; }
-    .gallery-strip-wrap { padding: 80px 24px; }
-    #gallery .gallery-strip { margin: 0 -24px; padding: 0 24px; }
-    #gallery .gallery-strip .gallery-item-inner { width: 260px; height: 180px; min-height: 180px; }
-    .strip-hint { margin: -20px 0 28px; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .gallery-grid { grid-template-columns: 1fr 1fr !important; }
-    .gallery-item:first-child { grid-column: span 2; }
-    .gallery-item:nth-child(4) { grid-column: span 2; }
-    .gallery-item:nth-child(9) { grid-column: span 2; }
-    .sponsors-grid { grid-template-columns: repeat(3, 1fr); }
-    .sponsors-cta-block { flex-direction: column; text-align: center; }
-    footer { flex-direction: column; gap: 24px; text-align: center; }
-    .hero-stats { gap: 24px; }
-    .hero-sub { flex-direction: column; gap: 32px; align-items: flex-start; }
-    .results-header { flex-direction: column; gap: 24px; align-items: flex-start; }
-    .cursor, .cursor-ring { display: none; }
-    body { cursor: auto; }
-    .lightbox-nav { display: none; }
-  }
-  @media (max-width: 480px) {
-    .sponsors-grid { grid-template-columns: 1fr 1fr; }
-    .gallery-grid { grid-template-columns: 1fr !important; }
-    .gallery-item:first-child,
-    .gallery-item:nth-child(4),
-    .gallery-item:nth-child(9) { grid-column: span 1; }
-  }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 0; border: none; }
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.25) 100%);
+}
+/* Wide enough that "Put your brand on" holds one line. Any narrower and "on"
+   orphans onto a line of its own. */
+.hero-inner { position: relative; z-index: 2; padding: 0 clamp(24px, 6vw, 96px); max-width: 1040px; }
+.hero-title { font-size: clamp(40px, 6.2vw, 94px); color: var(--white); margin-bottom: 20px; }
+.hero-title span { color: var(--accent); }
+.hero-sub {
+  font-family: var(--font-mono); font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 32px; line-height: 1.9;
+}
+.hero-cta { display: inline-flex; align-items: center; gap: 10px; }
+.hero-footer {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: clamp(20px, 3vw, 40px) clamp(24px, 6vw, 96px);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.hero-footer-left strong { display: block; color: var(--white); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.2em; }
+.hero-footer-left span, .hero-footer-right { color: var(--muted); }
+.hero-footer-left i { color: var(--border); font-style: normal; margin: 0 6px; }
+.hero-footer-right { text-align: right; line-height: 1.8; }
+.hero-play {
+  position: absolute; z-index: 2; left: 58%; top: 50%; transform: translate(-50%, -50%);
+  background: none; border: none; color: var(--white); cursor: none;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.hero-play[hidden] { display: none; }
+.hero-play-icon {
+  width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7);
+  display: grid; place-items: center; transition: background 0.3s, border-color 0.3s;
+}
+.hero-play-icon::after {
+  content: ''; border-left: 14px solid var(--white);
+  border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px;
+  transition: border-left-color 0.3s;
+}
+.hero-play:hover .hero-play-icon { background: var(--accent); border-color: var(--accent); }
+.hero-play:hover .hero-play-icon::after { border-left-color: var(--black); }
+.hero-play-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; }
+
+/* ---------- SPONSOR LOGO BAR ---------- */
+.logobar { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; padding: 18px 0; }
+/* The source PNGs are square canvases with the art floating in a wide margin of
+   transparency, so they supply their own visual spacing. Hence the small gap:
+   a large one would leave acres of dead air between logos. */
+.logobar-track { display: flex; align-items: center; gap: 20px; width: max-content; animation: logobarScroll 55s linear infinite; }
+.logobar:hover .logobar-track { animation-play-state: paused; }
+.logobar-item { flex: 0 0 auto; height: 92px; display: grid; place-items: center; }
+/* Uniform white silhouette. brightness(0) invert(1) normalises the handful of
+   colour logos to match the rest, and it is the only treatment that rescues
+   mysharxon (dark red, unreadable raw) and ibo (illegible raw). The old
+   light-bg white pills were actively harmful here: white art on white. */
+.logobar-item img { max-height: 92px; max-width: 190px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.8; transition: opacity 0.3s; }
+.logobar-item:hover img { opacity: 1; }
+@keyframes logobarScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .logobar-track { animation: none; }
+  .logobar { overflow-x: auto; }
+}
+
+/* ---------- ACCOMPLISHMENTS ---------- */
+.accolades { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); }
+.accolades-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.accolades-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--white); }
+.accolades-head .section-label i { color: var(--accent); font-style: normal; margin: 0 10px; opacity: 0.7; }
+.accolades-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.accolade { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; }
+.accolade img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+.accolade:hover img { transform: scale(1.05); }
+.accolade figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 20px;
+  background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+  font-family: var(--font-display); font-size: clamp(18px, 1.8vw, 26px);
+  letter-spacing: 0.04em; color: var(--white);
+}
+.accolade figcaption::before { content: ''; display: block; width: 26px; height: 2px; background: var(--accent); margin-bottom: 10px; }
+.accolade-num { color: var(--accent); }
+.accolades-foot { text-align: center; margin-top: 30px; color: var(--muted); font-size: 14px; }
+
+/* ---------- SPONSORSHIP WAYS ---------- */
+.ways { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; background: var(--black); padding: 0; }
+.ways-media { position: relative; min-height: 460px; }
+.ways-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ways-body { padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 72px); display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+.ways-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.ways-head h2 { font-size: clamp(30px, 3.4vw, 48px); color: var(--white); }
+.ways-head .section-label { text-align: right; line-height: 1.9; }
+.ways-list { display: flex; flex-direction: column; gap: 12px; }
+.way { border: 1px solid var(--border); border-radius: 4px; background: rgba(255,255,255,0.02); transition: border-color 0.3s; }
+.way:hover { border-color: rgba(0,229,255,0.4); }
+.way-trigger { width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: none; border: none; color: var(--white); font-family: var(--font-body); font-size: 15px; text-align: left; cursor: none; }
+.way-icon { color: var(--accent); font-size: 18px; width: 24px; display: inline-grid; place-items: center; }
+.way-label { flex: 1; }
+.way-chev { color: var(--muted); font-size: 22px; transition: transform 0.3s, color 0.3s; }
+.way-trigger[aria-expanded="true"] .way-chev { transform: rotate(90deg); color: var(--accent); }
+.way-panel { padding: 0 20px 20px 60px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.way-panel[hidden] { display: none; }
+.ways-body .btn-primary { align-self: flex-start; }
+
+/* ---------- REVIEWS ---------- */
+.reviews { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 0; background: var(--dark); align-items: stretch; padding: 0; }
+.reviews-label { padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.reviews-label h2 { font-size: clamp(24px, 2.6vw, 38px); color: var(--white); }
+.reviews-label .section-label { line-height: 2; }
+.reviews-quotes { display: grid; grid-template-columns: 1fr 1fr; border-left: 1px solid var(--border); }
+.reviews-quotes blockquote { margin: 0; padding: clamp(36px, 5vw, 64px) clamp(20px, 2.6vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+.reviews-quotes blockquote + blockquote { border-left: 1px solid var(--border); }
+.reviews-quotes p { font-size: 15px; line-height: 1.85; font-style: italic; color: rgba(245,245,245,0.82); }
+.reviews-quotes cite { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: normal; }
+.reviews-quotes cite::before { content: ''; display: block; width: 26px; height: 2px; background: var(--accent); margin-bottom: 12px; }
+.reviews-photo { position: relative; min-height: 260px; }
+.reviews-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- PORTFOLIO ---------- */
+.portfolio { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); background: var(--black); }
+.portfolio-head { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-bottom: 32px; }
+.portfolio-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--white); }
+.portfolio-tabs { display: flex; gap: 8px; }
+.ptab { padding: 11px 26px; border: 1px solid var(--border); background: none; color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+.ptab.is-active { background: var(--accent); border-color: var(--accent); color: var(--black); }
+.portfolio-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: center; }
+.portfolio-carousel { position: relative; }
+.pcar-viewport { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: var(--panel); }
+.pcar-viewport img { width: 100%; height: 100%; object-fit: cover; }
+.pcar-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: rgba(10,10,10,0.6); color: var(--white); font-size: 22px; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+.pcar-arrow:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+.pcar-prev { left: 14px; }
+.pcar-next { right: 14px; }
+.pcar-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; }
+.pcar-dot { width: 7px; height: 7px; border-radius: 50%; border: none; background: rgba(255,255,255,0.35); cursor: none; padding: 0; }
+.pcar-dot.is-active { background: var(--accent); }
+.portfolio-copy h3 { font-family: var(--font-body); font-weight: 500; font-size: clamp(19px, 1.8vw, 24px); margin-bottom: 14px; }
+.portfolio-copy p { color: var(--muted); line-height: 1.85; font-size: 14px; margin-bottom: 30px; }
+.portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); padding-top: 24px; }
+.portfolio-stats > div { text-align: center; }
+.portfolio-stats > div + div { border-left: 1px solid var(--border); }
+.portfolio-stats span, .portfolio-stats i { font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); color: var(--white); font-style: normal; }
+.portfolio-stats small { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- LET'S CONNECT ---------- */
+.connect { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: clamp(24px, 3vw, 48px); align-items: center; padding: clamp(56px, 7vw, 96px) clamp(24px, 6vw, 96px); background: var(--dark); }
+.connect-intro h2 { font-size: clamp(28px, 3.4vw, 46px); color: var(--white); margin-bottom: 14px; }
+.connect-intro .section-label { line-height: 1.9; }
+.connect-form { display: flex; flex-direction: column; gap: 10px; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .hero-play { top: auto; bottom: 20%; left: 50%; }
+  .hero-footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .hero-footer-right { text-align: left; }
+  .accolades-grid { grid-template-columns: 1fr; }
+  .ways { grid-template-columns: 1fr; }
+  .ways-media { min-height: 300px; }
+  .ways-head .section-label { text-align: left; }
+  .reviews { grid-template-columns: 1fr; }
+  .reviews-quotes { grid-template-columns: 1fr; border-left: none; border-top: 1px solid var(--border); }
+  .reviews-quotes blockquote + blockquote { border-left: none; border-top: 1px solid var(--border); }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .connect { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1296,12 +203,9 @@
 </div>
 <div class="loader-bar"></div>
 </div>
-<!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
-<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<!-- NAV -->
 <nav id="navbar">
   <a href="index.html" class="nav-logo">ARXON<span>.</span></a>
   <ul class="nav-links">
@@ -1325,414 +229,214 @@
   <a href="news.html">News</a>
   <a href="contact.html">Contact</a>
 </div>
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-<button class="lightbox-close" id="lightboxClose">✕</button>
-<button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
-<button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
-<img id="lightboxImg" src="" alt="Gallery image">
-<div class="lightbox-caption" id="lightboxCaption"></div>
-</div>
+
 <!-- HERO -->
-<section id="hero">
-<div class="hero-bg"></div>
-<div class="hero-bg-image">
-<img src="arxon-sunset-01.jpg" alt="Sunset windsurfing session" loading="eager">
-</div>
-<div class="hero-grid"></div>
-<div class="hero-particles" id="heroParticles"></div>
-<div class="hero-status">
-<div class="hero-status-dot"></div>
-    Available for sponsorship — 2025 season
-</div>
-<h1 class="hero-name">
-    ARXON
-<span class="line2">GOMPERTS</span>
-</h1>
-<div class="hero-sub">
-<p class="hero-tagline">Professional windsurfer pushing the limits in fin slalom racing. Competing internationally — chasing the wind.</p>
-<div class="hero-stats">
-<div>
-<div class="hero-stat-num"><span class="counter" data-target="2">0</span><span>×</span></div>
-<div class="hero-stat-label">World Titles</div>
-</div>
-<div>
-<div class="hero-stat-num"><span class="counter" data-target="4">0</span></div>
-<div class="hero-stat-label">World Cup Wins</div>
-</div>
-<div>
-<div class="hero-stat-num"><span class="counter" data-target="5">0</span><span>+</span></div>
-<div class="hero-stat-label">Podium finishes</div>
-</div>
-</div>
-</div>
-<div class="scroll-indicator">
-<div class="scroll-line"></div>
-    Scroll to explore
-</div>
+<section class="hero">
+  <div class="hero-media">
+    <img src="arxon-sunset-01.jpg" alt="Arxon Gomperts windsurfing at sunset" loading="eager">
+  </div>
+  <div class="hero-inner">
+    <h1 class="hero-title display-head">
+      Put your brand on<br>the <span>world stage.</span>
+    </h1>
+    <p class="hero-sub">High-performance windsurfing. Global reach. Real impact.</p>
+    <a href="contact.html" class="btn-primary hero-cta">Become a Partner <span>&rarr;</span></a>
+  </div>
+  <button class="hero-play" id="heroPlay" hidden aria-label="Watch the video">
+    <span class="hero-play-icon"></span>
+    <span class="hero-play-label">Watch video</span>
+  </button>
+  <div class="hero-footer">
+    <div class="hero-footer-left">
+      <strong>Arxon Gomperts</strong>
+      <span>Windsurfer <i>|</i> Competitor <i>|</i> Ambassador</span>
+    </div>
+    <div class="hero-footer-right">More than a sport.<br>A brighter tomorrow.</div>
+  </div>
 </section>
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-<div class="marquee-track">
-<div class="marquee-item"><span class="dot">◆</span> FIN RACING <span class="dot">◆</span> SLALOM <span class="dot">◆</span> SPEED <span class="dot">◆</span> BUOY RACING <span class="dot">◆</span> DOWNWIND <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
-<div class="marquee-item"><span class="dot">◆</span> FIN RACING <span class="dot">◆</span> SLALOM <span class="dot">◆</span> SPEED <span class="dot">◆</span> BUOY RACING <span class="dot">◆</span> DOWNWIND <span class="dot">◆</span> OPEN WATER <span class="dot">◆</span> INTERNATIONAL CIRCUITS</div>
-</div>
-</div>
-<!-- STATS -->
-<section id="stats">
-<div class="section-label reveal">CAREER STATS</div>
-<p class="stats-lead reveal">A fast-rising force in international fin slalom — collecting PWA Youth World Cup titles across the Caribbean and Europe.</p>
-<div class="stats-grid">
-<div class="stat-card reveal reveal-delay-1">
-<div class="stat-index">01</div>
-<div class="stat-value"><span class="counter" data-target="2">0</span><span class="stat-suffix">×</span></div>
-<div class="stat-label">World Titles</div>
-<div class="stat-sub">U15 Fin Slalom</div>
-</div>
-<div class="stat-card reveal reveal-delay-2">
-<div class="stat-index">02</div>
-<div class="stat-value"><span class="counter" data-target="4">0</span></div>
-<div class="stat-label">World Cup Wins</div>
-<div class="stat-sub">2025 – 2026</div>
-</div>
-<div class="stat-card reveal reveal-delay-3">
-<div class="stat-index">03</div>
-<div class="stat-value"><span class="counter" data-target="5">0</span><span class="stat-suffix">+</span></div>
-<div class="stat-label">Podium Finishes</div>
-<div class="stat-sub">International</div>
-</div>
-<div class="stat-card reveal reveal-delay-4">
-<div class="stat-index">04</div>
-<div class="stat-value"><span class="counter" data-target="13">0</span></div>
-<div class="stat-label">Race-Win Streak</div>
-<div class="stat-sub">2025 Season</div>
-</div>
-</div>
-<div class="stats-banner reveal">
-<div class="stats-banner-title"><span>2×</span> U15 FIN SLALOM WORLD CHAMPION</div>
-<div class="stats-banner-meta">SAIL <b>NB-2011</b> &nbsp;·&nbsp; BONAIRE, CARIBBEAN<br>PWA YOUTH WORLD TOUR</div>
-</div>
-</section>
-<!-- STORY -->
-<section id="gallery">
-<div class="story-intro">
-<div class="section-label reveal">THE STORY</div>
-<h2 class="story-intro-title reveal reveal-delay-1">SIX CHAPTERS,<br>ONE OBSESSION.</h2>
-<p class="story-intro-sub reveal reveal-delay-2">Scroll through the journey — from a Bonaire kid on Lac Bay to a two-time world champion.</p>
-<div class="story-scrollcue reveal reveal-delay-3"><span class="story-scrollcue-line"></span> SCROLL TO BEGIN</div>
-</div>
 
-<div class="story" id="story">
-<!-- 01 -->
-<section class="chapter pos-bl" data-enter="up">
-<div class="chapter-media"><img src="arxon-sunset-02.jpg" alt="Young windsurfer at sunset on Bonaire" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">01</div>
-<div class="chapter-inner">
-<div class="chapter-index">01 / THE ORIGIN</div>
-<h2 class="chapter-title">BORN ON<br>THE WIND</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line">Born on Bonaire — raised by the trade winds.</p>
-<div class="chapter-meta">LAC BAY · BONAIRE</div>
-</div>
+<!-- SPONSOR LOGO BAR -->
+<section class="logobar" aria-label="Sponsors and partners">
+  <div class="logobar-track">
+    <div class="logobar-item"><img src="sponsors/north-sails.png" alt="North Sails" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/mysharxon.png" alt="MySharxon" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/heroms.png" alt="Heroms" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/ibo.png" alt="IBO" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/frans-paradise.png" alt="Frans Paradise" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/paradise-rentals.png" alt="Paradise Rentals" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/inebon.png" alt="INEBON" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/concilium.png" alt="Concilium" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/rocargo.png" alt="Rocargo" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/ead.png" alt="EAD" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/dsg.png" alt="DSG" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/bbx.png" alt="BBX" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/manno.png" alt="Manno" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/play-learn-grow.png" alt="Play, Learn, Grow Together" loading="lazy"></div>
+    <div class="logobar-item"><img src="sponsors/ontrack.png" alt="OnTrack" loading="lazy"></div>
+    <!-- Duplicate set for a seamless loop. Must stay an exact copy: the
+         keyframe ends at translateX(-50%), so any width drift shows as a jump. -->
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/north-sails.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/mysharxon.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/heroms.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ibo.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/frans-paradise.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/paradise-rentals.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/inebon.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/concilium.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/rocargo.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ead.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/dsg.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/bbx.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/manno.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/play-learn-grow.png" alt="" loading="lazy"></div>
+    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ontrack.png" alt="" loading="lazy"></div>
+  </div>
 </section>
-<!-- 02 -->
-<section class="chapter pos-br" data-enter="left">
-<div class="chapter-media"><img src="arxon-action-carve.jpg" alt="Carving across turquoise flatwater" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">02</div>
-<div class="chapter-inner">
-<div class="chapter-index">02 / THE PLAYGROUND</div>
-<h2 class="chapter-title">THE<br>PLAYGROUND</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line">Lac Bay raised him. Taty Frans sharpened him.</p>
-<div class="chapter-meta">FLATWATER · LAC BAY</div>
-</div>
-</section>
-<!-- 03 -->
-<section class="chapter pos-center" data-enter="scale">
-<div class="chapter-media"><img src="arxon-jump-airborne.jpg" alt="Windsurfer airborne mid-jump" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">03</div>
-<div class="chapter-inner">
-<div class="chapter-index">03 / THE LEAP</div>
-<h2 class="chapter-title">FIRST<br>SEND</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line">Every wipeout was a lesson. Every jump, a promise.</p>
-<div class="chapter-meta">SEND IT</div>
-</div>
-</section>
-<!-- 04 -->
-<section class="chapter pos-bl" data-enter="right">
-<div class="chapter-media"><img src="arxon-action-duo.jpg" alt="Fin slalom racing action" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">04</div>
-<div class="chapter-inner">
-<div class="chapter-index">04 / THE RISE</div>
-<h2 class="chapter-title">RISING<br>FAST</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line">Two PWA wins by twelve — the circuit noticed.</p>
-<div class="chapter-meta">PWA YOUTH WORLD TOUR</div>
-</div>
-</section>
-<!-- 05 -->
-<section class="chapter pos-br" data-enter="up">
-<div class="chapter-media"><img src="arxon-portrait-celebrate.jpg" alt="Celebrating on the podium" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">05</div>
-<div class="chapter-inner">
-<div class="chapter-index">05 / THE SUMMIT</div>
-<h2 class="chapter-title">WORLD<br>STAGE</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line"><span class="chapter-accent">Two-time</span> U15 fin slalom world champion.</p>
-<div class="chapter-meta">2× WORLD CHAMPION</div>
-</div>
-</section>
-<!-- 06 -->
-<section class="chapter pos-center" data-enter="scale">
-<div class="chapter-media"><img src="arxon-sunset-04.jpg" alt="Windsurfer sailing toward the sunset" loading="lazy"></div>
-<div class="chapter-veil"></div>
-<div class="chapter-bignum" aria-hidden="true">06</div>
-<div class="chapter-inner">
-<div class="chapter-index">06 / WHAT'S NEXT</div>
-<h2 class="chapter-title">CHASING THE<br>HORIZON</h2>
-<span class="chapter-rule"></span>
-<p class="chapter-line">The titles are just the start. The wind's still calling.</p>
-<a href="#contact" class="chapter-cta">Back this journey →</a>
-</div>
-</section>
-</div>
 
-<!-- PROGRESS RAIL -->
-<div class="story-rail" id="storyRail" aria-hidden="true"></div>
+<!-- ACCOMPLISHMENTS -->
+<section class="accolades">
+  <div class="accolades-head">
+    <h2 class="display-head reveal">Accomplishments</h2>
+    <div class="section-label reveal">Results <i>&middot;</i> Progression <i>&middot;</i> A global stage</div>
+  </div>
+  <div class="accolades-grid">
+    <figure class="accolade reveal">
+      <img src="arxon-portrait-celebrate.jpg" alt="Arxon Gomperts on the podium" loading="lazy">
+      <figcaption><span class="accolade-num">2&times;</span> World Champion</figcaption>
+    </figure>
+    <figure class="accolade reveal reveal-delay-1">
+      <img src="arxon-action-carve.jpg" alt="Arxon Gomperts carving at speed" loading="lazy">
+      <figcaption><span class="accolade-num">4</span> World Cup Wins</figcaption>
+    </figure>
+    <figure class="accolade reveal reveal-delay-2">
+      <img src="arxon-aerial-reef-01.jpg" alt="Aerial view of Arxon Gomperts on open water" loading="lazy">
+      <figcaption><span class="accolade-num">5+</span> International Podiums</figcaption>
+    </figure>
+  </div>
+  <p class="accolades-foot reveal">Competing in world championships, international divisions and races around the globe.</p>
+</section>
+<!-- TODO(client): "2x World Champion" is sponsor-billed and the title years are
+     unconfirmed. Confirm or soften before any press push. -->
 
-<!-- MORE FROM THE WATER -->
-<div class="gallery-strip-wrap">
-<div class="section-label reveal">MORE FROM THE WATER</div>
-<p class="strip-hint reveal">Drag, scroll or tap to explore the full archive.</p>
-<div class="gallery-strip" id="galleryStrip">
-<div class="gallery-item" data-caption="First Light — Bonaire">
-<div class="gallery-item-inner"><img src="arxon-sunset-01.jpg" alt="Windsurfing at first light" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Golden Hour Glide">
-<div class="gallery-item-inner"><img src="arxon-sunset-03-vertical.jpg" alt="Golden hour windsurfing" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Full Power — Solo Run">
-<div class="gallery-item-inner"><img src="arxon-action-solo.jpg" alt="Windsurfer at full power" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Action</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Splash Down — Big Send">
-<div class="gallery-item-inner"><img src="arxon-jump-splash.jpg" alt="Big jump splash landing" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Big Air</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Reef Crossing — Bonaire">
-<div class="gallery-item-inner"><img src="arxon-aerial-reef-02.jpg" alt="Aerial view crossing the reef" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Reef View — Top Down">
-<div class="gallery-item-inner"><img src="arxon-aerial-reef-01.jpg" alt="Top-down aerial reef view" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Shallow Water Speed">
-<div class="gallery-item-inner"><img src="arxon-aerial-shallow.jpg" alt="Aerial windsurfer in shallow water" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Aerial</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Hi-Winds 2026 — Aruba">
-<div class="gallery-item-inner"><img src="arxon-portrait-armscrossed.jpg" alt="Athlete portrait at Hi-Winds" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Athlete</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Last Light Run">
-<div class="gallery-item-inner"><img src="arxon-sunset-05.jpg" alt="Windsurfing at last light" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Sunset</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Focused">
-<div class="gallery-item-inner"><img src="arxon-portrait-closeup.jpg" alt="Close-up athlete portrait" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Portrait</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-<div class="gallery-item" data-caption="Session Done — Hi-Winds">
-<div class="gallery-item-inner"><img src="arxon-water-thumbsup.jpg" alt="Athlete leaving the water" loading="lazy">
-<div class="gallery-item-overlay"><span class="gallery-tag">Hi-Winds</span><span class="gallery-expand">⤢</span></div></div>
-</div>
-</div>
-</div>
+<!-- SPONSORSHIP WAYS -->
+<section class="ways">
+  <div class="ways-media">
+    <img src="arxon-action-solo.jpg" alt="Arxon Gomperts racing a fully powered slalom sail" loading="lazy">
+  </div>
+  <div class="ways-body">
+    <div class="ways-head">
+      <h2 class="display-head reveal">Sponsorship Ways</h2>
+      <div class="section-label reveal">Real exposure.<br>Real opportunities.</div>
+    </div>
+    <div class="ways-list">
+      <div class="way reveal">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-1">
+          <span class="way-icon" aria-hidden="true">&#9651;</span>
+          <span class="way-label">Sail, board &amp; equipment</span>
+          <span class="way-chev" aria-hidden="true">&rsaquo;</span>
+        </button>
+        <div class="way-panel" id="way-1" hidden>
+          <p>Put your brand on the gear that crosses the finish line. Sail, board and fin branding travels to every event on the calendar and lands in every race photo.</p>
+        </div>
+      </div>
+      <div class="way reveal reveal-delay-1">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-2">
+          <span class="way-icon" aria-hidden="true">&#9650;</span>
+          <span class="way-label">Team kit &amp; athlete wear</span>
+          <span class="way-chev" aria-hidden="true">&rsaquo;</span>
+        </button>
+        <div class="way-panel" id="way-2" hidden>
+          <p>Race jerseys, training kit and podium wear. Your logo on the athlete, on the water and on the podium, in front of event media and international crowds.</p>
+        </div>
+      </div>
+      <div class="way reveal reveal-delay-2">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-3">
+          <span class="way-icon" aria-hidden="true">&#9633;</span>
+          <span class="way-label">Digital sponsorship / UGC / social</span>
+          <span class="way-chev" aria-hidden="true">&rsaquo;</span>
+        </button>
+        <div class="way-panel" id="way-3" hidden>
+          <p>Dedicated posts, reels and behind-the-scenes content from training in Bonaire and racing abroad. Built for your channels as much as his.</p>
+        </div>
+      </div>
+    </div>
+    <a href="contact.html" class="btn-primary reveal">Become a Partner <span>&rarr;</span></a>
+  </div>
 </section>
-<!-- ABOUT -->
-<section id="about">
-<div class="about-grid">
-<div class="about-left">
-<div class="section-label reveal">WHO I AM</div>
-<h2 class="about-heading reveal reveal-delay-1">
-        BUILT BY<br>
-<em>THE WIND</em>
-</h2>
-<p class="about-body reveal reveal-delay-2">
-        Arxon Gomperts is a professional windsurfer specializing in fin slalom racing. Driven by a relentless passion for speed and technical mastery, Arxon has been pushing his limits on international waters since a young age.
-</p>
-<p class="about-body reveal reveal-delay-3">
-        Powering a fully loaded slalom sail through tactical buoy racing and blazing downwind runs, Arxon brings raw commitment, precision, and a hunger to reach the top of the sport.
-</p>
-<div class="about-tags reveal reveal-delay-3">
-<span class="about-tag">Fin Slalom</span>
-<span class="about-tag">Buoy Racing</span>
-<span class="about-tag">Downwind</span>
-<span class="about-tag">Speed</span>
-<span class="about-tag">Open Water</span>
-</div>
-<a href="#contact" class="about-cta reveal reveal-delay-4">Contact for Sponsorship →</a>
-</div>
-<div class="about-right">
-<div class="about-photo reveal">
-<img src="arxon-portrait-closeup.jpg" alt="Arxon Gomperts portrait" loading="lazy">
-</div>
-<div class="about-stats-grid" style="margin-top: 2px;">
-<div class="about-stat-box reveal">
-<div class="about-stat-num"><span class="counter" data-target="2">0</span><sup>×</sup></div>
-<div class="about-stat-desc">U15 World titles</div>
-</div>
-<div class="about-stat-box reveal reveal-delay-1">
-<div class="about-stat-num"><span class="counter" data-target="4">0</span><sup>+</sup></div>
-<div class="about-stat-desc">Countries raced</div>
-</div>
-<div class="about-stat-box reveal reveal-delay-2">
-<div class="about-stat-num"><span class="counter" data-target="5">0</span><sup>+</sup></div>
-<div class="about-stat-desc">Podium finishes</div>
-</div>
-<div class="about-stat-box reveal reveal-delay-3">
-<div class="about-stat-num">∞</div>
-<div class="about-stat-desc">Passion for the sport</div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="reviews-label">
+    <h2 class="display-head reveal">Reviews /<br>Testimonials</h2>
+    <div class="section-label reveal">Real people.<br>Real support.<br>Real progress.</div>
+  </div>
+  <div class="reviews-quotes">
+    <blockquote class="reveal">
+      <p>"Arxon's dedication and positive attitude make him a special talent. He has the mindset to go far."</p>
+      <cite>A mentor</cite>
+    </blockquote>
+    <blockquote class="reveal reveal-delay-1">
+      <p>"A true professional and a great representative for our brand. Arxon delivers on and off the water."</p>
+      <cite>A sponsor</cite>
+    </blockquote>
+  </div>
+  <div class="reviews-photo reveal">
+    <img src="arxon-portrait-armscrossed.jpg" alt="Arxon Gomperts" loading="lazy">
+  </div>
 </section>
-<!-- RESULTS -->
-<section id="results">
-<div class="results-header">
-<div>
-<div class="section-label reveal">COMPETITION RESULTS</div>
-</div>
-<div class="results-filter reveal">
-<button class="filter-btn active" data-filter="all">All</button>
-<button class="filter-btn" data-filter="2026">2026</button>
-<button class="filter-btn" data-filter="2025">2025</button>
-<button class="filter-btn" data-filter="2024">2024</button>
-</div>
-</div>
-<table class="results-table reveal" id="resultsTable">
-<thead>
-<tr>
-<th style="width:60px">Rank</th>
-<th>Event</th>
-<th>Class</th>
-<th>Year</th>
-</tr>
-</thead>
-<tbody>
-<tr data-year="2026">
-<td class="result-rank gold">1</td>
-<td class="result-event">Aruba Hi-Winds — PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
-<td><span class="result-discipline fin">U17 Fin</span></td>
-<td class="result-year">2026</td>
-</tr>
-<tr data-year="2025">
-<td class="result-rank gold">1</td>
-<td class="result-event">Cold Hawaii — Youth Slalom World Cup<span class="result-event-sub">Thisted, Denmark</span></td>
-<td><span class="result-discipline fin">U15 Fin</span></td>
-<td class="result-year">2025</td>
-</tr>
-<tr data-year="2025">
-<td class="result-rank gold">1</td>
-<td class="result-event">Aruba Hi-Winds — PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
-<td><span class="result-discipline fin">U15 Fin</span></td>
-<td class="result-year">2025</td>
-</tr>
-<tr data-year="2025">
-<td class="result-rank gold">1</td>
-<td class="result-event">PWA Youth World Cup Bonaire<span class="result-event-sub">Lac Bay, Bonaire</span></td>
-<td><span class="result-discipline fin">U15 Fin</span></td>
-<td class="result-year">2025</td>
-</tr>
-<tr data-year="2025">
-<td class="result-rank silver">2</td>
-<td class="result-event">Alaçatı Windfest — Youth Slalom World Cup<span class="result-event-sub">Alaçatı, Turkey</span></td>
-<td><span class="result-discipline fin">U15 Fin</span></td>
-<td class="result-year">2025</td>
-</tr>
-<tr data-year="2024">
-<td class="result-rank" style="color:var(--muted)">4</td>
-<td class="result-event">Aruba Hi-Winds — Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
-<td><span class="result-discipline fin">U15 Fin</span></td>
-<td class="result-year">2024</td>
-</tr>
-</tbody>
-</table>
-<div class="results-note reveal">Results verified via <span>PWA World Tour</span> & event reports</div>
+<!-- TODO(client): both quotes are placeholders and the attributions are
+     deliberately unnamed. Replace with real quotes and real names before
+     launch. Do not attach these words to a named person. -->
+
+<!-- PORTFOLIO -->
+<section class="portfolio">
+  <div class="portfolio-head">
+    <h2 class="display-head reveal">Portfolio</h2>
+    <div class="portfolio-tabs reveal" role="tablist">
+      <button class="ptab is-active" role="tab" aria-selected="true" data-set="gear">Gear</button>
+      <button class="ptab" role="tab" aria-selected="false" data-set="races">Races</button>
+      <button class="ptab" role="tab" aria-selected="false" data-set="momentum">Momentum</button>
+    </div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-carousel">
+      <div class="pcar-viewport"><img id="pcarImg" src="arxon-action-solo.jpg" alt="" loading="lazy"></div>
+      <button class="pcar-arrow pcar-prev" id="pcarPrev" aria-label="Previous image">&lsaquo;</button>
+      <button class="pcar-arrow pcar-next" id="pcarNext" aria-label="Next image">&rsaquo;</button>
+      <div class="pcar-dots" id="pcarDots"></div>
+    </div>
+    <div class="portfolio-copy">
+      <h3 class="reveal">Performance. Travel. Progress.</h3>
+      <p class="reveal">A look into my gear, racing moments and life on tour. Follow the journey and see what drives me forward.</p>
+      <div class="portfolio-stats reveal">
+        <div><span class="counter" data-target="4">0</span><i>+</i><small>Countries</small></div>
+        <div><span class="counter" data-target="6">0</span><i>+</i><small>World Cup Events</small></div>
+        <div><span class="counter" data-target="5">0</span><i>+</i><small>Podiums</small></div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- SPONSORS -->
-<section id="sponsors">
-<div class="section-label reveal">SPONSORS & PARTNERS</div>
-<p class="sponsors-intro reveal">Proudly supported by brands who believe in the next generation of windsurfing talent. Sponsor slots are available for the 2025–2026 season.</p>
-<div class="sponsors-marquee reveal" aria-label="Sponsors carousel">
-<div class="sponsors-track">
-<!-- First set — alternating dark / light-bg as evenly as 9 dark + 6 light allows.
-     Pattern: D L D L D D L D L D L D D L D (then duplicates below) -->
-<div class="sponsor-logo" title="North Sails"><img src="sponsors/north-sails.png" alt="North Sails" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="MySharxon"><img src="sponsors/mysharxon.png" alt="MySharxon" loading="lazy"></div>
-<div class="sponsor-logo" title="Heroms"><img src="sponsors/heroms.png" alt="Heroms" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="IBO"><img src="sponsors/ibo.png" alt="IBO" loading="lazy"></div>
-<div class="sponsor-logo" title="Frans Paradise"><img src="sponsors/frans-paradise.png" alt="Frans Paradise" loading="lazy"></div>
-<div class="sponsor-logo" title="Paradise Rentals"><img src="sponsors/paradise-rentals.png" alt="Paradise Rentals" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="INEBON"><img src="sponsors/inebon.png" alt="INEBON" loading="lazy"></div>
-<div class="sponsor-logo" title="Concilium"><img src="sponsors/concilium.png" alt="Concilium" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="Rocargo"><img src="sponsors/rocargo.png" alt="Rocargo" loading="lazy"></div>
-<div class="sponsor-logo" title="EAD"><img src="sponsors/ead.png" alt="EAD" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="DSG"><img src="sponsors/dsg.png" alt="DSG" loading="lazy"></div>
-<div class="sponsor-logo" title="BBX"><img src="sponsors/bbx.png" alt="BBX" loading="lazy"></div>
-<div class="sponsor-logo" title="Manno"><img src="sponsors/manno.png" alt="Manno" loading="lazy"></div>
-<div class="sponsor-logo light-bg" title="Play, Learn, Grow Together"><img src="sponsors/play-learn-grow.png" alt="Play, Learn, Grow Together" loading="lazy"></div>
-<div class="sponsor-logo" title="OnTrack"><img src="sponsors/ontrack.png" alt="OnTrack" loading="lazy"></div>
-<!-- Duplicate set for seamless infinite loop (aria-hidden so screen readers skip it) -->
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/north-sails.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/mysharxon.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/heroms.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/ibo.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/frans-paradise.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/paradise-rentals.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/inebon.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/concilium.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/rocargo.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/ead.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/dsg.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/bbx.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/manno.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo light-bg" aria-hidden="true"><img src="sponsors/play-learn-grow.png" alt="" loading="lazy"></div>
-<div class="sponsor-logo" aria-hidden="true"><img src="sponsors/ontrack.png" alt="" loading="lazy"></div>
-</div>
-</div>
-<div class="sponsors-cta-block reveal">
-<div class="sponsors-cta-text">
-<div class="sponsors-cta-title">BECOME A SPONSOR</div>
-<div class="sponsors-cta-sub">Support a rising international windsurfer. Get your brand on the water.</div>
-</div>
-<a href="#contact" class="btn-outline">Sponsorship Enquiry →</a>
-</div>
+<!-- TODO(client): the wireframe asked for 20+ countries, 50+ races and 1M+
+     online reach. Those contradict the verified figures used here. Confirm the
+     real numbers and swap them in. -->
+
+<!-- LET'S CONNECT -->
+<section class="connect">
+  <div class="connect-intro">
+    <h2 class="display-head reveal">Let's Connect</h2>
+    <div class="section-label reveal">Sponsorships. Collaborations. Opportunities.<br>Chat directly with Arxon.</div>
+  </div>
+  <form class="connect-form reveal" id="connectForm" novalidate>
+    <input type="text" name="name" placeholder="Name" autocomplete="name">
+    <textarea name="message" placeholder="Message (optional)" rows="2"></textarea>
+    <p class="wa-note" role="status"></p>
+  </form>
+  <button type="submit" form="connectForm" class="btn-whatsapp reveal">
+    <span class="wa-icon" aria-hidden="true">&#9993;</span>
+    Continue in WhatsApp <span>&rarr;</span>
+  </button>
 </section>
-<!-- CONTACT -->
-<section id="contact">
-<div class="contact-bg"></div>
-<div class="contact-orb contact-orb-1"></div>
-<div class="contact-orb contact-orb-2"></div>
-<div class="contact-label reveal">// GET IN TOUCH</div>
-<h2 class="contact-heading reveal reveal-delay-1">READY TO<br><span>COLLABORATE?</span></h2>
-<p class="contact-sub reveal reveal-delay-2">Sponsorship enquiries, media requests, or just want to talk windsurfing — Arxon's ready to connect.</p>
-<div class="contact-actions reveal reveal-delay-3">
-<a href="mailto:arxon@email.com" class="btn-primary">Send a Message</a>
-<a href="mailto:arxon@email.com" class="contact-email">arxon@email.com</a>
-</div>
-</section>
-<!-- FOOTER -->
+
 <footer>
   <a href="index.html" class="footer-logo">ARXON<span>.</span></a>
   <div class="footer-roles">Windsurfing <i>|</i> Competition <i>|</i> A Brighter Tomorrow</div>
@@ -1745,264 +449,85 @@
   <div class="footer-follow">Follow the journey</div>
 </footer>
 <!-- TODO(client): social URLs unknown. Placeholders marked data-todo="client-handle". -->
+
 <script src="assets/site.js" defer></script>
-<script>
-/* Homepage-only behaviour. */
-  // ============ RESULTS FILTER ============
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const year = btn.dataset.filter;
-      document.querySelectorAll('#resultsTable tbody tr').forEach(row => {
-        if (year === 'all' || row.dataset.year === year) {
-          row.style.display = '';
-          row.style.animation = 'fadeUp 0.4s ease both';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    });
-  });
-  // ============ STORY — pinned scrollytelling ============
-  (function () {
-    const story = document.getElementById('story');
-    const rail = document.getElementById('storyRail');
-    if (!story) return;
-    const chapters = Array.from(story.querySelectorAll('.chapter'));
-    const labels = ['Origin', 'Playground', 'First Send', 'Rising', 'World Stage', 'Horizon'];
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Build the side progress rail
-    if (rail) {
-      chapters.forEach((ch, i) => {
-        const b = document.createElement('button');
-        b.setAttribute('data-label', labels[i] || ('0' + (i + 1)));
-        b.setAttribute('aria-label', 'Go to chapter ' + (i + 1));
-        b.addEventListener('click', () => {
-          window.scrollTo({ top: story.offsetTop + i * window.innerHeight, behavior: 'smooth' });
-        });
-        rail.appendChild(b);
-      });
-    }
-    const dots = rail ? Array.from(rail.children) : [];
-
-    // Activate a chapter the first time it arrives (fires its entrance, stays revealed)
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting && e.intersectionRatio >= 0.55) e.target.classList.add('active');
-      });
-    }, { threshold: [0.55] });
-    chapters.forEach(ch => io.observe(ch));
-
-    // Rail visible only while the story is on screen
-    if (rail) {
-      new IntersectionObserver((entries) => {
-        entries.forEach(e => rail.classList.toggle('visible', e.isIntersecting));
-      }, { threshold: 0.05 }).observe(story);
-    }
-
-    // Single scroll handler: track current chapter (rail) + parallax the arriving photo.
-    // Sticky chapters all stay "intersecting", so the current one must come from scroll position.
-    let ticking = false, lastIdx = -1;
-    const onScroll = () => {
-      const vh = window.innerHeight;
-      // Current chapter = the topmost one covering the viewport midline (later chapters cover earlier)
-      let idx = 0;
-      chapters.forEach((ch, i) => {
-        const top = ch.getBoundingClientRect().top;
-        if (top <= vh * 0.5) idx = i;
-        if (!reduce) {
-          const t = Math.max(0, Math.min(1, top / vh));
-          const media = ch.querySelector('.chapter-media');
-          if (media) media.style.transform = 'translateY(' + (t * 2).toFixed(2) + 'vh)';
-        }
-      });
-      if (idx !== lastIdx) {
-        dots.forEach((d, di) => d.classList.toggle('active', di === idx));
-        lastIdx = idx;
-      }
-      ticking = false;
-    };
-    window.addEventListener('scroll', () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-    }, { passive: true });
-    window.addEventListener('resize', onScroll);
-    onScroll();
-  })();
-
-  // ============ GALLERY STRIP — drag to scroll ============
-  (function () {
-    const strip = document.getElementById('galleryStrip');
-    if (!strip) return;
-    let isDown = false, startX = 0, startScroll = 0, moved = 0;
-    strip.addEventListener('pointerdown', (e) => {
-      isDown = true; moved = 0;
-      startX = e.clientX; startScroll = strip.scrollLeft;
-      strip.classList.add('dragging');
-      strip.setPointerCapture(e.pointerId);
-    });
-    strip.addEventListener('pointermove', (e) => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > moved) moved = Math.abs(dx);
-      strip.scrollLeft = startScroll - dx;
-    });
-    const end = () => { isDown = false; strip.classList.remove('dragging'); };
-    strip.addEventListener('pointerup', end);
-    strip.addEventListener('pointercancel', end);
-    // Swallow the click that follows a real drag so it doesn't open the lightbox
-    strip.addEventListener('click', (e) => {
-      if (moved > 6) { e.stopPropagation(); e.preventDefault(); }
-    }, true);
-  })();
-
-  // ============ LIGHTBOX ============
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxCaption = document.getElementById('lightboxCaption');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  let currentLightbox = 0;
-  const galleryImages = [];
-  galleryItems.forEach((item, i) => {
-    const img = item.querySelector('img');
-    const caption = item.dataset.caption || '';
-    if (img) {
-      galleryImages.push({ src: img.src, caption: caption });
-      item.addEventListener('click', () => {
-        currentLightbox = i;
-        openLightbox(i);
-      });
-    }
-  });
-  function openLightbox(index) {
-    lightboxImg.src = galleryImages[index].src;
-    lightboxCaption.textContent = galleryImages[index].caption;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+  /* ---------- HERO VIDEO ---------- */
+  // TODO(client): no hero video supplied yet. Set HERO_VIDEO to a file path or
+  // embed URL and the play button appears. Left empty, the button stays hidden
+  // rather than shipping a control that promises a video and delivers nothing.
+  const HERO_VIDEO = '';
+  if (HERO_VIDEO) {
+    const play = document.getElementById('heroPlay');
+    play.hidden = false;
+    play.addEventListener('click', () => window.open(HERO_VIDEO, '_blank', 'noopener'));
   }
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-  document.getElementById('lightboxPrev').addEventListener('click', e => {
-    e.stopPropagation();
-    currentLightbox = (currentLightbox - 1 + galleryImages.length) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentLightbox].src;
-    lightboxCaption.textContent = galleryImages[currentLightbox].caption;
-  });
-  document.getElementById('lightboxNext').addEventListener('click', e => {
-    e.stopPropagation();
-    currentLightbox = (currentLightbox + 1) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentLightbox].src;
-    lightboxCaption.textContent = galleryImages[currentLightbox].caption;
-  });
-  document.addEventListener('keydown', e => {
-    if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
-    if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
-  });
-  // ============ HERO PARTICLES ============
-  const particlesContainer = document.getElementById('heroParticles');
-  for (let i = 0; i < 20; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDuration = (8 + Math.random() * 12) + 's';
-    particle.style.animationDelay = (Math.random() * 10) + 's';
-    particle.style.width = (2 + Math.random() * 3) + 'px';
-    particle.style.height = particle.style.width;
-    particle.style.opacity = 0.2 + Math.random() * 0.4;
-    particlesContainer.appendChild(particle);
-  }
-  // ============ PARALLAX on Hero BG ============
-  const heroBgImage = document.querySelector('.hero-bg-image');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < window.innerHeight) {
-      const offset = window.scrollY * 0.4;
-      heroBgImage.style.transform = `translateY(${offset}px)`;
-      heroBgImage.style.opacity = 0.32 - (window.scrollY / window.innerHeight) * 0.32;
-    }
-  });
-  // ============ SPONSORS — AUTO-SCROLL + MANUAL DRAG ============
-  (function () {
-    const marquee = document.querySelector('.sponsors-marquee');
-    const track = document.querySelector('.sponsors-track');
-    if (!marquee || !track) return;
 
-    // The track holds two identical sets of logos back-to-back.
-    // Looping half the scrollWidth gives a seamless infinite scroll.
-    let half = 0;
-    const measure = () => { half = track.scrollWidth / 2; };
-    measure();
-    window.addEventListener('resize', measure);
-
-    let auto = true;                 // auto-scroll enabled
-    let resumeTimer = null;
-    const SPEED = 0.5;               // px per frame (~30px/s at 60fps)
-
-    function pauseAuto(delay = 2500) {
-      auto = false;
-      clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => { auto = true; }, delay);
-    }
-
-    function tick() {
-      if (auto) {
-        marquee.scrollLeft += SPEED;
-        if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
-      } else if (half > 0) {
-        // keep manual scroll position within the seamless loop range
-        if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
-        else if (marquee.scrollLeft < 0) marquee.scrollLeft += half;
+  /* ---------- SPONSORSHIP WAYS ---------- */
+  // One open at a time.
+  const triggers = document.querySelectorAll('.way-trigger');
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      triggers.forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+        document.getElementById(t.getAttribute('aria-controls')).hidden = true;
+      });
+      if (!open) {
+        trigger.setAttribute('aria-expanded', 'true');
+        panel.hidden = false;
       }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    // Pause while hovering (desktop nicety)
-    marquee.addEventListener('mouseenter', () => { auto = false; clearTimeout(resumeTimer); });
-    marquee.addEventListener('mouseleave', () => { if (!isDown) pauseAuto(600); });
-
-    // Wheel / trackpad horizontal scroll
-    marquee.addEventListener('wheel', (e) => {
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (delta !== 0) {
-        marquee.scrollLeft += delta;
-        pauseAuto();
-        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) e.preventDefault();
-      }
-    }, { passive: false });
-
-    // Pointer drag (mouse + touch via Pointer Events)
-    let isDown = false, startX = 0, startScroll = 0;
-    marquee.addEventListener('pointerdown', (e) => {
-      isDown = true;
-      auto = false;
-      clearTimeout(resumeTimer);
-      startX = e.clientX;
-      startScroll = marquee.scrollLeft;
-      marquee.classList.add('dragging');
-      marquee.setPointerCapture(e.pointerId);
     });
-    marquee.addEventListener('pointermove', (e) => {
-      if (!isDown) return;
-      marquee.scrollLeft = startScroll - (e.clientX - startX);
-    });
-    const endDrag = () => {
-      if (!isDown) return;
-      isDown = false;
-      marquee.classList.remove('dragging');
-      pauseAuto();
-    };
-    marquee.addEventListener('pointerup', endDrag);
-    marquee.addEventListener('pointercancel', endDrag);
-    marquee.addEventListener('pointerleave', endDrag);
-  })();
+  });
 
+  /* ---------- PORTFOLIO ---------- */
+  const PORTFOLIO_SETS = {
+    gear:     ['arxon-action-solo.jpg', 'arxon-action-carve.jpg', 'arxon-water-thumbsup.jpg'],
+    races:    ['arxon-action-duo.jpg', 'arxon-portrait-celebrate.jpg', 'arxon-jump-splash.jpg'],
+    momentum: ['arxon-aerial-reef-01.jpg', 'arxon-aerial-shallow.jpg', 'arxon-jump-airborne.jpg'],
+  };
+  const pcarImg = document.getElementById('pcarImg');
+  const pcarDots = document.getElementById('pcarDots');
+  let pcarSet = 'gear';
+  let pcarIndex = 0;
+
+  function pcarRender() {
+    const slides = PORTFOLIO_SETS[pcarSet];
+    pcarIndex = (pcarIndex + slides.length) % slides.length;
+    pcarImg.src = slides[pcarIndex];
+    pcarImg.alt = pcarSet + ' image ' + (pcarIndex + 1) + ' of ' + slides.length;
+    pcarDots.innerHTML = slides
+      .map((_, i) => '<button class="pcar-dot' + (i === pcarIndex ? ' is-active' : '') +
+        '" data-i="' + i + '" aria-label="Go to image ' + (i + 1) + '"></button>')
+      .join('');
+  }
+
+  document.getElementById('pcarPrev').addEventListener('click', () => { pcarIndex--; pcarRender(); });
+  document.getElementById('pcarNext').addEventListener('click', () => { pcarIndex++; pcarRender(); });
+  pcarDots.addEventListener('click', e => {
+    const dot = e.target.closest('.pcar-dot');
+    if (dot) { pcarIndex = Number(dot.dataset.i); pcarRender(); }
+  });
+  document.querySelectorAll('.ptab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ptab').forEach(t => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      pcarSet = tab.dataset.set;
+      pcarIndex = 0;
+      pcarRender();
+    });
+  });
+  pcarRender();
+
+  /* ---------- CONTACT ---------- */
+  initWhatsAppForm(document.getElementById('connectForm'));
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- Renders a page inside a real 390px-wide iframe and reports layout facts in
+     document.title. Headless Chrome clamps its own window to 500px, so an
+     iframe is the only way to test the true mobile viewport.
+
+     Must be served over HTTP, not opened as file://, or the iframe is
+     cross-origin and the probe cannot read into it.
+
+       python3 -m http.server 8799
+       "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+         --headless --disable-gpu --window-size=600,900 \
+         --virtual-time-budget=12000 --dump-dom \
+         "http://localhost:8799/scripts/mobile-probe.html?page=about.html" \
+         | grep -o '<title>PROBE [^<]*'
+-->
+<html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:#222}
+iframe{width:390px;height:844px;border:0;display:block}
+</style></head><body>
+<script>
+const page = new URLSearchParams(location.search).get('page') || 'index.html';
+const f = document.createElement('iframe');
+f.src = '../' + page;
+document.body.appendChild(f);
+f.addEventListener('load', () => setTimeout(() => {
+  const w = f.contentWindow, d = w.document, de = d.documentElement;
+  const cls = el => (el.className && typeof el.className === 'string')
+    ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '';
+  // The sponsor marquee is deliberately wider than the viewport inside
+  // overflow:hidden, so its contents are expected to sit past the edge.
+  const inMarquee = el => !!el.closest('.logobar, .logobar-track');
+  const offenders = [...d.querySelectorAll('body *')]
+    .filter(el => !inMarquee(el))
+    .map(el => {
+      const r = el.getBoundingClientRect();
+      return { n: el.tagName.toLowerCase() + cls(el), right: Math.round(r.right), wd: Math.round(r.width) };
+    })
+    .filter(o => o.right > w.innerWidth + 2 && o.wd > 0);
+  const nav = d.getElementById('hamburger');
+  document.title = 'PROBE ' + JSON.stringify({
+    page,
+    vw: w.innerWidth,
+    overflow: de.scrollWidth - de.clientWidth,
+    hamburger: nav ? w.getComputedStyle(nav).display : 'missing',
+    offenders: offenders.slice(0, 8)
+  });
+}, 800));
+</script>
+</body></html>

@@ -479,3 +479,37 @@
   body { cursor: auto; }
   .lightbox-nav { display: none; }
 }
+
+/* Used by the results filter on races.html. */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Contact form and WhatsApp button. Used by the homepage and contact.html. */
+.connect-form input, .connect-form textarea,
+.contact-form input, .contact-form textarea {
+  width: 100%; padding: 15px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border); border-radius: 3px;
+  color: var(--white); font-family: var(--font-body); font-size: 14px;
+}
+.connect-form input::placeholder, .connect-form textarea::placeholder,
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--muted); }
+.connect-form input:focus, .connect-form textarea:focus,
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent); }
+.connect-form textarea { resize: none; }
+.contact-form textarea { resize: vertical; }
+.wa-note {
+  min-height: 16px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent2);
+}
+.btn-whatsapp {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 20px 30px; background: var(--accent); border: none; color: var(--black);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; cursor: none;
+  transition: filter 0.25s;
+}
+.btn-whatsapp:hover { filter: brightness(1.12); }
+.wa-icon { font-size: 17px; }
