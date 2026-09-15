@@ -512,4 +512,4 @@
   transition: filter 0.25s;
 }
 .btn-whatsapp:hover { filter: brightness(1.12); }
-.wa-icon { font-size: 17px; }
+.wa-icon { width: 19px; height: 19px; flex: 0 0 19px; }

@@ -19,6 +19,17 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* news-only sections. */
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: clamp(48px, 7vw, 90px); }
+.news-card a { display: block; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; text-decoration: none; color: inherit; transition: border-color 0.3s; }
+.news-card a:hover { border-color: rgba(0,229,255,0.4); }
+.news-card img { width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+.news-card a:hover img { transform: scale(1.04); }
+.news-meta { padding: 20px; }
+.news-meta time { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.news-meta h2 { font-family: var(--font-body); font-weight: 500; font-size: 16px; margin-top: 10px; line-height: 1.5; }
+.follow-cta { text-align: center; border: 1px solid var(--border); border-radius: 4px; padding: clamp(36px, 5vw, 64px); }
+.follow-cta h2 { font-size: clamp(28px, 3.4vw, 44px); color: var(--white); display: inline-block; }
+.follow-cta p { color: var(--muted); margin: 14px 0 26px; }
 </style>
 </head>
 <body>
@@ -48,7 +59,51 @@
   <a href="news.html">News</a>
   <a href="contact.html">Contact</a>
 </div>
-<main class="page"></main>
+<main class="page">
+  <header class="page-head">
+    <div class="section-label reveal">From the water</div>
+    <h1 class="display-head reveal">News &amp;<br><span>updates</span></h1>
+  </header>
+  <div class="news-grid">
+    <article class="news-card reveal">
+      <a href="#" data-todo="client-post-url">
+        <img src="arxon-portrait-celebrate.jpg" alt="" loading="lazy">
+        <div class="news-meta">
+          <time datetime="2026-07">July 2026</time>
+          <h2>U17 champion at Aruba Hi-Winds</h2>
+        </div>
+      </a>
+    </article>
+    <article class="news-card reveal reveal-delay-1">
+      <a href="#" data-todo="client-post-url">
+        <img src="arxon-action-duo.jpg" alt="" loading="lazy">
+        <div class="news-meta">
+          <time datetime="2025-08">August 2025</time>
+          <h2>Three world cup wins in a single season</h2>
+        </div>
+      </a>
+    </article>
+    <article class="news-card reveal reveal-delay-2">
+      <a href="#" data-todo="client-post-url">
+        <img src="arxon-aerial-shallow.jpg" alt="" loading="lazy">
+        <div class="news-meta">
+          <time datetime="2025-06">June 2025</time>
+          <h2>Training season on Lac Bay</h2>
+        </div>
+      </a>
+    </article>
+  </div>
+  <section class="follow-cta reveal">
+    <h2 class="display-head">Follow the journey</h2>
+    <p>Race updates, training clips and life on tour.</p>
+    <a href="#" class="btn-primary" data-todo="client-handle">Follow on Instagram <span>&rarr;</span></a>
+  </section>
+</main>
+<!-- TODO(client): Instagram handle unknown, so every link here is a placeholder
+     marked data-todo. The three cards are drawn from real verified results but
+     point nowhere until the handle and post URLs arrive. A live Instagram feed
+     is not possible on a static site: Instagram removed public profile-feed
+     embedding, and the alternatives need either a server or a paid widget. -->
 <footer>
   <a href="index.html" class="footer-logo">ARXON<span>.</span></a>
   <div class="footer-roles">Windsurfing <i>|</i> Competition <i>|</i> A Brighter Tomorrow</div>

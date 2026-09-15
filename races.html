@@ -19,6 +19,220 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* races-only sections. */
+  /* STATS */
+  #stats .stats-lead {
+    max-width: 520px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 56px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .stat-card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 44px 32px 36px;
+    overflow: hidden;
+    transition: border-color 0.4s, background 0.4s, transform 0.4s;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.08), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .stat-card:hover {
+    border-color: rgba(0,229,255,0.28);
+    background: rgba(0,229,255,0.03);
+    transform: translateY(-4px);
+  }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-index {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 28px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(58px, 7vw, 92px);
+    line-height: 0.9;
+    color: var(--white);
+    display: flex;
+    align-items: baseline;
+  }
+  .stat-value .stat-suffix {
+    color: var(--accent);
+    font-size: 0.5em;
+    margin-left: 4px;
+    text-shadow: 0 0 30px var(--accent-glow);
+  }
+  .stat-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--white);
+    margin-top: 18px;
+  }
+  .stat-sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .stats-banner {
+    margin-top: 2px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    justify-content: space-between;
+    transition: border-color 0.4s;
+  }
+  .stats-banner:hover { border-color: rgba(0,229,255,0.18); }
+  .stats-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .stats-banner-title span { color: var(--accent); text-shadow: 0 0 40px var(--accent-glow); }
+  .stats-banner-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.9;
+  }
+  .stats-banner-meta b { color: var(--accent); font-weight: 400; }
+  /* RESULTS */
+  .results-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .results-filter {
+    display: flex; gap: 2px;
+  }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.15);
+  }
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .results-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table th {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 0 0 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+  .results-table th:last-child { text-align: right; }
+  .results-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .results-table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+  }
+  .results-table td {
+    padding: 20px 0;
+    font-size: 14px;
+    color: var(--white);
+  }
+  .results-table td:last-child { text-align: right; }
+  .result-rank {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--muted);
+    width: 60px;
+  }
+  .result-rank.gold { color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  .result-rank.silver { color: #c0c0c0; text-shadow: 0 0 20px rgba(192,192,192,0.3); }
+  .result-rank.bronze { color: #cd7f32; text-shadow: 0 0 20px rgba(205,127,50,0.3); }
+  .result-event { font-weight: 400; }
+  .result-event-sub {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .result-discipline {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    transition: box-shadow 0.3s;
+  }
+  .result-discipline.foiling { color: var(--accent); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
+  .result-discipline.foiling:hover { box-shadow: 0 0 15px rgba(0,229,255,0.15); }
+  .result-discipline.fin { color: var(--accent2); border-color: rgba(255,107,0,0.3); background: rgba(255,107,0,0.05); }
+  .result-discipline.fin:hover { box-shadow: 0 0 15px rgba(255,107,0,0.15); }
+  .result-discipline.wing { color: var(--accent3); border-color: rgba(0,255,150,0.3); background: rgba(0,255,150,0.05); }
+  .result-discipline.wing:hover { box-shadow: 0 0 15px rgba(0,255,150,0.15); }
+  .result-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .results-note {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .results-note span { color: var(--accent); }
+.races-stats { margin-bottom: clamp(48px, 7vw, 88px); }
+#stats, #results { padding: 0; border: none; }
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stats-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .stats-banner-meta { text-align: left; }
+  .results-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+}
 </style>
 </head>
 <body>
@@ -48,7 +262,112 @@
   <a href="news.html">News</a>
   <a href="contact.html">Contact</a>
 </div>
-<main class="page"></main>
+<main class="page">
+  <header class="page-head">
+    <div class="section-label reveal">Competition results</div>
+    <h1 class="display-head reveal">Races &amp;<br><span>results</span></h1>
+  </header>
+  <section id="stats" class="races-stats">
+<div class="section-label reveal">Career stats</div>
+<p class="stats-lead reveal">A fast-rising force in international fin slalom, collecting PWA Youth World Cup titles across the Caribbean and Europe.</p>
+<div class="stats-grid">
+<div class="stat-card reveal reveal-delay-1">
+<div class="stat-index">01</div>
+<div class="stat-value"><span class="counter" data-target="2">0</span><span class="stat-suffix">×</span></div>
+<div class="stat-label">World Titles</div>
+<div class="stat-sub">U15 Fin Slalom</div>
+</div>
+<div class="stat-card reveal reveal-delay-2">
+<div class="stat-index">02</div>
+<div class="stat-value"><span class="counter" data-target="4">0</span></div>
+<div class="stat-label">World Cup Wins</div>
+<div class="stat-sub">2025 – 2026</div>
+</div>
+<div class="stat-card reveal reveal-delay-3">
+<div class="stat-index">03</div>
+<div class="stat-value"><span class="counter" data-target="5">0</span><span class="stat-suffix">+</span></div>
+<div class="stat-label">Podium Finishes</div>
+<div class="stat-sub">International</div>
+</div>
+<div class="stat-card reveal reveal-delay-4">
+<div class="stat-index">04</div>
+<div class="stat-value"><span class="counter" data-target="13">0</span></div>
+<div class="stat-label">Race-Win Streak</div>
+<div class="stat-sub">2025 Season</div>
+</div>
+</div>
+<div class="stats-banner reveal">
+<div class="stats-banner-title"><span>2×</span> U15 FIN SLALOM WORLD CHAMPION</div>
+<div class="stats-banner-meta">SAIL <b>NB-2011</b> &nbsp;·&nbsp; BONAIRE, CARIBBEAN<br>PWA YOUTH WORLD TOUR</div>
+</div>
+</section>
+<!-- STORY -->
+  </section>
+  <section id="results">
+<div class="results-header">
+<div>
+<div class="section-label reveal">Full record</div>
+</div>
+<div class="results-filter reveal">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="2026">2026</button>
+<button class="filter-btn" data-filter="2025">2025</button>
+<button class="filter-btn" data-filter="2024">2024</button>
+</div>
+</div>
+<table class="results-table reveal" id="resultsTable">
+<thead>
+<tr>
+<th style="width:60px">Rank</th>
+<th>Event</th>
+<th>Class</th>
+<th>Year</th>
+</tr>
+</thead>
+<tbody>
+<tr data-year="2026">
+<td class="result-rank gold">1</td>
+<td class="result-event">Aruba Hi-Winds, PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U17 Fin</span></td>
+<td class="result-year">2026</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">Cold Hawaii, Youth Slalom World Cup<span class="result-event-sub">Thisted, Denmark</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">Aruba Hi-Winds, PWA Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank gold">1</td>
+<td class="result-event">PWA Youth World Cup Bonaire<span class="result-event-sub">Lac Bay, Bonaire</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2025">
+<td class="result-rank silver">2</td>
+<td class="result-event">Alaçatı Windfest, Youth Slalom World Cup<span class="result-event-sub">Alaçatı, Turkey</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2025</td>
+</tr>
+<tr data-year="2024">
+<td class="result-rank" style="color:var(--muted)">4</td>
+<td class="result-event">Aruba Hi-Winds, Youth Slalom World Cup<span class="result-event-sub">Fisherman's Huts, Aruba</span></td>
+<td><span class="result-discipline fin">U15 Fin</span></td>
+<td class="result-year">2024</td>
+</tr>
+</tbody>
+</table>
+<div class="results-note reveal">Results verified via <span>PWA World Tour</span> & event reports</div>
+</section>
+<!-- SPONSORS -->
+  </section>
+</main>
 <footer>
   <a href="index.html" class="footer-logo">ARXON<span>.</span></a>
   <div class="footer-roles">Windsurfing <i>|</i> Competition <i>|</i> A Brighter Tomorrow</div>
@@ -62,5 +381,25 @@
 </footer>
 <!-- TODO(client): social URLs unknown. Placeholders marked data-todo="client-handle". -->
 <script src="assets/site.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+  // ============ RESULTS FILTER ============
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const year = btn.dataset.filter;
+      document.querySelectorAll('#resultsTable tbody tr').forEach(row => {
+        if (year === 'all' || row.dataset.year === year) {
+          row.style.display = '';
+          row.style.animation = 'fadeUp 0.4s ease both';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>

@@ -19,6 +19,15 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* about-only sections. */
+.about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: start; }
+.about-copy p { color: var(--muted); line-height: 1.9; margin-bottom: 20px; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 30px; }
+.about-tags span { padding: 8px 16px; border: 1px solid var(--border); border-radius: 100px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.about-photo img { width: 100%; height: auto; border-radius: 4px; display: block; }
+.about-facts { list-style: none; border-top: 1px solid var(--border); margin-top: 20px; }
+.about-facts li { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; }
+.about-facts span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -48,7 +57,32 @@
   <a href="news.html">News</a>
   <a href="contact.html">Contact</a>
 </div>
-<main class="page"></main>
+<main class="page">
+  <header class="page-head">
+    <div class="section-label reveal">Who I am</div>
+    <h1 class="display-head reveal">Built by<br><span>the wind</span></h1>
+  </header>
+  <div class="about-grid">
+    <div class="about-copy">
+      <p class="reveal">Arxon Gomperts is a professional windsurfer specialising in fin slalom racing. Driven by a relentless passion for speed and technical mastery, he has been pushing his limits on international waters since a young age.</p>
+      <p class="reveal">Powering a fully loaded slalom sail through tactical buoy racing and blazing downwind runs, Arxon brings raw commitment, precision, and a hunger to reach the top of the sport.</p>
+      <p class="reveal">He trains out of Lac Bay in Bonaire and races sail number NB-2011 on the international youth circuit, travelling from the Caribbean to Europe across the season.</p>
+      <div class="about-tags reveal">
+        <span>Fin Slalom</span><span>Buoy Racing</span><span>Downwind</span><span>Speed</span><span>Open Water</span>
+      </div>
+      <a href="contact.html" class="btn-primary reveal">Become a Partner <span>&rarr;</span></a>
+    </div>
+    <div class="about-photo reveal">
+      <img src="arxon-portrait-armscrossed.jpg" alt="Portrait of Arxon Gomperts" loading="lazy">
+      <ul class="about-facts">
+        <li><span>Based in</span> Bonaire, Caribbean</li>
+        <li><span>Trains at</span> Lac Bay</li>
+        <li><span>Sail number</span> NB-2011</li>
+        <li><span>Discipline</span> Fin slalom</li>
+      </ul>
+    </div>
+  </div>
+</main>
 <footer>
   <a href="index.html" class="footer-logo">ARXON<span>.</span></a>
   <div class="footer-roles">Windsurfing <i>|</i> Competition <i>|</i> A Brighter Tomorrow</div>
