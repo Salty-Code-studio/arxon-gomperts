@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://arxongomperts.com/contact.html">
 <meta property="og:title" content="CONTACT &mdash; Arxon Gomperts">
 <meta property="og:description" content="Get in touch with Arxon Gomperts about sponsorship and collaborations.">
-<meta property="og:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
+<meta property="og:image" content="https://arxongomperts.com/arxon-sunset-02.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305171D'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2314C8D4'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,16 @@
 .contact-facts { list-style: none; border-top: 1px solid var(--border); }
 .contact-facts li { padding: 15px 0; border-bottom: 1px solid var(--border); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; }
 .contact-facts span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.contact-form { display: flex; flex-direction: column; gap: 10px; }
+.contact-reach { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.contact-ig {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.06em;
+  color: var(--text); text-decoration: none;
+  border-bottom: 1px solid var(--border-col); padding-bottom: 8px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.contact-ig:hover { color: var(--accent-col); border-bottom-color: var(--accent-col); }
+.contact-ig svg { width: 20px; height: 20px; flex: 0 0 20px; color: var(--accent-col); }
 @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
 </style>
 <script>
@@ -76,22 +85,30 @@
   </header>
   <div class="contact-grid">
     <div class="contact-copy">
-      <p class="reveal">Sponsorship enquiries, media requests, or just want to talk windsurfing. Messages go straight to WhatsApp, so expect a fast reply.</p>
+      <p class="reveal">Sponsorship enquiries, media requests, or just want to talk windsurfing. Email is the fastest way to reach him.</p>
       <ul class="contact-facts reveal">
         <li><span>Based in</span> Bonaire, Caribbean</li>
         <li><span>Sail number</span> NB-2011</li>
         <li><span>Discipline</span> Fin slalom</li>
       </ul>
     </div>
-    <form class="contact-form reveal" id="contactForm" novalidate>
-      <input type="text" name="name" placeholder="Name" autocomplete="name">
-      <textarea name="message" placeholder="Message (optional)" rows="5"></textarea>
-      <p class="wa-note" role="status"></p>
-      <button type="submit" class="btn-whatsapp">
-        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.14 6.44 2.13 11.9c0 1.76.46 3.47 1.33 4.98L2 22l5.25-1.38a9.9 9.9 0 0 0 4.78 1.22h.01c5.46 0 9.9-4.44 9.91-9.9a9.84 9.84 0 0 0-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.25-4.36c0-4.54 3.7-8.23 8.22-8.23a8.2 8.2 0 0 1 8.22 8.24c0 4.53-3.69 8.21-8.23 8.21Zm4.51-6.16c-.25-.12-1.52-.75-1.76-.83-.23-.09-.4-.13-.58.12-.17.25-.66.83-.8 1s-.27.19-.51.06c-.25-.12-.97-.36-1.85-1.14-.68-.6-1.14-1.36-1.27-1.6-.13-.26-.02-.4.1-.52.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.08-.17.04-.32-.03-.45-.06-.12-.57-1.38-.78-1.88-.2-.5-.42-.43-.58-.44h-.48c-.17 0-.44.06-.68.31-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.79 2.73 4.33 3.83.6.26 1.08.42 1.44.54.61.19 1.16.16 1.6.1.48-.07 1.5-.61 1.72-1.21.21-.6.21-1.1.14-1.2-.06-.11-.23-.17-.48-.29Z"/></svg>
-        Continue in WhatsApp <span>&rarr;</span>
-      </button>
-    </form>
+    <div class="contact-reach reveal">
+      <!-- TODO(client): confirm this spelling. Written as supplied, with the
+           "g" after "Arxon". If it should be arxon2011@gmail.com, change it
+           here and on index.html. -->
+      <a href="mailto:Arxong2011@gmail.com" class="connect-mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/>
+        </svg>
+        Arxong2011@gmail.com
+      </a>
+      <a href="https://www.instagram.com/arxon.nb2011/" target="_blank" rel="noopener" class="contact-ig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
+        @arxon.nb2011
+      </a>
+    </div>
   </div>
 </main>
 <footer>
@@ -107,10 +124,5 @@
 </footer>
 <!-- TODO(client): social URLs unknown. Placeholders marked data-todo="client-handle". -->
 <script src="assets/site.js" defer></script>
-<script defer>
-document.addEventListener('DOMContentLoaded', () => {
-  initWhatsAppForm(document.getElementById('contactForm'));
-});
-</script>
 </body>
 </html>

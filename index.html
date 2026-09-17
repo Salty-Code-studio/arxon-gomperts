@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARXON GOMPERTS | Windsurfer, Competitor, Ambassador</title>
-<meta name="description" content="Put your brand on the world stage. High-performance fin slalom windsurfing, global reach, real impact. Partner with Arxon Gomperts.">
+<meta name="description" content="Put your brand on the world stage. Bonaire-born fin slalom windsurfing, global reach, real impact. Partner with Arxon Gomperts, NB-2011.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arxongomperts.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://arxongomperts.com/">
 <meta property="og:title" content="Arxon Gomperts | Professional Windsurfer">
-<meta property="og:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit. Based in Bonaire.">
-<meta property="og:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
+<meta property="og:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit. Born in the trade winds of Bonaire.">
+<meta property="og:image" content="https://arxongomperts.com/arxon-sunset-02.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Arxon Gomperts | Professional Windsurfer">
 <meta name="twitter:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit.">
-<meta name="twitter:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
+<meta name="twitter:image" content="https://arxongomperts.com/arxon-sunset-02.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305171D'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2314C8D4'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,187 +30,305 @@
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero-media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(100deg, rgba(5,23,29,0.93) 0%, rgba(5,23,29,0.58) 45%, rgba(5,23,29,0.28) 100%);
+  background:
+    /* bottom lift so the sponsor strip and athlete bar stay legible */
+    linear-gradient(to top, rgba(5,23,29,0.96) 0%, rgba(5,23,29,0.30) 34%, transparent 58%),
+    /* left weight for the headline */
+    linear-gradient(100deg, rgba(5,23,29,0.95) 0%, rgba(5,23,29,0.72) 42%, rgba(5,23,29,0.44) 100%);
 }
-/* Wide enough that "Put your brand on" holds one line. Any narrower and "on"
-   orphans onto a line of its own. */
+
+/* NB2011 sail number as a full-bleed ghost wordmark behind the headline.
+   Sized in vw so it always spans the hero regardless of viewport, and pushed
+   behind the copy with a z-index below .hero-inner. */
+.hero-sail {
+  position: absolute; z-index: 1; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 108%; text-align: center;
+  font-family: var(--font-display);
+  font-size: 23vw; line-height: 0.8; letter-spacing: 0.03em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(20,200,212,0.30);
+  text-stroke: 2px rgba(20,200,212,0.30);
+  user-select: none; pointer-events: none; white-space: nowrap;
+}
 .hero-inner { position: relative; z-index: 2; padding: 0 clamp(24px, 6vw, 96px); max-width: 1040px; }
-.hero-title { font-size: clamp(40px, 6.2vw, 94px); color: var(--white); margin-bottom: 20px; }
-.hero-title span { color: var(--accent); }
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: clamp(10px, 1vw, 12px);
+  font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--signal); margin-bottom: 22px;
+}
+.hero-eyebrow i { font-style: normal; opacity: 0.55; margin: 0 8px; }
+.hero-title { font-size: clamp(40px, 6.2vw, 94px); margin-bottom: 20px; }
 .hero-sub {
   font-family: var(--font-mono); font-size: clamp(11px, 1.1vw, 13px);
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  letter-spacing: 0.18em; text-transform: uppercase;
   margin-bottom: 32px; line-height: 1.9;
 }
 .hero-cta { display: inline-flex; align-items: center; gap: 10px; }
+
+/* Sponsor strip lives inside the hero now, not in a band below it. */
+.hero-sponsors {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 92px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.hero-sponsors-track { display: flex; align-items: center; gap: 18px; width: max-content; animation: sponsorScroll 58s linear infinite; }
+.hero-sponsors:hover .hero-sponsors-track { animation-play-state: paused; }
+.hero-sponsor { flex: 0 0 auto; height: 88px; min-width: 132px; display: grid; place-items: center; }
+.hero-sponsor img {
+  max-height: 88px; max-width: 176px; object-fit: contain;
+  /* Always the light silhouette here: this strip sits on a dark photo scrim in
+     both modes, so it must not follow --logo-filter. */
+  filter: brightness(0) invert(1); opacity: 0.62; transition: opacity 0.3s;
+}
+.hero-sponsor:hover img { opacity: 1; }
+.hero-sponsor-link { display: block; text-decoration: none; }
+/* Stand-in for the eight sponsors with no logo art yet. Set in the display
+   face at logo scale so the strip reads as one deliberate system rather than
+   a row of gaps. Swaps out the moment a real file is dropped in. */
+.hero-sponsor-word {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.95vw, 12px); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(241,238,230,0.58); white-space: nowrap; text-align: center;
+  transition: color 0.3s;
+}
+.hero-sponsor-link:hover .hero-sponsor-word { color: var(--bone); }
+@keyframes sponsorScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-sponsors-track { animation: none; }
+  .hero-sponsors { overflow-x: auto; }
+  .accolades-photo img { animation: none; transform: scale(1.06); }
+}
+
 .hero-footer {
   position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
   display: flex; justify-content: space-between; align-items: flex-end;
-  padding: clamp(20px, 3vw, 40px) clamp(24px, 6vw, 96px);
+  padding: clamp(18px, 2.4vw, 30px) clamp(24px, 6vw, 96px);
   font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 0.18em; text-transform: uppercase;
 }
-.hero-footer-left strong { display: block; color: var(--white); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.2em; }
-.hero-footer-left span, .hero-footer-right { color: var(--muted); }
-.hero-footer-left i { color: var(--border); font-style: normal; margin: 0 6px; }
+.hero-footer-left strong { display: block; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.2em; }
+.hero-footer-left i { color: rgba(241,238,230,0.28); font-style: normal; margin: 0 6px; }
 .hero-footer-right { text-align: right; line-height: 1.8; }
-.hero-play {
-  position: absolute; z-index: 2; left: 58%; top: 50%; transform: translate(-50%, -50%);
-  background: none; border: none; color: var(--white); cursor: none;
-  display: flex; flex-direction: column; align-items: center; gap: 14px;
-}
-.hero-play[hidden] { display: none; }
-.hero-play-icon {
-  width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7);
-  display: grid; place-items: center; transition: background 0.3s, border-color 0.3s;
-}
-.hero-play-icon::after {
-  content: ''; border-left: 14px solid var(--white);
-  border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px;
-  transition: border-left-color 0.3s;
-}
-.hero-play:hover .hero-play-icon { background: var(--accent); border-color: var(--accent); }
-.hero-play:hover .hero-play-icon::after { border-left-color: var(--black); }
-.hero-play-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; }
-
-/* ---------- SPONSOR LOGO BAR ---------- */
-.logobar { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; padding: 18px 0; }
-/* The source PNGs are square canvases with the art floating in a wide margin of
-   transparency, so they supply their own visual spacing. Hence the small gap:
-   a large one would leave acres of dead air between logos. */
-.logobar-track { display: flex; align-items: center; gap: 20px; width: max-content; animation: logobarScroll 55s linear infinite; }
-.logobar:hover .logobar-track { animation-play-state: paused; }
-.logobar-item { flex: 0 0 auto; height: 92px; display: grid; place-items: center; }
-/* Uniform white silhouette. brightness(0) invert(1) normalises the handful of
-   colour logos to match the rest, and it is the only treatment that rescues
-   mysharxon (dark red, unreadable raw) and ibo (illegible raw). The old
-   light-bg white pills were actively harmful here: white art on white. */
-.logobar-item img { max-height: 92px; max-width: 190px; object-fit: contain; filter: var(--logo-filter); opacity: 0.8; transition: opacity 0.3s; }
-.logobar-item:hover img { opacity: 1; }
-@keyframes logobarScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .logobar-track { animation: none; }
-  .logobar { overflow-x: auto; }
-}
 
 /* ---------- ACCOMPLISHMENTS ---------- */
 .accolades { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); }
-.accolades-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
-.accolades-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--white); }
-.accolades-head .section-label i { color: var(--accent); font-style: normal; margin: 0 10px; opacity: 0.7; }
-.accolades-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.accolade { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; }
-.accolade img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.23,1,0.32,1); }
-.accolade:hover img { transform: scale(1.05); }
-.accolade figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 20px;
-  background: linear-gradient(to top, rgba(5,23,29,0.92), transparent);
-  font-family: var(--font-display); font-size: clamp(18px, 1.8vw, 26px);
-  letter-spacing: 0.04em; color: var(--white);
+.accolades-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
+.accolades-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--text); }
+.accolades-head .section-label i { color: var(--accent-col); font-style: normal; margin: 0 10px; opacity: 0.7; }
+.accolades-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 4vw, 72px); align-items: center; }
+
+/* One animated action photo instead of three static cards. The slow drift is
+   the whole point: a still frame of a slalom sailor reads as a snapshot, a
+   moving one reads as speed. */
+.accolades-photo { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 4 / 5; }
+.accolades-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  animation: slowDrift 22s ease-in-out infinite alternate;
 }
-.accolade figcaption::before { content: ''; display: block; width: 26px; height: 2px; background: var(--accent); margin-bottom: 10px; }
-.accolade-num { color: var(--accent); }
-.accolades-foot { text-align: center; margin-top: 30px; color: var(--muted); font-size: 14px; }
+@keyframes slowDrift {
+  from { transform: scale(1.06) translate3d(-1.2%, 1%, 0); }
+  to   { transform: scale(1.18) translate3d(1.5%, -1.8%, 0); }
+}
+.accolades-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,23,29,0.55), transparent 55%);
+}
+.accolades-photo figcaption {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 22px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(241,238,230,0.78);
+}
+
+/* Statistics, considerably larger than before. */
+.bigstats { display: grid; gap: 0; }
+.bigstat { padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid var(--border-col); display: flex; align-items: baseline; gap: clamp(16px, 2.4vw, 34px); }
+.bigstat:first-child { border-top: 1px solid var(--border-col); }
+.bigstat-num {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 9.5vw, 148px); line-height: 0.78;
+  color: var(--text); letter-spacing: -0.01em;
+  min-width: 1.45em; text-align: right;
+}
+.bigstat-num sup { font-size: 0.34em; color: var(--accent-col); vertical-align: super; margin-left: 2px; }
+.bigstat-body { padding-bottom: 6px; }
+.bigstat-label { font-family: var(--font-body); font-weight: 500; font-size: clamp(15px, 1.5vw, 20px); color: var(--text); }
+.bigstat-sub { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-top: 7px; }
+.accolades-foot { margin-top: 34px; color: var(--text-muted); font-size: 14px; }
+.accolades-foot a { color: var(--accent-col); text-decoration: none; border-bottom: 1px solid transparent; }
+.accolades-foot a:hover { border-bottom-color: var(--accent-col); }
+
+/* ---------- GEAR ---------- */
+.gear { padding: clamp(56px, 7vw, 100px) clamp(24px, 6vw, 96px); background: var(--bg-alt); border-top: 1px solid var(--border-col); }
+.gear-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+.gear-head h2 { font-size: clamp(30px, 4vw, 52px); color: var(--text); }
+.gear-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.gear-card { border: 1px solid var(--border-col); border-radius: 4px; padding: clamp(24px, 3vw, 38px); background: var(--surface); }
+.gear-brand { font-family: var(--font-display); font-size: clamp(26px, 3vw, 40px); color: var(--text); letter-spacing: 0.03em; }
+.gear-kind { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-col); margin-top: 6px; }
+.gear-specs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+/* Signal Orange on the spec chips, the palette's "race numbers" use. */
+.gear-spec {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+  padding: 10px 16px; border: 1px solid var(--signal); border-radius: 3px;
+  color: var(--signal); letter-spacing: 0.06em;
+}
+.gear-spec small { font-size: 9px; opacity: 0.7; margin-left: 3px; letter-spacing: 0.1em; }
 
 /* ---------- SPONSORSHIP WAYS ---------- */
-.ways { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; background: var(--black); padding: 0; }
-.ways-media { position: relative; min-height: 460px; }
-.ways-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ways { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; background: var(--bg); padding: 0; }
+.ways-media { position: relative; min-height: 520px; overflow: hidden; }
+/* Clicking an option pans and zooms this photo onto the relevant part of the
+   rig. transform-origin is driven from JS per option. */
+.ways-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1); transform-origin: 50% 50%;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ways-media.is-zoomed img { transform: scale(2.1); }
+.ways-focus {
+  position: absolute; z-index: 2; left: 22px; bottom: 20px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(241,238,230,0.85);
+  background: rgba(5,23,29,0.72); padding: 8px 14px; border-radius: 2px;
+  opacity: 0; transform: translateY(6px); transition: opacity 0.4s, transform 0.4s;
+}
+.ways-media.is-zoomed .ways-focus { opacity: 1; transform: translateY(0); }
 .ways-body { padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 72px); display: flex; flex-direction: column; justify-content: center; gap: 26px; }
 .ways-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
-.ways-head h2 { font-size: clamp(30px, 3.4vw, 48px); color: var(--white); }
+.ways-head h2 { font-size: clamp(30px, 3.4vw, 48px); color: var(--text); }
 .ways-head .section-label { text-align: right; line-height: 1.9; }
 .ways-list { display: flex; flex-direction: column; gap: 12px; }
-.way { border: 1px solid var(--border); border-radius: 4px; background: var(--hover-tint); transition: border-color 0.3s; }
-.way:hover { border-color: var(--border-hi); }
-.way-trigger { width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: none; border: none; color: var(--white); font-family: var(--font-body); font-size: 15px; text-align: left; cursor: none; }
-.way-icon { color: var(--accent); width: 24px; height: 24px; display: inline-grid; place-items: center; flex: 0 0 24px; }
+.way { border: 1px solid var(--border-col); border-radius: 4px; background: var(--hover-tint); transition: border-color 0.3s, box-shadow 0.3s; }
+.way:hover, .way.is-open { border-color: var(--border-hi); box-shadow: 0 0 26px var(--glow); }
+.way-trigger { width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: none; border: none; color: var(--text); font-family: var(--font-body); font-size: 15px; text-align: left; cursor: none; }
+.way-icon { color: var(--accent-col); width: 24px; height: 24px; display: inline-grid; place-items: center; flex: 0 0 24px; }
 .way-icon svg { width: 22px; height: 22px; }
 .way-label { flex: 1; }
-.way-chev { color: var(--muted); font-size: 22px; transition: transform 0.3s, color 0.3s; }
-.way-trigger[aria-expanded="true"] .way-chev { transform: rotate(90deg); color: var(--accent); }
-.way-panel { padding: 0 20px 20px 60px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.way-chev { color: var(--text-muted); font-size: 22px; transition: transform 0.3s, color 0.3s; }
+.way-trigger[aria-expanded="true"] .way-chev { transform: rotate(90deg); color: var(--accent-col); }
+.way-panel { padding: 0 20px 20px 60px; color: var(--text-muted); font-size: 14px; line-height: 1.8; }
 .way-panel[hidden] { display: none; }
 .ways-body .btn-primary { align-self: flex-start; }
 
 /* ---------- REVIEWS ---------- */
-.reviews { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 0; background: var(--dark); align-items: stretch; padding: 0; }
-.reviews-label { padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 18px; justify-content: center; }
-.reviews-label h2 { font-size: clamp(24px, 2.6vw, 38px); color: var(--white); }
-.reviews-label .section-label { line-height: 2; }
-.reviews-quotes { display: grid; grid-template-columns: 1fr 1fr; border-left: 1px solid var(--border); }
-.reviews-quotes blockquote { margin: 0; padding: clamp(36px, 5vw, 64px) clamp(20px, 2.6vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 22px; }
-.reviews-quotes blockquote + blockquote { border-left: 1px solid var(--border); }
-.reviews-quotes p { font-size: 15px; line-height: 1.85; font-style: italic; color: var(--text); }
-.reviews-quotes cite { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: normal; }
-.reviews-quotes cite::before { content: ''; display: block; width: 26px; height: 2px; background: var(--accent); margin-bottom: 12px; }
-.reviews-photo { position: relative; min-height: 260px; }
-.reviews-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.reviews { padding: clamp(64px, 9vw, 116px) clamp(24px, 6vw, 96px); background: var(--bg-alt); text-align: center; border-top: 1px solid var(--border-col); }
+.reviews-head { margin-bottom: clamp(36px, 5vw, 62px); }
+.reviews-head h2 { font-size: clamp(30px, 4.4vw, 58px); color: var(--text); display: inline-block; }
+.reviews-head .section-label { justify-content: center; margin-top: 14px; }
+.reviews-head .section-label::before { display: none; }
+
+/* Laurels flank the centre quote so it reads as a trophy rather than a card. */
+.rev-stage { position: relative; display: flex; align-items: center; justify-content: center; gap: clamp(10px, 1.6vw, 26px); min-height: 300px; }
+.rev-laurel { flex: 0 0 auto; width: clamp(44px, 5.4vw, 82px); color: var(--accent-col); opacity: 0.62; }
+.rev-laurel svg { width: 100%; height: auto; display: block; }
+.rev-laurel.is-right { transform: scaleX(-1); }
+.rev-track { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.8vw, 28px); flex: 1 1 auto; }
+.rev {
+  flex: 0 0 auto; width: clamp(200px, 25vw, 300px);
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--border-col); border-radius: 4px;
+  background: var(--surface);
+  opacity: 0.42; transform: scale(0.88);
+  transition: opacity 0.5s, transform 0.5s, border-color 0.5s;
+}
+.rev.is-active {
+  opacity: 1; transform: scale(1);
+  width: clamp(280px, 34vw, 430px);
+  border-color: var(--border-hi);
+  box-shadow: 0 0 40px var(--glow);
+}
+.rev-quote { font-size: 14px; line-height: 1.8; font-style: italic; color: var(--text); }
+.rev.is-active .rev-quote { font-size: clamp(15px, 1.5vw, 19px); }
+.rev-by { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 20px; }
+.rev-by::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent-col); margin: 0 auto 12px; }
+.rev-nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 34px; }
+.rev-arrow { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-col); background: none; color: var(--text); font-size: 20px; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+.rev-arrow:hover { background: var(--accent-col); border-color: var(--accent-col); color: var(--bg); }
+.rev-dots { display: flex; gap: 7px; margin: 0 8px; }
+.rev-dot { width: 7px; height: 7px; border-radius: 50%; border: none; background: var(--border-col); cursor: none; padding: 0; transition: background 0.3s; }
+.rev-dot.is-active { background: var(--accent-col); }
 
 /* ---------- PORTFOLIO ---------- */
-.portfolio { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); background: var(--black); }
-.portfolio-head { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-bottom: 32px; }
-.portfolio-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--white); }
-.portfolio-tabs { display: flex; gap: 8px; }
-.ptab { padding: 11px 26px; border: 1px solid var(--border); background: none; color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
-.ptab.is-active { background: var(--accent); border-color: var(--accent); color: var(--black); }
-.portfolio-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: center; }
-.portfolio-carousel { position: relative; }
-.pcar-viewport { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: var(--panel); }
-.pcar-viewport img { width: 100%; height: 100%; object-fit: cover; }
-.pcar-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: rgba(5,23,29,0.62); color: var(--white); font-size: 22px; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
-.pcar-arrow:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
-.pcar-prev { left: 14px; }
-.pcar-next { right: 14px; }
-.pcar-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; }
-.pcar-dot { width: 7px; height: 7px; border-radius: 50%; border: none; background: rgba(255,255,255,0.35); cursor: none; padding: 0; }
-.pcar-dot.is-active { background: var(--accent); }
-.portfolio-copy h3 { font-family: var(--font-body); font-weight: 500; font-size: clamp(19px, 1.8vw, 24px); margin-bottom: 14px; }
-.portfolio-copy p { color: var(--muted); line-height: 1.85; font-size: 14px; margin-bottom: 30px; }
-.portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); padding-top: 24px; }
-.portfolio-stats > div { text-align: center; }
-.portfolio-stats > div + div { border-left: 1px solid var(--border); }
-.portfolio-stats span, .portfolio-stats i { font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); color: var(--white); font-style: normal; }
-.portfolio-stats small { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.portfolio { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); background: var(--bg); text-align: center; }
+.portfolio-head h2 { font-size: clamp(34px, 5vw, 64px); color: var(--text); display: inline-block; }
+.portfolio-head p { color: var(--text-muted); font-size: 14px; max-width: 520px; margin: 16px auto 0; line-height: 1.8; }
+.portfolio-tabs { display: inline-flex; gap: 8px; margin: 30px 0 26px; flex-wrap: wrap; justify-content: center; }
+.ptab { padding: 11px 26px; border: 1px solid var(--border-col); background: none; color: var(--text-muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+.ptab.is-active { background: var(--accent-col); border-color: var(--accent-col); color: var(--bg); }
+.pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pshot { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; cursor: none; border: 1px solid transparent; transition: border-color 0.3s; }
+.pshot:hover { border-color: var(--border-hi); }
+.pshot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+.pshot:hover img { transform: scale(1.05); }
+.pshot-badge {
+  position: absolute; z-index: 2; left: 14px; bottom: 14px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(241,238,230,0.9);
+  background: rgba(5,23,29,0.7); padding: 6px 12px; border-radius: 2px;
+}
+/* Explanation panel, revealed when a shot is clicked. */
+.pexplain {
+  margin-top: 14px; text-align: left;
+  border: 1px solid var(--border-hi); border-radius: 4px;
+  padding: clamp(22px, 2.6vw, 34px);
+  background: var(--surface);
+  display: grid; grid-template-columns: auto 1fr; gap: clamp(18px, 2.4vw, 32px); align-items: start;
+}
+.pexplain[hidden] { display: none; }
+.pexplain-idx { font-family: var(--font-display); font-size: clamp(40px, 5vw, 68px); color: var(--accent-col); line-height: 0.8; }
+.pexplain h3 { font-family: var(--font-body); font-weight: 500; font-size: clamp(17px, 1.7vw, 22px); color: var(--text); margin-bottom: 10px; }
+.pexplain p { color: var(--text-muted); font-size: 14px; line-height: 1.85; }
+.pexplain-close { justify-self: end; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: none; grid-column: 2; }
+.portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border-col); padding-top: 26px; margin-top: clamp(34px, 4vw, 54px); }
+.portfolio-stats > div + div { border-left: 1px solid var(--border-col); }
+.portfolio-stats span, .portfolio-stats i { font-family: var(--font-display); font-size: clamp(30px, 3.4vw, 46px); color: var(--text); font-style: normal; }
+.portfolio-stats small { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); }
 
 /* ---------- LET'S CONNECT ---------- */
-.connect { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: clamp(24px, 3vw, 48px); align-items: center; padding: clamp(56px, 7vw, 96px) clamp(24px, 6vw, 96px); background: var(--dark); }
-.connect-intro h2 { font-size: clamp(28px, 3.4vw, 46px); color: var(--white); margin-bottom: 14px; }
-.connect-intro .section-label { line-height: 1.9; }
-.connect-form { display: flex; flex-direction: column; gap: 10px; }
+.connect { padding: clamp(60px, 8vw, 110px) clamp(24px, 6vw, 96px); background: var(--bg-alt); border-top: 1px solid var(--border-col); text-align: center; }
+.connect h2 { font-size: clamp(30px, 4.4vw, 58px); color: var(--text); display: inline-block; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
-  .hero-play { top: auto; bottom: 20%; left: 50%; }
-  .hero-footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .hero-sail { font-size: 40vw; top: 42%; }
+  .hero-sponsors { bottom: 118px; }
+  .hero-sponsor { height: 56px; }
+  .hero-sponsor img { max-height: 56px; max-width: 122px; }
+  .hero-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
   .hero-footer-right { text-align: left; }
   .accolades-grid { grid-template-columns: 1fr; }
+  .accolades-photo { aspect-ratio: 4 / 3; }
+  .gear-grid { grid-template-columns: 1fr; }
   .ways { grid-template-columns: 1fr; }
-  .ways-media { min-height: 300px; }
+  .ways-media { min-height: 320px; }
   .ways-head .section-label { text-align: left; }
-  .reviews { grid-template-columns: 1fr; }
-  .reviews-quotes { grid-template-columns: 1fr; border-left: none; border-top: 1px solid var(--border); }
-  .reviews-quotes blockquote + blockquote { border-left: none; border-top: 1px solid var(--border); }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .connect { grid-template-columns: 1fr; }
+  /* The laurels and the flanking quotes are cut on phones: at this width the
+     side cards are a few illegible pixels and the laurels crowd the quote. */
+  .rev-laurel { display: none; }
+  .rev { display: none; }
+  .rev.is-active { display: block; width: 100%; }
+  .pgrid { grid-template-columns: 1fr; }
+  .pexplain { grid-template-columns: 1fr; }
+  .pexplain-close { grid-column: 1; }
+  .portfolio-stats { grid-template-columns: 1fr; }
+  .portfolio-stats > div + div { border-left: none; border-top: 1px solid var(--border-col); padding-top: 18px; margin-top: 18px; }
 }
 
 /* ---------- PHOTO OVERLAYS, BOTH MODES ----------
-   The hero and the accomplishment cards sit on full-bleed photography. They
-   keep Bone type over a dark scrim even in sun mode, because flipping them
-   would put Deep Ocean lettering straight onto a sunlit sea. Declared last so
-   it beats the earlier section rules on source order rather than by piling on
-   specificity. */
+   The hero sits on full-bleed photography and keeps Bone type over a dark
+   scrim even in sun mode, because flipping it would put Deep Ocean lettering
+   straight onto a sunlit sea. Declared last so it wins on source order. */
 .hero,
 .hero .hero-title,
 .hero .hero-footer-left strong,
-.accolade figcaption { color: var(--bone); }
+.accolades-photo figcaption { color: var(--bone); }
 .hero .hero-sub,
 .hero .hero-footer-left span,
 .hero .hero-footer-right { color: rgba(241,238,230,0.64); }
 .hero .hero-title span { color: var(--open-water); }
-.accolade figcaption::before { background: var(--open-water); }
-.accolade-num { color: var(--open-water); }
 </style>
 <script>
 (function () {
@@ -247,7 +365,7 @@
     <button class="mode-toggle-opt" data-set="shade" aria-label="Shade mode, for indoors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/></svg></button>
     <button class="mode-toggle-opt" data-set="sun" aria-label="Sun mode, for bright daylight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg></button>
   </div>
-  <a href="contact.html" class="nav-cta">Become a Partner <span>&rarr;</span></a>
+  <a href="sponsorship.html" class="nav-cta">Become a Partner <span>&rarr;</span></a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -265,63 +383,38 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-media">
-    <img src="arxon-sunset-01.jpg" alt="Arxon Gomperts windsurfing at sunset" loading="eager">
+    <!-- TODO(client): TWO issues here.
+         1. This should be a photo from the most recent event. The latest
+            confirmed results are the 2026 IFCA Europeans (Hvide Sande, Sept
+            2026) and Cold Hawaii U17 (Sept 2026). No photography from either
+            was supplied.
+         2. The strongest action frames on hand (arxon-action-carve, -duo,
+            -solo, arxon-jump-airborne, arxon-portrait-closeup) all carry a
+            burned-in "(c)CARTER / PWAWORLDTOUR.COM" watermark. They are not
+            used anywhere on the site until the licence is cleared. This is a
+            clean frame instead. -->
+    <img src="arxon-sunset-02.jpg" alt="Arxon Gomperts windsurfing at sunset off Bonaire" loading="eager">
   </div>
+  <div class="hero-sail" aria-hidden="true">NB2011</div>
   <div class="hero-inner">
+    <p class="hero-eyebrow">2&times; Youth World Champion <i>&middot;</i> Bonaire</p>
     <h1 class="hero-title display-head">
       Put your brand on<br>the <span>world stage.</span>
     </h1>
     <p class="hero-sub">High-performance windsurfing. Global reach. Real impact.</p>
-    <a href="contact.html" class="btn-primary hero-cta">Become a Partner <span>&rarr;</span></a>
+    <a href="sponsorship.html" class="btn-primary hero-cta">Become a Partner <span>&rarr;</span></a>
   </div>
-  <button class="hero-play" id="heroPlay" hidden aria-label="Watch the video">
-    <span class="hero-play-icon"></span>
-    <span class="hero-play-label">Watch video</span>
-  </button>
+
+  <div class="hero-sponsors" aria-label="Sponsors and partners">
+    <div class="hero-sponsors-track" id="heroSponsors"></div>
+  </div>
+
   <div class="hero-footer">
     <div class="hero-footer-left">
       <strong>Arxon Gomperts</strong>
       <span>Windsurfer <i>|</i> Competitor <i>|</i> Ambassador</span>
     </div>
-    <div class="hero-footer-right">More than a sport.<br>A brighter tomorrow.</div>
-  </div>
-</section>
-
-<!-- SPONSOR LOGO BAR -->
-<section class="logobar" aria-label="Sponsors and partners">
-  <div class="logobar-track">
-    <div class="logobar-item"><img src="sponsors/north-sails.png" alt="North Sails" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/mysharxon.png" alt="MySharxon" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/heroms.png" alt="Heroms" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/ibo.png" alt="IBO" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/frans-paradise.png" alt="Frans Paradise" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/paradise-rentals.png" alt="Paradise Rentals" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/inebon.png" alt="INEBON" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/concilium.png" alt="Concilium" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/rocargo.png" alt="Rocargo" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/ead.png" alt="EAD" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/dsg.png" alt="DSG" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/bbx.png" alt="BBX" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/manno.png" alt="Manno" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/play-learn-grow.png" alt="Play, Learn, Grow Together" loading="lazy"></div>
-    <div class="logobar-item"><img src="sponsors/ontrack.png" alt="OnTrack" loading="lazy"></div>
-    <!-- Duplicate set for a seamless loop. Must stay an exact copy: the
-         keyframe ends at translateX(-50%), so any width drift shows as a jump. -->
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/north-sails.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/mysharxon.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/heroms.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ibo.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/frans-paradise.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/paradise-rentals.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/inebon.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/concilium.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/rocargo.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ead.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/dsg.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/bbx.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/manno.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/play-learn-grow.png" alt="" loading="lazy"></div>
-    <div class="logobar-item" aria-hidden="true"><img src="sponsors/ontrack.png" alt="" loading="lazy"></div>
+    <div class="hero-footer-right">Born in the trade winds.<br>Racing the world.</div>
   </div>
 </section>
 
@@ -332,28 +425,78 @@
     <div class="section-label reveal">Results <i>&middot;</i> Progression <i>&middot;</i> A global stage</div>
   </div>
   <div class="accolades-grid">
-    <figure class="accolade reveal">
-      <img src="arxon-portrait-celebrate.jpg" alt="Arxon Gomperts on the podium" loading="lazy">
-      <figcaption><span class="accolade-num">2&times;</span> World Champion</figcaption>
+    <figure class="accolades-photo reveal">
+      <img src="arxon-sunset-03-vertical.jpg" alt="Arxon Gomperts windsurfing into the sunset">
+      <figcaption>Lac Bay, Bonaire <span aria-hidden="true">&middot;</span> Sail NB-2011</figcaption>
     </figure>
-    <figure class="accolade reveal reveal-delay-1">
-      <img src="arxon-action-carve.jpg" alt="Arxon Gomperts carving at speed" loading="lazy">
-      <figcaption><span class="accolade-num">4</span> World Cup Wins</figcaption>
-    </figure>
-    <figure class="accolade reveal reveal-delay-2">
-      <img src="arxon-aerial-reef-01.jpg" alt="Aerial view of Arxon Gomperts on open water" loading="lazy">
-      <figcaption><span class="accolade-num">5+</span> International Podiums</figcaption>
-    </figure>
+    <div class="bigstats">
+      <div class="bigstat reveal">
+        <div class="bigstat-num"><span class="counter" data-target="2">0</span><sup>&times;</sup></div>
+        <div class="bigstat-body">
+          <div class="bigstat-label">Youth World Champion</div>
+          <div class="bigstat-sub">PWA U15 Slalom Fin</div>
+        </div>
+      </div>
+      <div class="bigstat reveal reveal-delay-1">
+        <div class="bigstat-num"><span class="counter" data-target="7">0</span></div>
+        <div class="bigstat-body">
+          <div class="bigstat-label">World Cup Wins</div>
+          <div class="bigstat-sub">2024 to 2026</div>
+        </div>
+      </div>
+      <div class="bigstat reveal reveal-delay-2">
+        <div class="bigstat-num"><span class="counter" data-target="1">0</span></div>
+        <div class="bigstat-body">
+          <div class="bigstat-label">European Title</div>
+          <div class="bigstat-sub">IFCA Fin Slalom, best junior 2026</div>
+        </div>
+      </div>
+      <div class="bigstat reveal reveal-delay-3">
+        <div class="bigstat-num"><span class="counter" data-target="20">0</span></div>
+        <div class="bigstat-body">
+          <div class="bigstat-label">Straight Race Wins</div>
+          <div class="bigstat-sub">Bonaire 2025, a perfect series</div>
+        </div>
+      </div>
+      <p class="accolades-foot reveal">Now racing U17 and winning there too. Every placing is sourced on the <a href="races.html">races page</a>.</p>
+    </div>
   </div>
-  <p class="accolades-foot reveal">Competing in world championships, international divisions and races around the globe.</p>
 </section>
-<!-- TODO(client): "2x World Champion" is sponsor-billed and the title years are
-     unconfirmed. Confirm or soften before any press push. -->
+
+<!-- GEAR -->
+<section class="gear">
+  <div class="gear-head">
+    <h2 class="display-head reveal">The Quiver</h2>
+    <div class="section-label reveal">What he races on</div>
+  </div>
+  <div class="gear-grid">
+    <div class="gear-card reveal">
+      <div class="gear-brand">North</div>
+      <div class="gear-kind">Sails</div>
+      <div class="gear-specs">
+        <span class="gear-spec">6.0<small>m&sup2;</small></span>
+        <span class="gear-spec">6.7<small>m&sup2;</small></span>
+        <span class="gear-spec">7.7<small>m&sup2;</small></span>
+      </div>
+    </div>
+    <div class="gear-card reveal reveal-delay-1">
+      <div class="gear-brand">Future Fly</div>
+      <div class="gear-kind">Boards</div>
+      <div class="gear-specs">
+        <span class="gear-spec">97<small>L</small></span>
+        <span class="gear-spec">117<small>L</small></span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- SPONSORSHIP WAYS -->
 <section class="ways">
-  <div class="ways-media">
-    <img src="arxon-action-solo.jpg" alt="Arxon Gomperts racing a fully powered slalom sail" loading="lazy">
+  <div class="ways-media" id="waysMedia">
+    <!-- TODO(client): arxon-action-solo.jpg is the ideal frame for this
+         (a clean side-on view of the whole rig) but it is watermarked. -->
+    <img src="arxon-jump-splash.jpg" alt="Arxon Gomperts driving the rig through a turn" id="waysImg" loading="lazy">
+    <div class="ways-focus" id="waysFocus"></div>
   </div>
   <div class="ways-body">
     <div class="ways-head">
@@ -362,7 +505,8 @@
     </div>
     <div class="ways-list">
       <div class="way reveal">
-        <button class="way-trigger" aria-expanded="false" aria-controls="way-1">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-1"
+                data-focus-x="46%" data-focus-y="26%" data-focus-label="The sail: your logo, every race photo">
           <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20h14"/><path d="M12 20V3"/><path d="M12 4.5c3.7 3 5.6 7 5.8 11.5H12Z"/></svg></span>
           <span class="way-label">Sail, board &amp; equipment</span>
           <span class="way-chev" aria-hidden="true">&rsaquo;</span>
@@ -372,7 +516,8 @@
         </div>
       </div>
       <div class="way reveal reveal-delay-1">
-        <button class="way-trigger" aria-expanded="false" aria-controls="way-2">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-2"
+                data-focus-x="54%" data-focus-y="62%" data-focus-label="The rider: kit seen on the water and on the podium">
           <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3.5 12 6l3-2.5 4.5 2.8-1.8 3.2-1.2-.7V21H7.5V8.8l-1.2.7L4.5 6.3Z"/></svg></span>
           <span class="way-label">Team kit &amp; athlete wear</span>
           <span class="way-chev" aria-hidden="true">&rsaquo;</span>
@@ -382,7 +527,8 @@
         </div>
       </div>
       <div class="way reveal reveal-delay-2">
-        <button class="way-trigger" aria-expanded="false" aria-controls="way-3">
+        <button class="way-trigger" aria-expanded="false" aria-controls="way-3"
+                data-focus-x="70%" data-focus-y="78%" data-focus-label="The board and fin: where the speed is made">
           <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 5.4h3"/><path d="M11 18.6h2"/></svg></span>
           <span class="way-label">Digital sponsorship / UGC / social</span>
           <span class="way-chev" aria-hidden="true">&rsaquo;</span>
@@ -392,156 +538,272 @@
         </div>
       </div>
     </div>
-    <a href="contact.html" class="btn-primary reveal">Become a Partner <span>&rarr;</span></a>
+    <a href="sponsorship.html" class="btn-primary reveal">See the options <span>&rarr;</span></a>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section class="reviews">
-  <div class="reviews-label">
-    <h2 class="display-head reveal">Reviews /<br>Testimonials</h2>
-    <div class="section-label reveal">Real people.<br>Real support.<br>Real progress.</div>
+  <div class="reviews-head">
+    <h2 class="display-head reveal">Reviews / Testimonials</h2>
+    <div class="section-label reveal">Real people <i>&middot;</i> Real support <i>&middot;</i> Real progress</div>
   </div>
-  <div class="reviews-quotes">
-    <blockquote class="reveal">
-      <p>"Arxon's dedication and positive attitude make him a special talent. He has the mindset to go far."</p>
-      <cite>A mentor</cite>
-    </blockquote>
-    <blockquote class="reveal reveal-delay-1">
-      <p>"A true professional and a great representative for our brand. Arxon delivers on and off the water."</p>
-      <cite>A sponsor</cite>
-    </blockquote>
+  <div class="rev-stage">
+    <div class="rev-laurel" aria-hidden="true">
+      <svg viewBox="0 0 90 260" fill="currentColor" aria-hidden="true">
+        <path d="M70 250C44 220 30 170 33 120 35 80 46 44 64 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <g transform="translate(64,222) rotate(40)"><path d="M0 0C8-13 26-16 34-3 26 10 8 13 0 0Z"/></g>
+        <g transform="translate(54,188) rotate(28)"><path d="M0 0C8-13 26-16 34-3 26 10 8 13 0 0Z"/></g>
+        <g transform="translate(45,154) rotate(16)"><path d="M0 0C8-13 25-15 33-3 25 10 8 12 0 0Z"/></g>
+        <g transform="translate(39,120) rotate(2)"><path d="M0 0C7-12 24-14 32-3 24 9 7 12 0 0Z"/></g>
+        <g transform="translate(39,86) rotate(-12)"><path d="M0 0C7-12 23-14 30-3 23 9 7 11 0 0Z"/></g>
+        <g transform="translate(45,54) rotate(-28)"><path d="M0 0C6-11 21-12 28-2 21 8 6 10 0 0Z"/></g>
+        <g transform="translate(56,26) rotate(-44)"><path d="M0 0C6-10 19-11 25-2 19 7 6 9 0 0Z"/></g>
+      </svg>
+    </div>
+    <div class="rev-track" id="revTrack"></div>
+    <div class="rev-laurel is-right" aria-hidden="true">
+      <svg viewBox="0 0 90 260" fill="currentColor" aria-hidden="true">
+        <path d="M70 250C44 220 30 170 33 120 35 80 46 44 64 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <g transform="translate(64,222) rotate(40)"><path d="M0 0C8-13 26-16 34-3 26 10 8 13 0 0Z"/></g>
+        <g transform="translate(54,188) rotate(28)"><path d="M0 0C8-13 26-16 34-3 26 10 8 13 0 0Z"/></g>
+        <g transform="translate(45,154) rotate(16)"><path d="M0 0C8-13 25-15 33-3 25 10 8 12 0 0Z"/></g>
+        <g transform="translate(39,120) rotate(2)"><path d="M0 0C7-12 24-14 32-3 24 9 7 12 0 0Z"/></g>
+        <g transform="translate(39,86) rotate(-12)"><path d="M0 0C7-12 23-14 30-3 23 9 7 11 0 0Z"/></g>
+        <g transform="translate(45,54) rotate(-28)"><path d="M0 0C6-11 21-12 28-2 21 8 6 10 0 0Z"/></g>
+        <g transform="translate(56,26) rotate(-44)"><path d="M0 0C6-10 19-11 25-2 19 7 6 9 0 0Z"/></g>
+      </svg>
+    </div>
   </div>
-  <div class="reviews-photo reveal">
-    <img src="arxon-portrait-armscrossed.jpg" alt="Arxon Gomperts" loading="lazy">
+  <div class="rev-nav">
+    <button class="rev-arrow" id="revPrev" aria-label="Previous testimonial">&lsaquo;</button>
+    <div class="rev-dots" id="revDots"></div>
+    <button class="rev-arrow" id="revNext" aria-label="Next testimonial">&rsaquo;</button>
   </div>
 </section>
-<!-- TODO(client): both quotes are placeholders and the attributions are
-     deliberately unnamed. Replace with real quotes and real names before
-     launch. Do not attach these words to a named person. -->
+<!-- TODO(client): every quote below is PLACEHOLDER text I wrote, and the
+     attributions are deliberately unnamed. This section is now the visual
+     centrepiece of the page, which makes invented quotes a real liability.
+     Replace with real words from real, named people before launch. Do not
+     attach these sentences to anyone. -->
 
 <!-- PORTFOLIO -->
 <section class="portfolio">
   <div class="portfolio-head">
     <h2 class="display-head reveal">Portfolio</h2>
+    <p class="reveal">Performance, travel and progress. A look into the gear, the racing and life on tour. Tap any frame for the story behind it.</p>
     <div class="portfolio-tabs reveal" role="tablist">
       <button class="ptab is-active" role="tab" aria-selected="true" data-set="gear">Gear</button>
       <button class="ptab" role="tab" aria-selected="false" data-set="races">Races</button>
-      <button class="ptab" role="tab" aria-selected="false" data-set="momentum">Momentum</button>
+      <button class="ptab" role="tab" aria-selected="false" data-set="events">Events</button>
     </div>
   </div>
-  <div class="portfolio-grid">
-    <div class="portfolio-carousel">
-      <div class="pcar-viewport"><img id="pcarImg" src="arxon-action-solo.jpg" alt="" loading="lazy"></div>
-      <button class="pcar-arrow pcar-prev" id="pcarPrev" aria-label="Previous image">&lsaquo;</button>
-      <button class="pcar-arrow pcar-next" id="pcarNext" aria-label="Next image">&rsaquo;</button>
-      <div class="pcar-dots" id="pcarDots"></div>
+  <div class="pgrid" id="pgrid"></div>
+  <div class="pexplain" id="pexplain" hidden>
+    <div class="pexplain-idx" id="pexplainIdx">01</div>
+    <div>
+      <h3 id="pexplainTitle"></h3>
+      <p id="pexplainBody"></p>
     </div>
-    <div class="portfolio-copy">
-      <h3 class="reveal">Performance. Travel. Progress.</h3>
-      <p class="reveal">A look into my gear, racing moments and life on tour. Follow the journey and see what drives me forward.</p>
-      <div class="portfolio-stats reveal">
-        <div><span class="counter" data-target="4">0</span><i>+</i><small>Countries</small></div>
-        <div><span class="counter" data-target="6">0</span><i>+</i><small>World Cup Events</small></div>
-        <div><span class="counter" data-target="5">0</span><i>+</i><small>Podiums</small></div>
-      </div>
-    </div>
+    <button class="pexplain-close" id="pexplainClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="portfolio-stats reveal">
+    <div><span class="counter" data-target="6">0</span><i>+</i><small>Countries raced</small></div>
+    <div><span class="counter" data-target="12">0</span><i>+</i><small>World cup events</small></div>
+    <div><span class="counter" data-target="7">0</span><small>Event wins</small></div>
   </div>
 </section>
-<!-- TODO(client): the wireframe asked for 20+ countries, 50+ races and 1M+
-     online reach. Those contradict the verified figures used here. Confirm the
-     real numbers and swap them in. -->
 
 <!-- LET'S CONNECT -->
 <section class="connect">
-  <div class="connect-intro">
-    <h2 class="display-head reveal">Let's Connect</h2>
-    <div class="section-label reveal">Sponsorships. Collaborations. Opportunities.<br>Chat directly with Arxon.</div>
+  <h2 class="display-head reveal">Let's Connect</h2>
+  <div>
+    <!-- TODO(client): confirm this spelling. Written as supplied, with the "g"
+         after "Arxon". If it should be arxon2011@gmail.com, change it here and
+         on contact.html. -->
+    <a href="mailto:Arxong2011@gmail.com" class="connect-mail reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/>
+      </svg>
+      Arxong2011@gmail.com
+    </a>
   </div>
-  <form class="connect-form reveal" id="connectForm" novalidate>
-    <input type="text" name="name" placeholder="Name" autocomplete="name">
-    <textarea name="message" placeholder="Message (optional)" rows="2"></textarea>
-    <p class="wa-note" role="status"></p>
-  </form>
-  <button type="submit" form="connectForm" class="btn-whatsapp reveal">
-    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.14 6.44 2.13 11.9c0 1.76.46 3.47 1.33 4.98L2 22l5.25-1.38a9.9 9.9 0 0 0 4.78 1.22h.01c5.46 0 9.9-4.44 9.91-9.9a9.84 9.84 0 0 0-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.25-4.36c0-4.54 3.7-8.23 8.22-8.23a8.2 8.2 0 0 1 8.22 8.24c0 4.53-3.69 8.21-8.23 8.21Zm4.51-6.16c-.25-.12-1.52-.75-1.76-.83-.23-.09-.4-.13-.58.12-.17.25-.66.83-.8 1s-.27.19-.51.06c-.25-.12-.97-.36-1.85-1.14-.68-.6-1.14-1.36-1.27-1.6-.13-.26-.02-.4.1-.52.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.08-.17.04-.32-.03-.45-.06-.12-.57-1.38-.78-1.88-.2-.5-.42-.43-.58-.44h-.48c-.17 0-.44.06-.68.31-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.79 2.73 4.33 3.83.6.26 1.08.42 1.44.54.61.19 1.16.16 1.6.1.48-.07 1.5-.61 1.72-1.21.21-.6.21-1.1.14-1.2-.06-.11-.23-.17-.48-.29Z"/></svg>
-    Continue in WhatsApp <span>&rarr;</span>
-  </button>
 </section>
 
 <footer>
   <a href="index.html" class="footer-logo">ARXON<span>.</span></a>
-  <div class="footer-roles">Windsurfing <i>|</i> Competition <i>|</i> A Brighter Tomorrow</div>
+  <div class="footer-roles">Windsurfing <i>|</i> Competition</div>
   <ul class="footer-socials">
-    <li><a href="#" aria-label="Instagram" data-todo="client-handle">IG</a></li>
-    <li><a href="#" aria-label="YouTube" data-todo="client-handle">YT</a></li>
-    <li><a href="#" aria-label="TikTok" data-todo="client-handle">TT</a></li>
-    <li><a href="#" aria-label="Facebook" data-todo="client-handle">FB</a></li>
+    <li><a href="https://www.instagram.com/arxon.nb2011/" target="_blank" rel="noopener" aria-label="Instagram">IG</a></li>
   </ul>
   <div class="footer-follow">Follow the journey</div>
 </footer>
-<!-- TODO(client): social URLs unknown. Placeholders marked data-todo="client-handle". -->
 
 <script src="assets/site.js" defer></script>
 <script defer>
 document.addEventListener('DOMContentLoaded', () => {
-  /* ---------- HERO VIDEO ---------- */
-  // TODO(client): no hero video supplied yet. Set HERO_VIDEO to a file path or
-  // embed URL and the play button appears. Left empty, the button stays hidden
-  // rather than shipping a control that promises a video and delivers nothing.
-  const HERO_VIDEO = '';
-  if (HERO_VIDEO) {
-    const play = document.getElementById('heroPlay');
-    play.hidden = false;
-    play.addEventListener('click', () => window.open(HERO_VIDEO, '_blank', 'noopener'));
+
+  /* ---------- SPONSORS IN THE HERO ----------
+     Built from one list so the marquee's duplicate half can never drift out of
+     sync with the first. The keyframe ends at translateX(-50%), so any width
+     difference between the two halves would show as a visible jump. */
+  const SPONSORS = [
+    { name: 'North',            file: 'sponsors/north-sails.png',    url: 'https://northactionsports.com/pages/homepage-windsurfing' },
+    { name: 'Future Fly',       file: null,                          url: 'https://futurefly.world/' },
+    { name: 'Hangout Beach Bar',file: null,                          url: 'https://www.hangoutbeachbar.com/' },
+    { name: 'Rocargo',          file: 'sponsors/rocargo.png',        url: 'https://www.facebook.com/rocargologisitics/' },
+    { name: 'eZone',            file: null,                          url: 'https://getezone.com/locations/bonaire' },
+    { name: 'WindForce',        file: null,                          url: 'https://windforce.ca/' },
+    { name: 'WEB Bonaire',      file: null,                          url: 'https://www.webbonaire.com/?lang=en' },
+    { name: 'Caribbean Homes',  file: null,                          url: 'https://caribbeanhomesbonaire.com/' },
+    { name: 'Indebon',          file: 'sponsors/inebon.png',         url: 'https://www.bonairesport.com/' },
+    { name: 'Frans Paradise',   file: 'sponsors/frans-paradise.png', url: 'https://fransparadise.com/' },
+    { name: 'Phocoena',         file: null,                          url: 'https://phocoena.no/' },
+    { name: 'Salty Code Studio',file: null,                          url: 'https://saltycodestudio.com/' },
+    { name: 'Momade',           file: null,                          url: null },
+  ];
+
+  const track = document.getElementById('heroSponsors');
+  function sponsorMarkup(s, ghost) {
+    const inner = s.file
+      ? `<img src="${s.file}" alt="${ghost ? '' : s.name}" loading="lazy">`
+      // TODO(client): no logo file supplied for these. Typeset wordmark stands
+      // in and swaps to real art by adding a `file` above.
+      : `<span class="hero-sponsor-word">${s.name}</span>`;
+    const body = `<div class="hero-sponsor"${ghost ? ' aria-hidden="true"' : ''}>${inner}</div>`;
+    if (ghost || !s.url) return body;
+    return `<a href="${s.url}" target="_blank" rel="noopener" class="hero-sponsor-link" aria-label="${s.name}">${body}</a>`;
   }
+  track.innerHTML = SPONSORS.map(s => sponsorMarkup(s, false)).join('')
+                  + SPONSORS.map(s => sponsorMarkup(s, true)).join('');
 
   /* ---------- SPONSORSHIP WAYS ---------- */
-  // One open at a time.
   const triggers = document.querySelectorAll('.way-trigger');
+  const waysMedia = document.getElementById('waysMedia');
+  const waysImg = document.getElementById('waysImg');
+  const waysFocus = document.getElementById('waysFocus');
+
+  function closeAllWays() {
+    triggers.forEach(t => {
+      t.setAttribute('aria-expanded', 'false');
+      t.closest('.way').classList.remove('is-open');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = true;
+    });
+    waysMedia.classList.remove('is-zoomed');
+  }
+
   triggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
-      const panel = document.getElementById(trigger.getAttribute('aria-controls'));
-      const open = trigger.getAttribute('aria-expanded') === 'true';
-      triggers.forEach(t => {
-        t.setAttribute('aria-expanded', 'false');
-        document.getElementById(t.getAttribute('aria-controls')).hidden = true;
-      });
-      if (!open) {
-        trigger.setAttribute('aria-expanded', 'true');
-        panel.hidden = false;
-      }
+      const wasOpen = trigger.getAttribute('aria-expanded') === 'true';
+      closeAllWays();
+      if (wasOpen) return;
+      trigger.setAttribute('aria-expanded', 'true');
+      trigger.closest('.way').classList.add('is-open');
+      document.getElementById(trigger.getAttribute('aria-controls')).hidden = false;
+      // Pan the rig photo onto the part of the kit this option is about.
+      waysImg.style.transformOrigin = `${trigger.dataset.focusX} ${trigger.dataset.focusY}`;
+      waysFocus.textContent = trigger.dataset.focusLabel;
+      waysMedia.classList.add('is-zoomed');
     });
   });
 
-  /* ---------- PORTFOLIO ---------- */
-  const PORTFOLIO_SETS = {
-    gear:     ['arxon-action-solo.jpg', 'arxon-action-carve.jpg', 'arxon-water-thumbsup.jpg'],
-    races:    ['arxon-action-duo.jpg', 'arxon-portrait-celebrate.jpg', 'arxon-jump-splash.jpg'],
-    momentum: ['arxon-aerial-reef-01.jpg', 'arxon-aerial-shallow.jpg', 'arxon-jump-airborne.jpg'],
-  };
-  const pcarImg = document.getElementById('pcarImg');
-  const pcarDots = document.getElementById('pcarDots');
-  let pcarSet = 'gear';
-  let pcarIndex = 0;
+  /* ---------- REVIEWS CAROUSEL ---------- */
+  // TODO(client): placeholder quotes, deliberately unnamed. See the comment in
+  // the markup above. Replace before launch.
+  const REVIEWS = [
+    { quote: 'Arxon’s dedication and positive attitude make him a special talent. He has the mindset to go far.', by: 'A mentor' },
+    { quote: 'A true professional and a great representative for our brand. He delivers on and off the water.', by: 'A sponsor' },
+    { quote: 'He turned up against older riders and raced like he belonged there. That tells you everything.', by: 'An event organiser' },
+  ];
 
-  function pcarRender() {
-    const slides = PORTFOLIO_SETS[pcarSet];
-    pcarIndex = (pcarIndex + slides.length) % slides.length;
-    pcarImg.src = slides[pcarIndex];
-    pcarImg.alt = pcarSet + ' image ' + (pcarIndex + 1) + ' of ' + slides.length;
-    pcarDots.innerHTML = slides
-      .map((_, i) => '<button class="pcar-dot' + (i === pcarIndex ? ' is-active' : '') +
-        '" data-i="' + i + '" aria-label="Go to image ' + (i + 1) + '"></button>')
-      .join('');
+  const revTrack = document.getElementById('revTrack');
+  const revDots = document.getElementById('revDots');
+  let revIndex = 0;
+
+  function revRender() {
+    const n = REVIEWS.length;
+    revIndex = (revIndex + n) % n;
+    // Render the active quote flanked by its neighbours, so the middle card is
+    // always the large one.
+    const order = [(revIndex - 1 + n) % n, revIndex, (revIndex + 1) % n];
+    revTrack.innerHTML = order.map((i, pos) => {
+      const r = REVIEWS[i];
+      return `<figure class="rev${pos === 1 ? ' is-active' : ''}">
+        <blockquote class="rev-quote">&ldquo;${r.quote}&rdquo;</blockquote>
+        <figcaption class="rev-by">${r.by}</figcaption>
+      </figure>`;
+    }).join('');
+    revDots.innerHTML = REVIEWS.map((_, i) =>
+      `<button class="rev-dot${i === revIndex ? ' is-active' : ''}" data-i="${i}" aria-label="Testimonial ${i + 1}"></button>`
+    ).join('');
   }
 
-  document.getElementById('pcarPrev').addEventListener('click', () => { pcarIndex--; pcarRender(); });
-  document.getElementById('pcarNext').addEventListener('click', () => { pcarIndex++; pcarRender(); });
-  pcarDots.addEventListener('click', e => {
-    const dot = e.target.closest('.pcar-dot');
-    if (dot) { pcarIndex = Number(dot.dataset.i); pcarRender(); }
+  document.getElementById('revPrev').addEventListener('click', () => { revIndex--; revRender(); });
+  document.getElementById('revNext').addEventListener('click', () => { revIndex++; revRender(); });
+  revDots.addEventListener('click', e => {
+    const d = e.target.closest('.rev-dot');
+    if (d) { revIndex = Number(d.dataset.i); revRender(); }
   });
+  revRender();
+
+  /* ---------- PORTFOLIO ---------- */
+  const PORTFOLIO = {
+    // Watermark-free frames only. arxon-action-solo, -carve, -duo,
+    // arxon-jump-airborne and arxon-portrait-closeup are all stamped
+    // "(c)CARTER / PWAWORLDTOUR.COM" and are deliberately excluded.
+    gear: [
+      { img: 'arxon-jump-splash.jpg',        badge: 'The rig',       title: 'A fully loaded slalom rig', body: 'North sails in 6.0, 6.7 and 7.7 on Future Fly boards at 97 and 117 litres. Sail choice is made on the beach, on the day, from the wind strength alone.' },
+      { img: 'arxon-water-thumbsup.jpg',     badge: 'Between heats', title: 'Back on the beach', body: 'Youth slalom events run many short eliminations a day. Between them the rig gets checked, the fin swapped and the next start planned.' },
+      { img: 'arxon-sunset-04.jpg',          badge: 'Last session',  title: 'Until the wind drops', body: 'Training does not stop when the event does. Lac Bay holds its wind late, and the last runs of the day are where technique gets grooved.' },
+    ],
+    races: [
+      { img: 'arxon-portrait-celebrate.jpg', badge: 'Podium',       title: 'Aruba Hi-Winds 2026', body: 'First place in U17 Fin at the 2026 Aruba Hi-Winds Youth World Cup, scored across fifteen races in his first season out of U15.' },
+      { img: 'arxon-aerial-shallow.jpg',     badge: 'The course',   title: 'Reading the water', body: 'Slalom is decided on the start line and at the first mark. Knowing where the gusts sit on a course is as valuable as straight-line speed.' },
+      { img: 'arxon-sunset-05.jpg',          badge: 'Full commit',  title: 'Twenty from twenty', body: 'A perfect series at the 2025 PWA Youth World Cup in Bonaire: twenty races, twenty wins, every single elimination taken.' },
+    ],
+    events: [
+      { img: 'arxon-aerial-reef-01.jpg',     badge: 'Lac Bay',      title: 'Home water', body: 'Lac Bay, Bonaire. Flat water, reliable trade winds, and the training ground for Taty Frans, Tonky Frans, Kiri Thode and Amado Vrieswijk before him.' },
+      { img: 'arxon-aerial-reef-02.jpg',     badge: 'The reef',     title: 'Why Bonaire is fast', body: 'The reef flattens the water inside the bay while the trades keep blowing over the top. It is close to a perfect slalom training ground.' },
+      { img: 'arxon-sunset-01.jpg',          badge: 'On tour',      title: 'Caribbean to Europe', body: 'A season runs from Aruba and Bonaire to Denmark and Turkey. Different water, different wind, the same fleet of rivals.' },
+    ],
+  };
+
+  const pgrid = document.getElementById('pgrid');
+  const pexplain = document.getElementById('pexplain');
+  const pexplainIdx = document.getElementById('pexplainIdx');
+  const pexplainTitle = document.getElementById('pexplainTitle');
+  const pexplainBody = document.getElementById('pexplainBody');
+  let pset = 'gear';
+
+  function pRender() {
+    pgrid.innerHTML = PORTFOLIO[pset].map((s, i) => `
+      <figure class="pshot" data-i="${i}" role="button" tabindex="0" aria-label="${s.title}">
+        <img src="${s.img}" alt="${s.title}" loading="lazy">
+        <figcaption class="pshot-badge">${s.badge}</figcaption>
+      </figure>`).join('');
+    pexplain.hidden = true;
+  }
+
+  function pExplain(i) {
+    const s = PORTFOLIO[pset][i];
+    if (!s) return;
+    pexplainIdx.textContent = String(i + 1).padStart(2, '0');
+    pexplainTitle.textContent = s.title;
+    pexplainBody.textContent = s.body;
+    pexplain.hidden = false;
+  }
+
+  pgrid.addEventListener('click', e => {
+    const shot = e.target.closest('.pshot');
+    if (shot) pExplain(Number(shot.dataset.i));
+  });
+  pgrid.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const shot = e.target.closest('.pshot');
+    if (shot) { e.preventDefault(); pExplain(Number(shot.dataset.i)); }
+  });
+  document.getElementById('pexplainClose').addEventListener('click', () => { pexplain.hidden = true; });
+
   document.querySelectorAll('.ptab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.ptab').forEach(t => {
@@ -550,15 +812,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       tab.classList.add('is-active');
       tab.setAttribute('aria-selected', 'true');
-      pcarSet = tab.dataset.set;
-      pcarIndex = 0;
-      pcarRender();
+      pset = tab.dataset.set;
+      pRender();
     });
   });
-  pcarRender();
-
-  /* ---------- CONTACT ---------- */
-  initWhatsAppForm(document.getElementById('connectForm'));
+  pRender();
 });
 </script>
 </body>

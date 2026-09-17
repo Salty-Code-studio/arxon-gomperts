@@ -26,9 +26,9 @@ f.addEventListener('load', () => setTimeout(() => {
   const w = f.contentWindow, d = w.document, de = d.documentElement;
   const cls = el => (el.className && typeof el.className === 'string')
     ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '';
-  // The sponsor marquee is deliberately wider than the viewport inside
+  // The sponsor marquees are deliberately wider than the viewport inside
   // overflow:hidden, so its contents are expected to sit past the edge.
-  const inMarquee = el => !!el.closest('.logobar, .logobar-track');
+  const inMarquee = el => !!el.closest('.logobar, .logobar-track, .hero-sponsors, .hero-sponsors-track');
   const offenders = [...d.querySelectorAll('body *')]
     .filter(el => !inMarquee(el))
     .map(el => {
