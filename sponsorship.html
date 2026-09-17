@@ -12,7 +12,7 @@
 <meta property="og:title" content="SPONSORSHIP &mdash; Arxon Gomperts">
 <meta property="og:description" content="Three ways to partner with international windsurfer Arxon Gomperts.">
 <meta property="og:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2300e5ff'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305171D'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2314C8D4'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -20,8 +20,8 @@
 <style>
 /* sponsorship-only sections. */
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: clamp(40px, 4.5vw, 64px); }
-.tier { border: 1px solid var(--border); border-radius: 4px; padding: clamp(24px, 3vw, 38px); background: rgba(255,255,255,0.02); transition: border-color 0.3s; }
-.tier:hover { border-color: rgba(0,229,255,0.4); }
+.tier { border: 1px solid var(--border); border-radius: 4px; padding: clamp(24px, 3vw, 38px); background: var(--hover-tint); transition: border-color 0.3s; }
+.tier:hover { border-color: var(--border-hi); }
 /* Fixed height keeps the three card titles on one baseline. */
 .tier-icon { color: var(--accent); height: 30px; margin-bottom: 18px; }
 .tier-icon svg { width: 30px; height: 30px; }
@@ -33,13 +33,21 @@
    The source PNGs are square canvases with light art on transparency, so they
    get the same white-silhouette treatment as the homepage marquee. */
 .wall-item { aspect-ratio: 5 / 3; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 4px; padding: 10px; }
-.wall-item img { max-width: 100%; max-height: 100%; height: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; transition: opacity 0.3s; }
+.wall-item img { max-width: 100%; max-height: 100%; height: auto; object-fit: contain; filter: var(--logo-filter); opacity: 0.7; transition: opacity 0.3s; }
 .wall-item:hover img { opacity: 1; }
 .partner-cta { text-align: center; border: 1px solid var(--border); border-radius: 4px; padding: clamp(36px, 5vw, 64px); }
 .partner-cta h2 { font-size: clamp(28px, 3.4vw, 44px); color: var(--white); display: inline-block; }
 .partner-cta p { color: var(--muted); margin: 14px 0 26px; }
 @media (max-width: 900px) { .tier-grid { grid-template-columns: 1fr; } }
 </style>
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem('arxon-mode');
+    if (m === 'sun' || m === 'shade') document.documentElement.setAttribute('data-mode', m);
+  } catch (e) { /* private browsing, fall through to shade */ }
+})();
+</script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -55,10 +63,16 @@
     <li><a href="news.html" class="nav-link">News</a></li>
     <li><a href="contact.html" class="nav-link">Contact</a></li>
   </ul>
+  <div class="nav-right">
+  <div class="mode-toggle" role="group" aria-label="Display mode">
+    <button class="mode-toggle-opt" data-set="shade" aria-label="Shade mode, for indoors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/></svg></button>
+    <button class="mode-toggle-opt" data-set="sun" aria-label="Sun mode, for bright daylight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg></button>
+  </div>
   <a href="contact.html" class="nav-cta">Become a Partner <span>&rarr;</span></a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
+  </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="index.html">Home</a>

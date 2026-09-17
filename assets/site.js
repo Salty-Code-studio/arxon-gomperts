@@ -141,3 +141,25 @@ function initWhatsAppForm(form) {
   });
 }
 window.initWhatsAppForm = initWhatsAppForm;
+
+// ============ SUN / SHADE MODE ============
+// A glare switch rather than an OS theme follower: someone reading this on a
+// beach needs to force sun mode whatever their phone reports. The chosen mode
+// is applied by a tiny blocking script in <head> so it never flashes; this
+// block only handles the switching.
+(function () {
+  const root = document.documentElement;
+  const opts = document.querySelectorAll('.mode-toggle-opt');
+  if (!opts.length) return;
+
+  function setMode(mode) {
+    root.setAttribute('data-mode', mode);
+    try { localStorage.setItem('arxon-mode', mode); } catch (e) { /* private browsing */ }
+  }
+
+  opts.forEach(opt => opt.addEventListener('click', () => setMode(opt.dataset.set)));
+
+  // Enables colour transitions only after the first paint, so switching modes
+  // animates but loading the page does not.
+  requestAnimationFrame(() => root.setAttribute('data-mode-ready', ''));
+})();

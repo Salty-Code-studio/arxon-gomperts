@@ -3,21 +3,98 @@
    own inline <style> block. */
 
   :root {
-    --black: #0a0a0a;
-    --dark: #111111;
-    --panel: #161616;
-    --border: rgba(255,255,255,0.08);
-    --accent: #00e5ff;
-    --accent-glow: rgba(0,229,255,0.35);
-    --accent2: #ff6b00;
-    --accent2-glow: rgba(255,107,0,0.35);
-    --accent3: #00ff96;
-    --accent3-glow: rgba(0,255,150,0.35);
-    --white: #f5f5f5;
-    --muted: rgba(245,245,245,0.45);
+    /* ---- Brand palette. Fixed values, identical in both modes. ---- */
+    --deep-ocean: #05171D;
+    --open-water: #14C8D4;
+    --lagoon:     #28D7B4;
+    --mangrove:   #0C504A;
+    --signal:     #FF5A1F;
+    --bone:       #F1EEE6;
+
     --font-display: 'Bebas Neue', sans-serif;
     --font-body: 'DM Sans', sans-serif;
     --font-mono: 'Space Mono', monospace;
+  }
+
+  /* ================= SHADE MODE (default) =================
+     The brand's home. Deep ocean ground, teal signal, orange reserved
+     strictly for calls to action, race numbers and sponsor selections. */
+  :root,
+  :root[data-mode="shade"] {
+    --bg:          var(--deep-ocean);
+    --bg-alt:      #08222B;
+    --surface:     #0A2A33;
+    --border-col:  rgba(241,238,230,0.10);
+    --border-hi:   rgba(20,200,212,0.42);
+    --text:        var(--bone);
+    --text-muted:  rgba(241,238,230,0.52);
+    --accent-col:  var(--open-water);
+    --accent-soft: var(--lagoon);
+    --accent-deep: var(--mangrove);
+    --glow:        rgba(20,200,212,0.32);
+    --cta-bg:      var(--signal);
+    --cta-fg:      var(--bone);
+    --cta-glow:    rgba(255,90,31,0.38);
+    --logo-filter: brightness(0) invert(1);
+    --img-veil:    rgba(5,23,29,0.55);
+    --nav-veil:    rgba(5,23,29,0.95);
+    --nav-solid:   rgba(5,23,29,0.92);
+    --hover-tint:  rgba(241,238,230,0.03);
+  }
+
+  /* ================= SUN MODE =================
+     For reading the site outdoors in glare. This is not a cosmetic light
+     theme: the teal accent is deliberately dropped because Open Water on
+     Bone is far too low-contrast to survive direct sunlight, which is the
+     entire reason this mode exists. Accents fall back to Mangrove, which
+     holds up, and Signal Orange keeps doing the CTA work. */
+  :root[data-mode="sun"] {
+    --bg:          var(--bone);
+    --bg-alt:      #E5E1D6;
+    --surface:     #FFFFFF;
+    --border-col:  rgba(5,23,29,0.16);
+    --border-hi:   rgba(12,80,74,0.55);
+    --text:        var(--deep-ocean);
+    --text-muted:  rgba(5,23,29,0.64);
+    --accent-col:  var(--mangrove);
+    --accent-soft: #0A6B5F;
+    --accent-deep: var(--mangrove);
+    --glow:        rgba(12,80,74,0.18);
+    --cta-bg:      var(--signal);
+    --cta-fg:      #FFFFFF;
+    --cta-glow:    rgba(255,90,31,0.30);
+    --logo-filter: brightness(0) saturate(0);
+    --img-veil:    rgba(5,23,29,0.30);
+    --nav-veil:    rgba(241,238,230,0.95);
+    --nav-solid:   rgba(241,238,230,0.94);
+    --hover-tint:  rgba(5,23,29,0.04);
+  }
+
+  /* ---- Legacy aliases ----
+     The first build used paint-colour names. Mapping them onto the semantic
+     tokens above makes every existing rule mode-aware for free, instead of
+     touching several hundred declarations by hand. New rules should use the
+     semantic names directly. */
+  :root {
+    --black:        var(--bg);
+    --dark:         var(--bg-alt);
+    --panel:        var(--surface);
+    --border:       var(--border-col);
+    --accent:       var(--accent-col);
+    --accent-glow:  var(--glow);
+    --accent2:      var(--cta-bg);
+    --accent2-glow: var(--cta-glow);
+    --accent3:      var(--accent-soft);
+    --accent3-glow: var(--glow);
+    --white:        var(--text);
+    --muted:        var(--text-muted);
+  }
+
+  /* Colour transitions on the mode switch, but never on first paint. */
+  :root[data-mode-ready] body,
+  :root[data-mode-ready] body * {
+    transition: background-color 0.35s ease, border-color 0.35s ease,
+                color 0.35s ease, fill 0.35s ease;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -101,7 +178,7 @@
   }
   .cursor.hover-active {
     width: 50px; height: 50px;
-    background: rgba(0,229,255,0.15);
+    background: color-mix(in srgb, var(--accent-col) 18%, transparent);
     border: 1px solid var(--accent);
   }
   .cursor-ring.hover-active {
@@ -113,11 +190,11 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 24px 48px;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    background: linear-gradient(to bottom, var(--nav-veil) 0%, transparent 100%);
     transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
   }
   nav.scrolled {
-    background: rgba(10,10,10,0.92);
+    background: var(--nav-solid);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
@@ -157,8 +234,8 @@
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.1em;
-    color: var(--black);
-    background: var(--accent);
+    color: var(--cta-fg);
+    background: var(--cta-bg);
     padding: 10px 22px;
     text-decoration: none;
     text-transform: uppercase;
@@ -199,7 +276,7 @@
   /* MOBILE NAV OVERLAY */
   .mobile-nav {
     position: fixed; inset: 0;
-    background: rgba(10,10,10,0.98);
+    background: var(--nav-solid);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     z-index: 150;
@@ -302,8 +379,8 @@
     font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.12em;
-    color: var(--black);
-    background: var(--accent);
+    color: var(--cta-fg);
+    background: var(--cta-bg);
     padding: 16px 36px;
     text-decoration: none;
     text-transform: uppercase;
@@ -320,7 +397,7 @@
     transition: transform 0.6s;
   }
   .btn-primary:hover::before { transform: translateX(100%); }
-  .btn-primary:hover { background: var(--white); box-shadow: 0 0 40px var(--accent-glow); }
+  .btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 34px var(--cta-glow); }
 
 
   /* FOOTER */
@@ -438,3 +515,33 @@
 }
 .btn-whatsapp:hover { filter: brightness(1.12); }
 .wa-icon { width: 19px; height: 19px; flex: 0 0 19px; }
+
+/* ============ SUN / SHADE TOGGLE ============
+   A glare switch, not an OS theme follower. Someone standing on a beach in
+   Bonaire needs to force the light mode regardless of what their phone
+   thinks, so the choice is manual and remembered. */
+.mode-toggle {
+  display: inline-grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 2px;
+  padding: 3px; border: 1px solid var(--border-col); border-radius: 100px;
+  background: var(--hover-tint); cursor: none;
+}
+.mode-toggle-opt {
+  display: grid; place-items: center;
+  width: 30px; height: 24px; border: none; border-radius: 100px;
+  background: none; color: var(--text-muted); cursor: none;
+  transition: background 0.3s, color 0.3s;
+}
+.mode-toggle-opt svg { width: 15px; height: 15px; }
+:root[data-mode="sun"] .mode-toggle-opt[data-set="sun"],
+:root:not([data-mode="sun"]) .mode-toggle-opt[data-set="shade"] {
+  background: var(--accent-col);
+  color: var(--bg);
+}
+.nav-right { display: flex; align-items: center; gap: 14px; }
+@media (max-width: 900px) {
+  /* The toggle survives the mobile breakpoint even though the nav links and
+     the partner CTA do not. Losing the glare switch on a phone would defeat
+     the point, since the phone is what gets used outdoors. */
+  .nav-right .mode-toggle { display: inline-grid; }
+}

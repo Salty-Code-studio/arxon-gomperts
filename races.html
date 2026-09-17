@@ -12,7 +12,7 @@
 <meta property="og:title" content="RACES &mdash; Arxon Gomperts">
 <meta property="og:description" content="Competition results for Arxon Gomperts on the PWA youth world tour.">
 <meta property="og:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2300e5ff'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305171D'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2314C8D4'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -44,14 +44,14 @@
   .stat-card::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(0,229,255,0.08), transparent 65%);
+    background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent-col) 6%, transparent), transparent 65%);
     opacity: 0;
     transition: opacity 0.4s;
     pointer-events: none;
   }
   .stat-card:hover {
-    border-color: rgba(0,229,255,0.28);
-    background: rgba(0,229,255,0.03);
+    border-color: color-mix(in srgb, var(--accent-col) 25%, transparent);
+    background: color-mix(in srgb, var(--accent-col) 6%, transparent);
     transform: translateY(-4px);
   }
   .stat-card:hover::before { opacity: 1; }
@@ -101,7 +101,7 @@
     justify-content: space-between;
     transition: border-color 0.4s;
   }
-  .stats-banner:hover { border-color: rgba(0,229,255,0.18); }
+  .stats-banner:hover { border-color: color-mix(in srgb, var(--accent-col) 15%, transparent); }
   .stats-banner-title {
     font-family: var(--font-display);
     font-size: clamp(28px, 3.4vw, 42px);
@@ -143,7 +143,7 @@
     background: var(--accent);
     color: var(--black);
     border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(0,229,255,0.15);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--accent-col) 15%, transparent);
   }
   .results-table {
     width: 100%;
@@ -168,7 +168,7 @@
     transition: background 0.3s, transform 0.3s;
   }
   .results-table tbody tr:hover {
-    background: rgba(255,255,255,0.02);
+    background: var(--hover-tint);
   }
   .results-table td {
     padding: 20px 0;
@@ -204,8 +204,8 @@
     border: 1px solid;
     transition: box-shadow 0.3s;
   }
-  .result-discipline.foiling { color: var(--accent); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
-  .result-discipline.foiling:hover { box-shadow: 0 0 15px rgba(0,229,255,0.15); }
+  .result-discipline.foiling { color: var(--accent); border-color: var(--border-hi); background: color-mix(in srgb, var(--accent-col) 6%, transparent); }
+  .result-discipline.foiling:hover { box-shadow: 0 0 15px color-mix(in srgb, var(--accent-col) 15%, transparent); }
   .result-discipline.fin { color: var(--accent2); border-color: rgba(255,107,0,0.3); background: rgba(255,107,0,0.05); }
   .result-discipline.fin:hover { box-shadow: 0 0 15px rgba(255,107,0,0.15); }
   .result-discipline.wing { color: var(--accent3); border-color: rgba(0,255,150,0.3); background: rgba(0,255,150,0.05); }
@@ -234,6 +234,14 @@
   .results-header { flex-direction: column; gap: 24px; align-items: flex-start; }
 }
 </style>
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem('arxon-mode');
+    if (m === 'sun' || m === 'shade') document.documentElement.setAttribute('data-mode', m);
+  } catch (e) { /* private browsing, fall through to shade */ }
+})();
+</script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -249,10 +257,16 @@
     <li><a href="news.html" class="nav-link">News</a></li>
     <li><a href="contact.html" class="nav-link">Contact</a></li>
   </ul>
+  <div class="nav-right">
+  <div class="mode-toggle" role="group" aria-label="Display mode">
+    <button class="mode-toggle-opt" data-set="shade" aria-label="Shade mode, for indoors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/></svg></button>
+    <button class="mode-toggle-opt" data-set="sun" aria-label="Sun mode, for bright daylight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg></button>
+  </div>
   <a href="contact.html" class="nav-cta">Become a Partner <span>&rarr;</span></a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
+  </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="index.html">Home</a>

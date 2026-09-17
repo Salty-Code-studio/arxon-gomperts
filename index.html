@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Arxon Gomperts | Professional Windsurfer">
 <meta name="twitter:description" content="Put your brand on the world stage. Fin slalom racing on the international circuit.">
 <meta name="twitter:image" content="https://arxongomperts.com/arxon-action-carve.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2300e5ff'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305171D'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%2314C8D4'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero-media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(100deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.25) 100%);
+  background: linear-gradient(100deg, rgba(5,23,29,0.93) 0%, rgba(5,23,29,0.58) 45%, rgba(5,23,29,0.28) 100%);
 }
 /* Wide enough that "Put your brand on" holds one line. Any narrower and "on"
    orphans onto a line of its own. */
@@ -85,7 +85,7 @@
    colour logos to match the rest, and it is the only treatment that rescues
    mysharxon (dark red, unreadable raw) and ibo (illegible raw). The old
    light-bg white pills were actively harmful here: white art on white. */
-.logobar-item img { max-height: 92px; max-width: 190px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.8; transition: opacity 0.3s; }
+.logobar-item img { max-height: 92px; max-width: 190px; object-fit: contain; filter: var(--logo-filter); opacity: 0.8; transition: opacity 0.3s; }
 .logobar-item:hover img { opacity: 1; }
 @keyframes logobarScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
@@ -104,7 +104,7 @@
 .accolade:hover img { transform: scale(1.05); }
 .accolade figcaption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 20px;
-  background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+  background: linear-gradient(to top, rgba(5,23,29,0.92), transparent);
   font-family: var(--font-display); font-size: clamp(18px, 1.8vw, 26px);
   letter-spacing: 0.04em; color: var(--white);
 }
@@ -121,8 +121,8 @@
 .ways-head h2 { font-size: clamp(30px, 3.4vw, 48px); color: var(--white); }
 .ways-head .section-label { text-align: right; line-height: 1.9; }
 .ways-list { display: flex; flex-direction: column; gap: 12px; }
-.way { border: 1px solid var(--border); border-radius: 4px; background: rgba(255,255,255,0.02); transition: border-color 0.3s; }
-.way:hover { border-color: rgba(0,229,255,0.4); }
+.way { border: 1px solid var(--border); border-radius: 4px; background: var(--hover-tint); transition: border-color 0.3s; }
+.way:hover { border-color: var(--border-hi); }
 .way-trigger { width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: none; border: none; color: var(--white); font-family: var(--font-body); font-size: 15px; text-align: left; cursor: none; }
 .way-icon { color: var(--accent); width: 24px; height: 24px; display: inline-grid; place-items: center; flex: 0 0 24px; }
 .way-icon svg { width: 22px; height: 22px; }
@@ -141,7 +141,7 @@
 .reviews-quotes { display: grid; grid-template-columns: 1fr 1fr; border-left: 1px solid var(--border); }
 .reviews-quotes blockquote { margin: 0; padding: clamp(36px, 5vw, 64px) clamp(20px, 2.6vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 22px; }
 .reviews-quotes blockquote + blockquote { border-left: 1px solid var(--border); }
-.reviews-quotes p { font-size: 15px; line-height: 1.85; font-style: italic; color: rgba(245,245,245,0.82); }
+.reviews-quotes p { font-size: 15px; line-height: 1.85; font-style: italic; color: var(--text); }
 .reviews-quotes cite { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 .reviews-quotes cite::before { content: ''; display: block; width: 26px; height: 2px; background: var(--accent); margin-bottom: 12px; }
 .reviews-photo { position: relative; min-height: 260px; }
@@ -158,7 +158,7 @@
 .portfolio-carousel { position: relative; }
 .pcar-viewport { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: var(--panel); }
 .pcar-viewport img { width: 100%; height: 100%; object-fit: cover; }
-.pcar-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: rgba(10,10,10,0.6); color: var(--white); font-size: 22px; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+.pcar-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: rgba(5,23,29,0.62); color: var(--white); font-size: 22px; cursor: none; transition: background 0.25s, border-color 0.25s, color 0.25s; }
 .pcar-arrow:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
 .pcar-prev { left: 14px; }
 .pcar-next { right: 14px; }
@@ -194,7 +194,32 @@
   .portfolio-grid { grid-template-columns: 1fr; }
   .connect { grid-template-columns: 1fr; }
 }
+
+/* ---------- PHOTO OVERLAYS, BOTH MODES ----------
+   The hero and the accomplishment cards sit on full-bleed photography. They
+   keep Bone type over a dark scrim even in sun mode, because flipping them
+   would put Deep Ocean lettering straight onto a sunlit sea. Declared last so
+   it beats the earlier section rules on source order rather than by piling on
+   specificity. */
+.hero,
+.hero .hero-title,
+.hero .hero-footer-left strong,
+.accolade figcaption { color: var(--bone); }
+.hero .hero-sub,
+.hero .hero-footer-left span,
+.hero .hero-footer-right { color: rgba(241,238,230,0.64); }
+.hero .hero-title span { color: var(--open-water); }
+.accolade figcaption::before { background: var(--open-water); }
+.accolade-num { color: var(--open-water); }
 </style>
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem('arxon-mode');
+    if (m === 'sun' || m === 'shade') document.documentElement.setAttribute('data-mode', m);
+  } catch (e) { /* private browsing, fall through to shade */ }
+})();
+</script>
 </head>
 <body>
 <!-- PAGE LOADER -->
@@ -217,10 +242,16 @@
     <li><a href="news.html" class="nav-link">News</a></li>
     <li><a href="contact.html" class="nav-link">Contact</a></li>
   </ul>
+  <div class="nav-right">
+  <div class="mode-toggle" role="group" aria-label="Display mode">
+    <button class="mode-toggle-opt" data-set="shade" aria-label="Shade mode, for indoors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/></svg></button>
+    <button class="mode-toggle-opt" data-set="sun" aria-label="Sun mode, for bright daylight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg></button>
+  </div>
   <a href="contact.html" class="nav-cta">Become a Partner <span>&rarr;</span></a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
+  </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="index.html">Home</a>
