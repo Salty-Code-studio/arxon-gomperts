@@ -44,8 +44,13 @@ strip, both recoverable from git at `6b4bc76`.
 
 ## Blocking launch
 
-1. **Logo art** for Damascus NV, Arxi BV and Momade. These three currently show
-   as typeset wordmarks, which look deliberate but are stand-ins.
+1. **Logo art for Damascus NV.** Shown as a typeset wordmark. Deliberately not
+   an invented emblem: a fabricated mark could be mistaken for the company's
+   real identity, by visitors and by Damascus NV. Drop a file into
+   `assets/sponsors.js` and it swaps automatically.
+   Arxi BV and Momade are now supplied. Arxi BV trades as **Beauty by X**, and
+   `sponsors/bbx.png` from the old set turns out to be an earlier version of
+   that same mark.
 2. **Real testimonial quotes** with named attributions. The three on the
    homepage carousel are placeholder text I wrote, and that section is now the
    visual centrepiece of the page. Invented quotes presented modestly are a
@@ -101,7 +106,8 @@ The twelve clean files: all five sunsets, all three aerials, `jump-splash`,
 
 ## Asset problems worth fixing
 
-- **Salty Code Studio's own SVG cannot be used as an image.** Its wordmark is
+- **Salty Code Studio** still shows as a typeset wordmark, because its own SVG
+  cannot be used as an image. Its wordmark is
   live Space Grotesk text, which this site does not load, so it renders in a
   fallback face. Needs text converted to outlines. The `~<` logomark itself is
   paths and would work fine.
@@ -149,6 +155,12 @@ Thirteen files in `sponsors/` are no longer referenced: older versions of North
 Sails, Indebon, Mysharxon and Frans Paradise, plus nine sponsors no longer on
 the list (bbx, concilium, dsg, ead, heroms, ibo, manno, paradise-rentals,
 play-learn-grow). Left as an archive rather than deleted.
+
+## Sponsors with no outbound link
+
+Six have logo art but no URL supplied, so they render unlinked: Damascus NV,
+Prestige Property Management, Mysharxon BV, Beauty by X, OnTrack BV, Momade.
+The brief asked for every sponsor to link to their site or socials.
 
 ## Queued, not yet built
 

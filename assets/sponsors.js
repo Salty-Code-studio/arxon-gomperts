@@ -32,20 +32,28 @@ window.ARXON_SPONSORS = [
   // Client's list says "Phocena Fins". The brand is spelled Phocoena, after
   // the harbour-porpoise genus, and the supplied logo art confirms it.
   { name: 'Phocoena',                    file: 'sponsors/phocoena.png',              url: 'https://phocoena.no/',                                     tone: 'dark'  },
-  // TODO(client): no logo art and no URL supplied for Damascus NV.
+  // TODO(client): no logo art supplied. Deliberately shown as a typeset
+  // wordmark rather than an invented emblem: a fabricated mark could be taken
+  // for the company's real identity by visitors and by Damascus NV itself.
+  // Drop a file in and it swaps automatically.
   { name: 'Damascus NV',                 file: null,                                 url: null,                                                       tone: 'light' },
   { name: 'Prestige Property Management',file: 'sponsors/prestige-property.png',     url: null,                                                       tone: 'dark'  },
   { name: 'Mysharxon BV',                file: 'sponsors/mysharxon-2026.png',        url: null,                                                       tone: 'dark'  },
-  // TODO(client): no logo art and no URL supplied for Arxi BV.
-  { name: 'Arxi BV',                     file: null,                                 url: null,                                                       tone: 'light' },
+  // Arxi BV trades as Beauty by X, which is the name on the logo and the one a
+  // visitor would recognise, so that is what the wall shows. The old
+  // sponsors/bbx.png is an earlier version of this same mark.
+  // TODO(client): no website or social link supplied.
+  { name: 'Beauty by X',                 file: 'sponsors/beauty-by-x.png',           url: null,                                                       tone: 'dark'  },
   { name: 'OnTrack BV',                  file: 'sponsors/ontrack.png',               url: null,                                                       tone: 'light' },
   // TODO(client): their own SVG cannot be used as an image. Its wordmark is
   // live Space Grotesk text, which this site does not load, so it would render
   // in a fallback face. Needs text converted to outlines.
   { name: 'Salty Code Studio',           file: null,                                 url: 'https://saltycodestudio.com/',                             tone: 'light' },
-  // TODO(client): no brand presence found for Momade. Confirm whether this
-  // should link anywhere, or be listed as a supporter without a link.
-  { name: 'Momade',                      file: null,                                 url: null,                                                       tone: 'light' },
+  // Momade is a brand studio: "brand strategy, design & digital creation".
+  // Art is white type on a dark gradient, so it keeps its own ground on the
+  // light chip rather than being inverted.
+  // TODO(client): no website or social link supplied.
+  { name: 'Momade',                      file: 'sponsors/momade.png',                url: null,                                                       tone: 'dark'  },
 ];
 
 /* Builds one sponsor cell. Used by both the hero strip and the partner wall,
