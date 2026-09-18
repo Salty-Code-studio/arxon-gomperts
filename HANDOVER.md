@@ -40,7 +40,8 @@ strip, both recoverable from git at `6b4bc76`.
   of Windsurf tagging him. No YouTube, TikTok or Facebook account exists, so
   those footer icons were removed rather than left pointing nowhere.
 - **Sponsor list** is the 18-name list, held in `assets/sponsors.js`. Logo art
-  supplied for 14, all converted to PNG.
+  supplied for 16, all converted to PNG. Damascus NV and Salty Code Studio
+  render as typeset wordmarks.
 
 ## Blocking launch
 
