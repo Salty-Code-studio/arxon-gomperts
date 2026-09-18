@@ -528,3 +528,47 @@
      the point, since the phone is what gets used outdoors. */
   .nav-right .mode-toggle { display: inline-grid; }
 }
+
+/* ============ SPONSOR CHIPS ============
+   The supplied logo art is a genuinely mixed bag: colour marks on white,
+   white marks on transparency, and one that is white-on-black. A uniform
+   filter was tried first and blanked eight of them into empty rectangles.
+
+   Every chip now shares one light ground so the row reads as a single system,
+   and the two files whose art is white get inverted so they read on it.
+   Greyscale at rest, colour on hover, which is what the brief asks for on the
+   partner wall. */
+.spon-chip {
+  display: grid; place-items: center; overflow: hidden;
+  background: var(--bone); border-radius: 6px;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+}
+.spon-chip img {
+  width: 100%; height: 100%; object-fit: contain;
+  transition: filter 0.35s, opacity 0.35s;
+}
+/* Dark or full-colour art: mute it, then reveal the real colours on hover. */
+.spon-chip--dark img { filter: grayscale(1); opacity: 0.88; }
+/* White art on transparency. Inverting makes it dark enough to read on the
+   light chip. These marks are monochrome, so there is no colour to reveal;
+   hover just brings them to full strength. */
+.spon-chip--light img { filter: invert(1) grayscale(1); opacity: 0.82; }
+
+.spon-chip-link { display: block; text-decoration: none; }
+.spon-chip-link:hover .spon-chip,
+.spon-chip:hover { transform: scale(1.07); box-shadow: 0 10px 34px rgba(5,23,29,0.5); }
+.spon-chip-link:hover .spon-chip--dark img,
+.spon-chip--dark:hover img { filter: none; opacity: 1; }
+.spon-chip-link:hover .spon-chip--light img,
+.spon-chip--light:hover img { filter: invert(1); opacity: 1; }
+
+/* Stand-in for sponsors with no logo art yet. Set at logo scale so the row
+   reads as one system rather than a line of gaps. */
+.spon-chip-word {
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.9vw, 11px); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-align: center; line-height: 1.45; padding: 4px 8px;
+  color: rgba(5,23,29,0.62); transition: color 0.35s;
+}
+.spon-chip-link:hover .spon-chip-word { color: var(--signal); }

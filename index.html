@@ -75,26 +75,10 @@
 }
 .hero-sponsors-track { display: flex; align-items: center; gap: 18px; width: max-content; animation: sponsorScroll 58s linear infinite; }
 .hero-sponsors:hover .hero-sponsors-track { animation-play-state: paused; }
-.hero-sponsor { flex: 0 0 auto; height: 88px; min-width: 132px; display: grid; place-items: center; }
-.hero-sponsor img {
-  max-height: 88px; max-width: 176px; object-fit: contain;
-  /* Always the light silhouette here: this strip sits on a dark photo scrim in
-     both modes, so it must not follow --logo-filter. */
-  filter: brightness(0) invert(1); opacity: 0.62; transition: opacity 0.3s;
-}
-.hero-sponsor:hover img { opacity: 1; }
-.hero-sponsor-link { display: block; text-decoration: none; }
-/* Stand-in for the eight sponsors with no logo art yet. Set in the display
-   face at logo scale so the strip reads as one deliberate system rather than
-   a row of gaps. Swaps out the moment a real file is dropped in. */
-.hero-sponsor-word {
-  font-family: var(--font-mono);
-  font-size: clamp(10px, 0.95vw, 12px); font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(241,238,230,0.58); white-space: nowrap; text-align: center;
-  transition: color 0.3s;
-}
-.hero-sponsor-link:hover .hero-sponsor-word { color: var(--bone); }
+/* Hero strip sizing. The chip treatment itself lives in style.css. */
+.hero-sponsors-track .spon-chip { flex: 0 0 auto; width: 150px; height: 78px; padding: 8px 11px; }
+.hero-sponsors-track .spon-chip--light { padding: 12px 14px; }
+.hero-sponsors-track .spon-chip-link { flex: 0 0 auto; }
 @keyframes sponsorScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .hero-sponsors-track { animation: none; }
@@ -295,19 +279,22 @@
 @media (max-width: 900px) {
   .hero-sail { font-size: 40vw; top: 42%; }
   .hero-sponsors { bottom: 118px; }
-  .hero-sponsor { height: 56px; }
-  .hero-sponsor img { max-height: 56px; max-width: 122px; }
+  .hero-sponsors-track .spon-chip { width: 116px; height: 58px; }
   .hero-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
   .hero-footer-right { text-align: left; }
   .accolades-grid { grid-template-columns: 1fr; }
   .accolades-photo { aspect-ratio: 4 / 3; }
+  .bigstat-num { min-width: 1.2em; }
   .gear-grid { grid-template-columns: 1fr; }
   .ways { grid-template-columns: 1fr; }
   .ways-media { min-height: 320px; }
   .ways-head .section-label { text-align: left; }
-  /* The laurels and the flanking quotes are cut on phones: at this width the
-     side cards are a few illegible pixels and the laurels crowd the quote. */
+  /* The laurels and the flanking quotes are dropped on phones: at this width
+     the side cards are a few illegible pixels wide and the laurels crowd the
+     quote. Without this the carousel overflows the viewport by ~220px. */
   .rev-laurel { display: none; }
+  .rev-stage { min-height: 0; }
+  .rev-track { width: 100%; }
   .rev { display: none; }
   .rev.is-active { display: block; width: 100%; }
   .pgrid { grid-template-columns: 1fr; }
@@ -315,12 +302,14 @@
   .pexplain-close { grid-column: 1; }
   .portfolio-stats { grid-template-columns: 1fr; }
   .portfolio-stats > div + div { border-left: none; border-top: 1px solid var(--border-col); padding-top: 18px; margin-top: 18px; }
+  .connect-mail { font-size: 15px; }
 }
 
 /* ---------- PHOTO OVERLAYS, BOTH MODES ----------
    The hero sits on full-bleed photography and keeps Bone type over a dark
    scrim even in sun mode, because flipping it would put Deep Ocean lettering
-   straight onto a sunlit sea. Declared last so it wins on source order. */
+   straight onto a sunlit sea. Declared last so it wins on source order, and
+   deliberately OUTSIDE the media query above. */
 .hero,
 .hero .hero-title,
 .hero .hero-footer-left strong,
@@ -329,6 +318,7 @@
 .hero .hero-footer-left span,
 .hero .hero-footer-right { color: rgba(241,238,230,0.64); }
 .hero .hero-title span { color: var(--open-water); }
+.accolades-photo figcaption { color: rgba(241,238,230,0.78); }
 </style>
 <script>
 (function () {
@@ -639,43 +629,21 @@
   <div class="footer-follow">Follow the journey</div>
 </footer>
 
+<script src="assets/sponsors.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script defer>
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- SPONSORS IN THE HERO ----------
-     Built from one list so the marquee's duplicate half can never drift out of
-     sync with the first. The keyframe ends at translateX(-50%), so any width
-     difference between the two halves would show as a visible jump. */
-  const SPONSORS = [
-    { name: 'North',            file: 'sponsors/north-sails.png',    url: 'https://northactionsports.com/pages/homepage-windsurfing' },
-    { name: 'Future Fly',       file: null,                          url: 'https://futurefly.world/' },
-    { name: 'Hangout Beach Bar',file: null,                          url: 'https://www.hangoutbeachbar.com/' },
-    { name: 'Rocargo',          file: 'sponsors/rocargo.png',        url: 'https://www.facebook.com/rocargologisitics/' },
-    { name: 'eZone',            file: null,                          url: 'https://getezone.com/locations/bonaire' },
-    { name: 'WindForce',        file: null,                          url: 'https://windforce.ca/' },
-    { name: 'WEB Bonaire',      file: null,                          url: 'https://www.webbonaire.com/?lang=en' },
-    { name: 'Caribbean Homes',  file: null,                          url: 'https://caribbeanhomesbonaire.com/' },
-    { name: 'Indebon',          file: 'sponsors/inebon.png',         url: 'https://www.bonairesport.com/' },
-    { name: 'Frans Paradise',   file: 'sponsors/frans-paradise.png', url: 'https://fransparadise.com/' },
-    { name: 'Phocoena',         file: null,                          url: 'https://phocoena.no/' },
-    { name: 'Salty Code Studio',file: null,                          url: 'https://saltycodestudio.com/' },
-    { name: 'Momade',           file: null,                          url: null },
-  ];
-
+     Rendered from assets/sponsors.js so the hero strip and the partner wall
+     can never drift apart. The marquee's second half is an exact ghost copy,
+     because the keyframe ends at translateX(-50%) and any width difference
+     between the halves shows as a visible jump at the wrap point. */
   const track = document.getElementById('heroSponsors');
-  function sponsorMarkup(s, ghost) {
-    const inner = s.file
-      ? `<img src="${s.file}" alt="${ghost ? '' : s.name}" loading="lazy">`
-      // TODO(client): no logo file supplied for these. Typeset wordmark stands
-      // in and swaps to real art by adding a `file` above.
-      : `<span class="hero-sponsor-word">${s.name}</span>`;
-    const body = `<div class="hero-sponsor"${ghost ? ' aria-hidden="true"' : ''}>${inner}</div>`;
-    if (ghost || !s.url) return body;
-    return `<a href="${s.url}" target="_blank" rel="noopener" class="hero-sponsor-link" aria-label="${s.name}">${body}</a>`;
-  }
-  track.innerHTML = SPONSORS.map(s => sponsorMarkup(s, false)).join('')
-                  + SPONSORS.map(s => sponsorMarkup(s, true)).join('');
+  const cell = window.arxonSponsorCell;
+  track.innerHTML =
+      window.ARXON_SPONSORS.map(s => cell(s, { cls: 'spon-chip', ghost: false })).join('')
+    + window.ARXON_SPONSORS.map(s => cell(s, { cls: 'spon-chip', ghost: true  })).join('');
 
   /* ---------- SPONSORSHIP WAYS ---------- */
   const triggers = document.querySelectorAll('.way-trigger');

@@ -103,3 +103,82 @@ only way to exercise the real mobile viewport.
 
 UI polish, animation and effects, performance, and the accessibility pass are a
 separate follow-up, agreed as out of scope for this structural rebuild.
+
+---
+
+# Update, 2026-09-18
+
+## Resolved
+
+- **Email confirmed** as `Arxong2011@gmail.com`, spelling as supplied. Live on
+  the homepage connect block and on contact.html. WhatsApp is fully removed.
+- **Instagram confirmed** as `@arxon.nb2011`. Wired into the footer and the
+  contact page. No YouTube, TikTok or Facebook account exists, so those three
+  footer icons were removed rather than left pointing at nothing.
+- **GoFundMe** received:
+  `https://www.gofundme.com/f/help-arxon-defend-his-world-champion-title`
+  Queued for the donate tile on the sponsorship page, not yet placed.
+- **Sponsor list** rebuilt from the 18-name list. Logo art supplied for 14.
+  All art converted to PNG. The canonical list lives in `assets/sponsors.js`
+  and drives both the hero strip and the partner wall.
+
+## Photo access incident
+
+All 17 photos became unreadable at the filesystem level mid-session: EPERM on
+read, HTTP 404 from the local server, despite correct ownership and `rw-r--r--`
+permissions. They carried `com.apple.macl`, `com.apple.provenance` and
+`com.apple.quarantine` extended attributes; files created during this project
+carry none and were unaffected.
+
+Fixed by restoring all 17 from their git blobs, with each SHA verified against
+`HEAD` before the swap. `git status` reported no change afterwards, proving the
+image data is byte-identical. Only the restrictive attributes are gone.
+
+Possible cause: the watermark audit ran `sips` crop operations against exactly
+these 17 files and nothing else. Not proven, but worth avoiding `sips` on the
+originals in future. The `sips -g` metadata reads run against `sponsors/*.png`
+did not lock those files.
+
+## Photo rights, unresolved
+
+Five photos carry a burned-in `(c)CARTER / PWAWORLDTOUR.COM` watermark:
+
+    arxon-action-carve.jpg      arxon-action-duo.jpg
+    arxon-action-solo.jpg       arxon-jump-airborne.jpg
+    arxon-portrait-closeup.jpg
+
+None are used anywhere on the site. Four had been in prominent slots including
+the hero and the Open Graph share image. These are the five strongest action
+frames, so the site is visually weaker without them. Worth asking PWA or the
+photographer for clean originals, since athlete use is often granted.
+
+The twelve clean files are all five sunsets, all three aerials, `jump-splash`,
+`portrait-armscrossed`, `portrait-celebrate` and `water-thumbsup`.
+
+## Still needed
+
+1. **Logo art** for Damascus NV, Arxi BV and Momade. Currently typeset
+   wordmarks.
+2. **Salty Code Studio's own logo** cannot be used as supplied. The SVG's
+   wordmark is live Space Grotesk text, which this site does not load, so it
+   would render in a fallback face. Needs text converted to outlines. The
+   `~<` logomark itself is paths and would work.
+3. **A cleaner Caribbean Homes logo.** The supplied file is a full illustrated
+   scene (umbrella, sky, sand) rather than a logo lockup, so it reads as a grey
+   blob at chip size.
+4. **A latest-event photo** for the hero. Currently a sunset frame.
+5. **Real testimonial quotes** with named attributions. The three on the
+   homepage carousel are still placeholder text I wrote, and that section is
+   now the visual centrepiece of the page.
+6. **Confirmation of the second world title.** Only the 2024 PWA U15 Slalom
+   Fin title is sourced to the governing body. The two-time claim traces to a
+   sponsor page and a tourism-board announcement, and Point-7's own Hall of
+   Fame page contradicts it by listing him as U13.
+
+## Superseded files kept on disk
+
+Thirteen logo files in `sponsors/` are no longer referenced: older versions of
+North Sails, Indebon, Mysharxon and Frans Paradise, plus nine sponsors no
+longer on the list (bbx, concilium, dsg, ead, heroms, ibo, manno,
+paradise-rentals, play-learn-grow). Left in place as an archive rather than
+deleted.
