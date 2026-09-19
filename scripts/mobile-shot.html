@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+/* Headless Chrome clamps its window to 500px, so the 390px iframe is centred
+   and the capture is centre-cropped back to 390 afterwards, which is what
+   sips does by default with no --cropOffset. */
+html,body{margin:0;background:#0b1f26;display:grid;place-items:start center}
+iframe{width:390px;height:844px;border:0;display:block}
+</style></head><body>
+<script>
+const q = new URLSearchParams(location.search);
+const f = document.createElement('iframe');
+f.src = '../index.html';
+document.body.appendChild(f);
+f.addEventListener('load', async () => {
+  const w = f.contentWindow, d = w.document;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  await wait(900);
+  if (q.get('mode')) d.documentElement.setAttribute('data-mode', q.get('mode'));
+  const loader = d.getElementById('pageLoader');
+  if (loader) loader.style.display = 'none';
+  // The site sets scroll-behavior: smooth, which makes scrollIntoView animate.
+  // Any follow-up scroll then fights the in-flight animation and lands
+  // somewhere arbitrary. Force instant jumps for capture.
+  d.documentElement.style.scrollBehavior = 'auto';
+  // Scroll reveals are driven by IntersectionObserver, which does not settle
+  // reliably after an instant jump inside an iframe. Force the settled state,
+  // which is what a visitor sees once they have scrolled there anyway.
+  d.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  // Counters animate on their own observer and would otherwise photograph as 0.
+  d.querySelectorAll('.counter').forEach(el => {
+    el.dataset.counted = 'true';
+    el.textContent = el.dataset.target;
+  });
+
+  const act = q.get('do');
+  if (act === 'menu') {
+    d.getElementById('hamburger').click();
+  } else if (act === 'way') {
+    d.querySelectorAll('.way-trigger')[0].click();
+    await wait(700);
+    d.querySelector('.ways').scrollIntoView();
+    // Nudge down so the zoomed photo and the rows that drive it share the frame.
+    w.scrollBy(0, 210);
+  } else if (act === 'portfolio') {
+    d.querySelectorAll('.pshot')[0].click();
+    await wait(300);
+    // On mobile the frames stack, so the panel lands well below the fold.
+    d.getElementById('pexplain').scrollIntoView({ block: 'center' });
+  } else if (q.get('sel')) {
+    d.querySelector(q.get('sel')).scrollIntoView();
+  }
+  if (q.get('y')) w.scrollTo(0, Number(q.get('y')));
+  await wait(1100);
+  document.title = 'READY';
+});
+</script>
+</body></html>

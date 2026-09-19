@@ -70,10 +70,19 @@ if (scrollProgress) {
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
 if (hamburger && mobileNav) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('open');
-    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  function setMenu(open) {
+    hamburger.classList.toggle('active', open);
+    mobileNav.classList.toggle('open', open);
+    // Drives the nav-bar transparency while the overlay is up.
+    document.body.classList.toggle('nav-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    hamburger.setAttribute('aria-expanded', String(open));
+  }
+  hamburger.setAttribute('aria-expanded', 'false');
+  hamburger.addEventListener('click', () => setMenu(!mobileNav.classList.contains('open')));
+  // Escape is the other way out, for anyone on a keyboard.
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) setMenu(false);
   });
 }
 
