@@ -164,7 +164,9 @@
   </div>
 </section>
   <div class="hero-bg">
-    <video id="hero-video" poster="media/hero/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <video id="hero-video" poster="media/hero/hero-poster.jpg" data-poster-mobile="media/hero/hero-poster-mobile.jpg" autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-hidden="true" tabindex="-1">
+      <!-- phones: a vertical 1080x1920 cut, re-framed per shot so Arxon stays in view; H.264 plays on every phone -->
+      <source media="(max-width: 809px)" src="media/hero/hero-mobile.h264.mp4" type="video/mp4">
       <!-- sharp screens (Retina / 4K) get the 2160p master; phones crop the middle of a wide clip, so they need 1440p height too -->
       <source media="(min-width: 1200px) and (min-resolution: 1.5dppx)" src="media/hero/hero-2160.av1.mp4" type='video/mp4; codecs="av01.0.12M.10"'>
       <source media="(min-width: 2200px)" src="media/hero/hero-2160.av1.mp4" type='video/mp4; codecs="av01.0.12M.10"'>

@@ -101,7 +101,17 @@
     reel.addEventListener('close', () => reelVideo.pause());
   }
   const heroVideo = $('#hero-video');
-  if (heroVideo && still) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
+  // hero video: always muted + inline, and keep nudging play() until the browser allows it (no native play button)
+  if (heroVideo) {
+    heroVideo.muted = true; heroVideo.defaultMuted = true; heroVideo.playsInline = true;
+    heroVideo.setAttribute('muted', ''); heroVideo.controls = false;
+    if (matchMedia('(max-width: 809px)').matches && heroVideo.dataset.posterMobile) heroVideo.poster = heroVideo.dataset.posterMobile;
+    const tryPlay = () => { if (heroVideo.paused) { const p = heroVideo.play(); if (p && p.catch) p.catch(() => {}); } };
+    ['loadedmetadata', 'canplay'].forEach(ev => heroVideo.addEventListener(ev, tryPlay));
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+    ['touchstart', 'scroll', 'click'].forEach(ev => window.addEventListener(ev, tryPlay, { once: true, passive: true }));
+    tryPlay();
+  }
 
   // ---------- results: staggered slide-in when scrolled into view, animated year filter
   $$('.results-table.animate').forEach(t => {

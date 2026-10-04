@@ -2133,3 +2133,11 @@ html.menu-lock[data-theme="light"] .burger i { background: #f2efe6; }
 [data-theme="light"] .cursor { background: #0b97a3; } [data-theme="light"] .cursor-ring { border-color: rgba(11,151,163,.6); }
 [data-theme="light"] :is(.hero, .page-hero.has-img, .tq-section, .over-water, .site-footer, .opp-visual) .btn-ghost { color: #f2efe6; border-color: rgba(242,239,230,.3); }
 [data-theme="light"] .site-footer { background: linear-gradient(180deg, #f4f1ea 0, #c9c3b6 40px, #031216 190px) !important; }
+
+/* hero video: never show the browser's own play / controls overlay (iOS low-power mode just shows the poster) */
+.hero-bg video::-webkit-media-controls, .hero-bg video::-webkit-media-controls-panel,
+.hero-bg video::-webkit-media-controls-play-button, .hero-bg video::-webkit-media-controls-start-playback-button,
+.hero-bg video::-webkit-media-controls-overlay-play-button, .hero-bg video::-webkit-media-controls-enclosure { display: none !important; -webkit-appearance: none; opacity: 0 !important; }
+.hero-bg video { pointer-events: none; }
+.wind-btn .lbl-txt { white-space: nowrap; } @media (max-width: 420px) { .wind-btn { padding: 0 12px !important; } .wind-btn .lbl-txt { font-size: 9px; letter-spacing: .1em; } .theme-btn { width: 36px; height: 36px; } }
+@media (max-width: 420px) { .site-header .bar-right { gap: 6px !important; } .wind-btn { padding: 0 9px !important; } .menu-toggle { width: 40px !important; height: 40px !important; } .wordmark { font-size: 21px !important; letter-spacing: .01em; } }
