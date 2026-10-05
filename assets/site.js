@@ -199,7 +199,7 @@
   const form = $('#form');
   if (form) {
     const status = $('#status');
-    try { const t = sessionStorage.getItem('arxon-topic'); if (t && form.topic) { form.topic.value = 'Sponsorship'; const m = { equipment: 'sail & board logo', kit: 'team kit', digital: 'digital content' }; const box = form.querySelector(`input[name="interest"][value="${m[t.toLowerCase()] || ''}"]`); if (box) box.checked = true; if (!form.message.value) form.message.value = `I'm interested in a ${t.toLowerCase()} partnership.`; } } catch (e) {}
+    try { const t = sessionStorage.getItem('arxon-topic'); if (t && form.topic) { form.topic.value = 'Sponsorship'; const m = { equipment: 'sail logo', digital: 'digital content' }; const box = form.querySelector(`input[name="interest"][value="${m[t.toLowerCase()] || ''}"]`); if (box) box.checked = true; if (!form.message.value) form.message.value = `I'm interested in a ${t.toLowerCase()} partnership.`; } } catch (e) {}
     const interests = () => [...form.querySelectorAll('input[name="interest"]:checked')].map(i => i.value);
     const compose = () => {
       const name = form.name.value.trim(), company = form.company.value.trim(), message = form.message.value.trim(), topic = form.topic ? form.topic.value : '';
