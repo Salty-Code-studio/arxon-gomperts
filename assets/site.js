@@ -3,7 +3,7 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = (document.querySelector('link[href$="assets/site.css"]').getAttribute('href') || '').replace('assets/site.css', '');
+  const root = (document.querySelector('link[href*="assets/site.css"]').getAttribute('href') || '').replace(/assets\/site\.css.*$/, '');
 
   // ---------- mobile menu
   const toggle = $('.menu-toggle'), nav = $('#nav');

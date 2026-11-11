@@ -2170,5 +2170,10 @@ html.menu-lock[data-theme="light"] .burger i { background: #f2efe6; }
 @media (max-width: 1023px) { .reel-row { grid-template-columns: 1fr; gap: 28px; } .reel-frame { max-width: 420px; width: 100%; margin: 0 auto; } }
 .hero-kicker { margin: 0 0 24px; font-weight: 400; }
 
-/* hero footage credit (PWA media terms): present and readable, not meant to be noticed */
-.hero-credit { position: absolute; right: 20px; bottom: 14px; z-index: 3; margin: 0; font: 400 9px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(245,245,245,.35); pointer-events: none; }
+/* hero footage credit (PWA media terms): far right, just above the bottom fade, pale frosted grey */
+.hero-credit { position: absolute; right: 24px; bottom: 15%; z-index: 3; margin: 0; font: 400 9px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(222,232,234,.55); pointer-events: none; }
+/* hero copy sits higher and further left on wider screens */
+@media (min-width: 810px) {
+  .hero { padding-bottom: clamp(120px, 17vh, 220px); }
+  .hero > .wrap { max-width: none; padding-left: clamp(24px, 4vw, 80px); }
+}
